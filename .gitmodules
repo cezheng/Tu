@@ -1,0 +1,6 @@
+[submodule "lib/curl"]
+	path = lib/curl
+	url = https://github.com/bagder/curl.git
+[submodule "lib/rapidjson"]
+	path = lib/rapidjson
+	url = https://github.com/miloyip/rapidjson.git
