@@ -1,5 +1,5 @@
 #include "CurlClient.h"
-#include "json/document.h"
+#include "rapidjson/document.h"
 using namespace rapidjson;
 
 bool CurlResponse::jsonSuccess(){

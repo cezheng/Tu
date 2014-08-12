@@ -7,8 +7,8 @@
 @end
 
 @implementation TuToDoItem
-- (void) setRandom
+- (void) getInfo : (NSString*) name
 {
-    self.itemName =  [[NSString alloc] initWithCString:self->wrapped.get().c_str() encoding:NSStringEncodingConversionAllowLossy];
+    self.itemName =  [[NSString alloc] initWithCString:self->wrapped.get([name UTF8String]).c_str() encoding:NSStringEncodingConversionAllowLossy];
 }
 @end

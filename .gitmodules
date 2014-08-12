@@ -4,3 +4,6 @@
 [submodule "lib/rapidjson"]
 	path = lib/rapidjson
 	url = https://github.com/miloyip/rapidjson.git
+[submodule "lib/leveldb"]
+	path = lib/leveldb
+	url = https://code.google.com/p/leveldb/

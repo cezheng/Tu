@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791E7A561998BD5A00B709E9 /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */; };
+		791E7A591998BFC700B709E9 /* Crawler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A571998BFC700B709E9 /* Crawler.cpp */; };
+		791E7A5F1999AB8800B709E9 /* RegexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A5D1999AB8800B709E9 /* RegexManager.cpp */; };
+		791E7A611999ABCB00B709E9 /* searchResult in Resources */ = {isa = PBXBuildFile; fileRef = 791E7A601999ABCB00B709E9 /* searchResult */; };
 		79B77EBB1978FA1F005C6432 /* CurlTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EB91978FA1F005C6432 /* CurlTest.cpp */; };
 		79B77EBE19790A85005C6432 /* TuAddToDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EBD19790A85005C6432 /* TuAddToDoItemViewController.m */; };
 		79B77EC219790BA7005C6432 /* TuToDoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EC119790BA7005C6432 /* TuToDoListTableViewController.m */; };
@@ -26,6 +30,8 @@
 		79FDA8CE198A1CE0009286C1 /* TuToDoItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8CD198A1CE0009286C1 /* TuToDoItem.mm */; };
 		79FDA8D51993896B009286C1 /* RandomString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8D31993896B009286C1 /* RandomString.cpp */; };
 		79FDA8D819948237009286C1 /* CurlClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8D619948237009286C1 /* CurlClient.cpp */; };
+		79FDA8DA1994C5AA009286C1 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79FDA8D91994C5AA009286C1 /* libcurl.a */; };
+		79FDA8DC1994C910009286C1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 79FDA8DB1994C910009286C1 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
+		791E7A551998BD5A00B709E9 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
+		791E7A571998BFC700B709E9 /* Crawler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crawler.cpp; sourceTree = "<group>"; };
+		791E7A581998BFC700B709E9 /* Crawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crawler.h; sourceTree = "<group>"; };
+		791E7A5D1999AB8800B709E9 /* RegexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RegexManager.cpp; sourceTree = "<group>"; };
+		791E7A5E1999AB8800B709E9 /* RegexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexManager.h; sourceTree = "<group>"; };
+		791E7A601999ABCB00B709E9 /* searchResult */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = searchResult; sourceTree = "<group>"; };
+		791E7A631999B0BA00B709E9 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		79B77EB91978FA1F005C6432 /* CurlTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlTest.cpp; path = Backend/CurlTest.cpp; sourceTree = "<group>"; };
 		79B77EBA1978FA1F005C6432 /* CurlTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlTest.h; path = Backend/CurlTest.h; sourceTree = "<group>"; };
 		79B77EBC19790A85005C6432 /* TuAddToDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TuAddToDoItemViewController.h; path = Frontend/TuAddToDoItemViewController.h; sourceTree = "<group>"; };
@@ -68,6 +82,8 @@
 		79FDA8D41993896B009286C1 /* RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomString.h; path = Backend/RandomString.h; sourceTree = "<group>"; };
 		79FDA8D619948237009286C1 /* CurlClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlClient.cpp; path = Backend/CurlClient.cpp; sourceTree = "<group>"; };
 		79FDA8D719948237009286C1 /* CurlClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlClient.h; path = Backend/CurlClient.h; sourceTree = "<group>"; };
+		79FDA8D91994C5AA009286C1 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
+		79FDA8DB1994C910009286C1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +91,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79FDA8DC1994C910009286C1 /* libz.dylib in Frameworks */,
 				79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */,
+				79FDA8DA1994C5AA009286C1 /* libcurl.a in Frameworks */,
 				79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */,
 				79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */,
 			);
@@ -94,15 +112,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		791E7A5A1999AAFD00B709E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				791E7A5B1999AB4600B709E9 /* regex */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		791E7A5B1999AB4600B709E9 /* regex */ = {
+			isa = PBXGroup;
+			children = (
+				791E7A601999ABCB00B709E9 /* searchResult */,
+			);
+			path = regex;
+			sourceTree = "<group>";
+		};
+		791E7A5C1999AB7600B709E9 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				791E7A5D1999AB8800B709E9 /* RegexManager.cpp */,
+				791E7A5E1999AB8800B709E9 /* RegexManager.h */,
+			);
+			name = Utils;
+			path = Backend/Utils;
+			sourceTree = "<group>";
+		};
+		791E7A621999AC9200B709E9 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				791E7A631999B0BA00B709E9 /* Singleton.h */,
+			);
+			name = Base;
+			path = Backend/Base;
+			sourceTree = "<group>";
+		};
 		79B77EB81978F9E8005C6432 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				791E7A621999AC9200B709E9 /* Base */,
+				791E7A5C1999AB7600B709E9 /* Utils */,
 				79FDA8D619948237009286C1 /* CurlClient.cpp */,
 				79FDA8D719948237009286C1 /* CurlClient.h */,
 				79FDA8D31993896B009286C1 /* RandomString.cpp */,
 				79FDA8D41993896B009286C1 /* RandomString.h */,
 				79B77EB91978FA1F005C6432 /* CurlTest.cpp */,
 				79B77EBA1978FA1F005C6432 /* CurlTest.h */,
+				791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */,
+				791E7A551998BD5A00B709E9 /* PlayerInfo.h */,
+				791E7A571998BFC700B709E9 /* Crawler.cpp */,
+				791E7A581998BFC700B709E9 /* Crawler.h */,
 			);
 			name = Backend;
 			sourceTree = "<group>";
@@ -123,6 +182,7 @@
 		79F9E8C4194FD0A70040F0FB = {
 			isa = PBXGroup;
 			children = (
+				791E7A5A1999AAFD00B709E9 /* Resources */,
 				79F9E8D6194FD0A70040F0FB /* Tu */,
 				79F9E8EF194FD0A70040F0FB /* TuTests */,
 				79F9E8CF194FD0A70040F0FB /* Frameworks */,
@@ -142,6 +202,8 @@
 		79F9E8CF194FD0A70040F0FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79FDA8DB1994C910009286C1 /* libz.dylib */,
+				79FDA8D91994C5AA009286C1 /* libcurl.a */,
 				79F9E8D0194FD0A70040F0FB /* Foundation.framework */,
 				79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */,
 				79F9E8D4194FD0A70040F0FB /* UIKit.framework */,
@@ -269,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79F9E900195123180040F0FB /* Main.storyboard in Resources */,
+				791E7A611999ABCB00B709E9 /* searchResult in Resources */,
 				79F9E8DB194FD0A70040F0FB /* InfoPlist.strings in Resources */,
 				79F9E8E3194FD0A70040F0FB /* Images.xcassets in Resources */,
 			);
@@ -289,8 +352,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791E7A5F1999AB8800B709E9 /* RegexManager.cpp in Sources */,
+				791E7A591998BFC700B709E9 /* Crawler.cpp in Sources */,
 				79FDA8D51993896B009286C1 /* RandomString.cpp in Sources */,
 				79F9E8E1194FD0A70040F0FB /* AppDelegate.m in Sources */,
+				791E7A561998BD5A00B709E9 /* PlayerInfo.cpp in Sources */,
 				79F9E8DD194FD0A70040F0FB /* main.m in Sources */,
 				79B77EBE19790A85005C6432 /* TuAddToDoItemViewController.m in Sources */,
 				79FDA8D819948237009286C1 /* CurlClient.cpp in Sources */,
@@ -415,11 +481,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kenta Ogura (552BE486SU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tu/Tu-Prefix.pch";
 				INFOPLIST_FILE = "Tu/Tu-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0BA15177-9D19-4D30-92F5-154AEE18EBBA";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -429,11 +502,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Kenta Ogura (552BE486SU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tu/Tu-Prefix.pch";
 				INFOPLIST_FILE = "Tu/Tu-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0BA15177-9D19-4D30-92F5-154AEE18EBBA";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/lib/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

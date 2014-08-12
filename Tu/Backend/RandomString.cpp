@@ -8,7 +8,16 @@
 
 #include "RandomString.h"
 #include "stdlib.h"
+#include "Crawler.h"
+#include <sstream>
 
-std::string RandomString::get(){
-    return std::string("") + char(rand() % 256);
+std::string RandomString::get(const std::string & name){
+    Crawler client;
+    PlayerInfo info = client.queryByPlayerName(name);
+    if(info.modeDataMap.find("classic") != info.modeDataMap.end()){
+        char buf[16];
+        sprintf(buf, "%0.2lf", info.modeDataMap["classic"].winrate);
+        return name + " " + buf;
+    }
+    return name + " not found";
 }

@@ -21,7 +21,7 @@
     if(self.textField.text.length > 0) {
         self.toDoItem = [[TuToDoItem alloc] init];
         self.toDoItem.itemName = self.textField.text;
-        [self.toDoItem setRandom];
+        [self.toDoItem getInfo:self.toDoItem.itemName];
         self.toDoItem.completed = NO;
     }
 }

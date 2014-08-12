@@ -13,7 +13,7 @@
 
 class RandomString{
 public:
-    std::string get();
+    std::string get(const std::string &name);
 };
 
 #endif /* defined(__Tu__RandomString__) */

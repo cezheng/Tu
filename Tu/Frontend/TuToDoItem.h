@@ -4,5 +4,5 @@
 @property NSString *itemName;
 @property BOOL completed;
 @property (readonly) NSDate *creationDate;
-- (void) setRandom;
+- (void) getInfo: (NSString*) name;
 @end
