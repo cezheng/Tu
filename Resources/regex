@@ -1,0 +1,4 @@
+#SearchResult
+<div class="search_result_content radius shadow clearfix">\s*<div class="result_list radius"\s*onclick="window.location='(/analyze/default/index/\d+/1/\d+)';">
+#ClassicModeData
+<div class=\"fl mBoxCon boxsdow mb\w{3,4} ">\s*<p>Classic</p>\s*<div class="mbcWin clearfix">Wins:<span>\d+</span></div>\s*<div class="mbcWin clearfix hide">Total:<span>\d+</span></div>\s*<div class="mbcWinRate clearfix ">Win Rate:<span>(\d+\.\d+)%</span></div>\s*</div>

@@ -7,13 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		791E7A561998BD5A00B709E9 /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */; };
-		791E7A591998BFC700B709E9 /* Crawler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A571998BFC700B709E9 /* Crawler.cpp */; };
-		791E7A5F1999AB8800B709E9 /* RegexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E7A5D1999AB8800B709E9 /* RegexManager.cpp */; };
-		791E7A611999ABCB00B709E9 /* searchResult in Resources */ = {isa = PBXBuildFile; fileRef = 791E7A601999ABCB00B709E9 /* searchResult */; };
-		79B77EBB1978FA1F005C6432 /* CurlTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EB91978FA1F005C6432 /* CurlTest.cpp */; };
-		79B77EBE19790A85005C6432 /* TuAddToDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EBD19790A85005C6432 /* TuAddToDoItemViewController.m */; };
-		79B77EC219790BA7005C6432 /* TuToDoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77EC119790BA7005C6432 /* TuToDoListTableViewController.m */; };
+		79075B6F19A5DF5F00310B88 /* CurlClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B5E19A5DF5F00310B88 /* CurlClient.cpp */; };
+		79075B7019A5DF5F00310B88 /* CurlTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6019A5DF5F00310B88 /* CurlTest.cpp */; };
+		79075B7119A5DF5F00310B88 /* RandomString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6219A5DF5F00310B88 /* RandomString.cpp */; };
+		79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6519A5DF5F00310B88 /* DBUtil.cpp */; };
+		79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6919A5DF5F00310B88 /* FileUtil.cpp */; };
+		79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */; };
+		79075B7619A5DF5F00310B88 /* RegexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6D19A5DF5F00310B88 /* RegexManager.cpp */; };
+		79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B7919A5ED9500310B88 /* Crawler.cpp */; };
+		79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */; };
+		79075B8119A6209100310B88 /* regex in Resources */ = {isa = PBXBuildFile; fileRef = 79075B8019A6209100310B88 /* regex */; };
+		79075B8919A6295B00310B88 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79075B8819A6295B00310B88 /* libleveldb.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		79BD333019A758EF009B322B /* MyHomeUICollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */; };
+		79BD333319A75978009B322B /* MyHomeCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -27,9 +33,6 @@
 		79F9E8F4194FD0A70040F0FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79F9E8F2194FD0A70040F0FB /* InfoPlist.strings */; };
 		79F9E8F6194FD0A70040F0FB /* TuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F9E8F5194FD0A70040F0FB /* TuTests.m */; };
 		79F9E900195123180040F0FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F9E8FF195123180040F0FB /* Main.storyboard */; };
-		79FDA8CE198A1CE0009286C1 /* TuToDoItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8CD198A1CE0009286C1 /* TuToDoItem.mm */; };
-		79FDA8D51993896B009286C1 /* RandomString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8D31993896B009286C1 /* RandomString.cpp */; };
-		79FDA8D819948237009286C1 /* CurlClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79FDA8D619948237009286C1 /* CurlClient.cpp */; };
 		79FDA8DA1994C5AA009286C1 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79FDA8D91994C5AA009286C1 /* libcurl.a */; };
 		79FDA8DC1994C910009286C1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 79FDA8DB1994C910009286C1 /* libz.dylib */; };
 /* End PBXBuildFile section */
@@ -45,20 +48,32 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
-		791E7A551998BD5A00B709E9 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
-		791E7A571998BFC700B709E9 /* Crawler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crawler.cpp; sourceTree = "<group>"; };
-		791E7A581998BFC700B709E9 /* Crawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crawler.h; sourceTree = "<group>"; };
-		791E7A5D1999AB8800B709E9 /* RegexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RegexManager.cpp; sourceTree = "<group>"; };
-		791E7A5E1999AB8800B709E9 /* RegexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexManager.h; sourceTree = "<group>"; };
-		791E7A601999ABCB00B709E9 /* searchResult */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = searchResult; sourceTree = "<group>"; };
-		791E7A631999B0BA00B709E9 /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		79B77EB91978FA1F005C6432 /* CurlTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlTest.cpp; path = Backend/CurlTest.cpp; sourceTree = "<group>"; };
-		79B77EBA1978FA1F005C6432 /* CurlTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlTest.h; path = Backend/CurlTest.h; sourceTree = "<group>"; };
-		79B77EBC19790A85005C6432 /* TuAddToDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TuAddToDoItemViewController.h; path = Frontend/TuAddToDoItemViewController.h; sourceTree = "<group>"; };
-		79B77EBD19790A85005C6432 /* TuAddToDoItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TuAddToDoItemViewController.m; path = Frontend/TuAddToDoItemViewController.m; sourceTree = "<group>"; };
-		79B77EC019790BA7005C6432 /* TuToDoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TuToDoListTableViewController.h; path = Frontend/TuToDoListTableViewController.h; sourceTree = "<group>"; };
-		79B77EC119790BA7005C6432 /* TuToDoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TuToDoListTableViewController.m; path = Frontend/TuToDoListTableViewController.m; sourceTree = "<group>"; };
+		79075B5D19A5DF5F00310B88 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		79075B5E19A5DF5F00310B88 /* CurlClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlClient.cpp; sourceTree = "<group>"; };
+		79075B5F19A5DF5F00310B88 /* CurlClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlClient.h; sourceTree = "<group>"; };
+		79075B6019A5DF5F00310B88 /* CurlTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlTest.cpp; sourceTree = "<group>"; };
+		79075B6119A5DF5F00310B88 /* CurlTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlTest.h; sourceTree = "<group>"; };
+		79075B6219A5DF5F00310B88 /* RandomString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RandomString.cpp; sourceTree = "<group>"; };
+		79075B6319A5DF5F00310B88 /* RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomString.h; sourceTree = "<group>"; };
+		79075B6519A5DF5F00310B88 /* DBUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBUtil.cpp; sourceTree = "<group>"; };
+		79075B6619A5DF5F00310B88 /* DBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtil.h; sourceTree = "<group>"; };
+		79075B6919A5DF5F00310B88 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
+		79075B6A19A5DF5F00310B88 /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
+		79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileUtilIOS.mm; sourceTree = "<group>"; };
+		79075B6C19A5DF5F00310B88 /* FileUtilIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtilIOS.h; sourceTree = "<group>"; };
+		79075B6D19A5DF5F00310B88 /* RegexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RegexManager.cpp; sourceTree = "<group>"; };
+		79075B6E19A5DF5F00310B88 /* RegexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexManager.h; sourceTree = "<group>"; };
+		79075B7819A5DF9B00310B88 /* PlatformDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDefine.h; sourceTree = "<group>"; };
+		79075B7919A5ED9500310B88 /* Crawler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crawler.cpp; sourceTree = "<group>"; };
+		79075B7A19A5ED9500310B88 /* Crawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crawler.h; sourceTree = "<group>"; };
+		79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
+		79075B7D19A5EDBD00310B88 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
+		79075B8019A6209100310B88 /* regex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regex; sourceTree = "<group>"; };
+		79075B8819A6295B00310B88 /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/leveldb/libleveldb.a; sourceTree = "<group>"; };
+		79BD332E19A758EF009B322B /* MyHomeUICollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHomeUICollectionViewController.h; path = Frontend/MyHomeUICollectionViewController.h; sourceTree = "<group>"; };
+		79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyHomeUICollectionViewController.mm; path = Frontend/MyHomeUICollectionViewController.mm; sourceTree = "<group>"; };
+		79BD333119A75978009B322B /* MyHomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHomeCollectionViewCell.h; path = Frontend/MyHomeCollectionViewCell.h; sourceTree = "<group>"; };
+		79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyHomeCollectionViewCell.mm; path = Frontend/MyHomeCollectionViewCell.mm; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -76,12 +91,6 @@
 		79F9E8F3194FD0A70040F0FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		79F9E8F5194FD0A70040F0FB /* TuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TuTests.m; sourceTree = "<group>"; };
 		79F9E8FF195123180040F0FB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		79FDA8CC198A1CE0009286C1 /* TuToDoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TuToDoItem.h; path = Frontend/TuToDoItem.h; sourceTree = "<group>"; };
-		79FDA8CD198A1CE0009286C1 /* TuToDoItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TuToDoItem.mm; path = Frontend/TuToDoItem.mm; sourceTree = "<group>"; };
-		79FDA8D31993896B009286C1 /* RandomString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RandomString.cpp; path = Backend/RandomString.cpp; sourceTree = "<group>"; };
-		79FDA8D41993896B009286C1 /* RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RandomString.h; path = Backend/RandomString.h; sourceTree = "<group>"; };
-		79FDA8D619948237009286C1 /* CurlClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurlClient.cpp; path = Backend/CurlClient.cpp; sourceTree = "<group>"; };
-		79FDA8D719948237009286C1 /* CurlClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurlClient.h; path = Backend/CurlClient.h; sourceTree = "<group>"; };
 		79FDA8D91994C5AA009286C1 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
 		79FDA8DB1994C910009286C1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -95,6 +104,7 @@
 				79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */,
 				79FDA8DA1994C5AA009286C1 /* libcurl.a in Frameworks */,
 				79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */,
+				79075B8919A6295B00310B88 /* libleveldb.a in Frameworks */,
 				79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,69 +122,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79075B5B19A5DF5F00310B88 /* Backend */ = {
+			isa = PBXGroup;
+			children = (
+				79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */,
+				79075B7D19A5EDBD00310B88 /* PlayerInfo.h */,
+				79075B7919A5ED9500310B88 /* Crawler.cpp */,
+				79075B7A19A5ED9500310B88 /* Crawler.h */,
+				79075B7719A5DF7700310B88 /* Common */,
+				79075B5C19A5DF5F00310B88 /* Base */,
+				79075B5E19A5DF5F00310B88 /* CurlClient.cpp */,
+				79075B5F19A5DF5F00310B88 /* CurlClient.h */,
+				79075B6019A5DF5F00310B88 /* CurlTest.cpp */,
+				79075B6119A5DF5F00310B88 /* CurlTest.h */,
+				79075B6219A5DF5F00310B88 /* RandomString.cpp */,
+				79075B6319A5DF5F00310B88 /* RandomString.h */,
+				79075B6419A5DF5F00310B88 /* Utils */,
+			);
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		79075B5C19A5DF5F00310B88 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				79075B5D19A5DF5F00310B88 /* Singleton.h */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		79075B6419A5DF5F00310B88 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				79075B6519A5DF5F00310B88 /* DBUtil.cpp */,
+				79075B6619A5DF5F00310B88 /* DBUtil.h */,
+				79075B6919A5DF5F00310B88 /* FileUtil.cpp */,
+				79075B6A19A5DF5F00310B88 /* FileUtil.h */,
+				79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */,
+				79075B6C19A5DF5F00310B88 /* FileUtilIOS.h */,
+				79075B6D19A5DF5F00310B88 /* RegexManager.cpp */,
+				79075B6E19A5DF5F00310B88 /* RegexManager.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		79075B7719A5DF7700310B88 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				79075B7819A5DF9B00310B88 /* PlatformDefine.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		791E7A5A1999AAFD00B709E9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				791E7A5B1999AB4600B709E9 /* regex */,
+				79075B8019A6209100310B88 /* regex */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		791E7A5B1999AB4600B709E9 /* regex */ = {
-			isa = PBXGroup;
-			children = (
-				791E7A601999ABCB00B709E9 /* searchResult */,
-			);
-			path = regex;
-			sourceTree = "<group>";
-		};
-		791E7A5C1999AB7600B709E9 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				791E7A5D1999AB8800B709E9 /* RegexManager.cpp */,
-				791E7A5E1999AB8800B709E9 /* RegexManager.h */,
-			);
-			name = Utils;
-			path = Backend/Utils;
-			sourceTree = "<group>";
-		};
-		791E7A621999AC9200B709E9 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				791E7A631999B0BA00B709E9 /* Singleton.h */,
-			);
-			name = Base;
-			path = Backend/Base;
-			sourceTree = "<group>";
-		};
-		79B77EB81978F9E8005C6432 /* Backend */ = {
-			isa = PBXGroup;
-			children = (
-				791E7A621999AC9200B709E9 /* Base */,
-				791E7A5C1999AB7600B709E9 /* Utils */,
-				79FDA8D619948237009286C1 /* CurlClient.cpp */,
-				79FDA8D719948237009286C1 /* CurlClient.h */,
-				79FDA8D31993896B009286C1 /* RandomString.cpp */,
-				79FDA8D41993896B009286C1 /* RandomString.h */,
-				79B77EB91978FA1F005C6432 /* CurlTest.cpp */,
-				79B77EBA1978FA1F005C6432 /* CurlTest.h */,
-				791E7A541998BD5A00B709E9 /* PlayerInfo.cpp */,
-				791E7A551998BD5A00B709E9 /* PlayerInfo.h */,
-				791E7A571998BFC700B709E9 /* Crawler.cpp */,
-				791E7A581998BFC700B709E9 /* Crawler.h */,
-			);
-			name = Backend;
 			sourceTree = "<group>";
 		};
 		79B77EBF19790A96005C6432 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
-				79FDA8CC198A1CE0009286C1 /* TuToDoItem.h */,
-				79FDA8CD198A1CE0009286C1 /* TuToDoItem.mm */,
-				79B77EC019790BA7005C6432 /* TuToDoListTableViewController.h */,
-				79B77EC119790BA7005C6432 /* TuToDoListTableViewController.m */,
-				79B77EBC19790A85005C6432 /* TuAddToDoItemViewController.h */,
-				79B77EBD19790A85005C6432 /* TuAddToDoItemViewController.m */,
+				79BD332E19A758EF009B322B /* MyHomeUICollectionViewController.h */,
+				79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */,
+				79BD333119A75978009B322B /* MyHomeCollectionViewCell.h */,
+				79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -202,6 +215,7 @@
 		79F9E8CF194FD0A70040F0FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79075B8819A6295B00310B88 /* libleveldb.a */,
 				79FDA8DB1994C910009286C1 /* libz.dylib */,
 				79FDA8D91994C5AA009286C1 /* libcurl.a */,
 				79F9E8D0194FD0A70040F0FB /* Foundation.framework */,
@@ -215,8 +229,8 @@
 		79F9E8D6194FD0A70040F0FB /* Tu */ = {
 			isa = PBXGroup;
 			children = (
+				79075B5B19A5DF5F00310B88 /* Backend */,
 				79B77EBF19790A96005C6432 /* Frontend */,
-				79B77EB81978F9E8005C6432 /* Backend */,
 				79F9E8DF194FD0A70040F0FB /* AppDelegate.h */,
 				79F9E8E0194FD0A70040F0FB /* AppDelegate.m */,
 				79F9E8FF195123180040F0FB /* Main.storyboard */,
@@ -330,8 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79075B8119A6209100310B88 /* regex in Resources */,
 				79F9E900195123180040F0FB /* Main.storyboard in Resources */,
-				791E7A611999ABCB00B709E9 /* searchResult in Resources */,
 				79F9E8DB194FD0A70040F0FB /* InfoPlist.strings in Resources */,
 				79F9E8E3194FD0A70040F0FB /* Images.xcassets in Resources */,
 			);
@@ -352,17 +366,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				791E7A5F1999AB8800B709E9 /* RegexManager.cpp in Sources */,
-				791E7A591998BFC700B709E9 /* Crawler.cpp in Sources */,
-				79FDA8D51993896B009286C1 /* RandomString.cpp in Sources */,
+				79075B7019A5DF5F00310B88 /* CurlTest.cpp in Sources */,
+				79075B7119A5DF5F00310B88 /* RandomString.cpp in Sources */,
+				79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */,
 				79F9E8E1194FD0A70040F0FB /* AppDelegate.m in Sources */,
-				791E7A561998BD5A00B709E9 /* PlayerInfo.cpp in Sources */,
+				79075B7619A5DF5F00310B88 /* RegexManager.cpp in Sources */,
 				79F9E8DD194FD0A70040F0FB /* main.m in Sources */,
-				79B77EBE19790A85005C6432 /* TuAddToDoItemViewController.m in Sources */,
-				79FDA8D819948237009286C1 /* CurlClient.cpp in Sources */,
-				79FDA8CE198A1CE0009286C1 /* TuToDoItem.mm in Sources */,
-				79B77EBB1978FA1F005C6432 /* CurlTest.cpp in Sources */,
-				79B77EC219790BA7005C6432 /* TuToDoListTableViewController.m in Sources */,
+				79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */,
+				79075B6F19A5DF5F00310B88 /* CurlClient.cpp in Sources */,
+				79BD333319A75978009B322B /* MyHomeCollectionViewCell.mm in Sources */,
+				79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */,
+				79BD333019A758EF009B322B /* MyHomeUICollectionViewController.mm in Sources */,
+				79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */,
+				79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +497,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kenta Ogura (552BE486SU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tu/Tu-Prefix.pch";
@@ -488,6 +506,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/lib",
+					"$(PROJECT_DIR)/lib/leveldb",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0BA15177-9D19-4D30-92F5-154AEE18EBBA";
@@ -502,6 +521,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Kenta Ogura (552BE486SU)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tu/Tu-Prefix.pch";
@@ -509,6 +530,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/lib",
+					"$(PROJECT_DIR)/lib/leveldb",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0BA15177-9D19-4D30-92F5-154AEE18EBBA";

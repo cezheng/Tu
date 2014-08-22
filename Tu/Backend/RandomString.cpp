@@ -18,6 +18,6 @@ std::string RandomString::get(const std::string & name){
         char buf[16];
         sprintf(buf, "%0.2lf", info.modeDataMap["classic"].winrate);
         return name + " " + buf;
-    }
+    }    
     return name + " not found";
 }
