@@ -10,7 +10,9 @@
 #include "FileUtil.h"
 #include <fstream>
 
-template<> RegexManager* Singleton<RegexManager>::constructInstance() {
+//TODO add close db on destroy
+
+RegexManager* RegexManager::constructInstance() {
     auto ret = new RegexManager();
     ret->init();
     return ret;
@@ -42,4 +44,9 @@ std::regex RegexManager::getRegexByName(const std::string& name) {
     std::string value;
     _db->Get(leveldb::ReadOptions(), name, &value);
     return std::regex(value);
+    //TODO if not found 
+}
+
+std::regex RegexManager::operator[](const std::string &name) {
+    return this->getRegexByName(name);
 }

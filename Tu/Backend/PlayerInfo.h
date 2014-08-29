@@ -14,11 +14,12 @@
 struct ModeData {
     int total;
     int win;
-    float winrate;
+    std::string winrate;
 };
 
 struct PlayerInfo {
     std::string name;
+    std::string profileImageUrl;
     std::unordered_map<std::string, ModeData> modeDataMap;
 };
 

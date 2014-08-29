@@ -8,7 +8,7 @@
 
 #include "FileUtilIOS.h"
 
-template<> FileUtil* Singleton<FileUtil>::constructInstance() {
+FileUtil* FileUtil::constructInstance() {
     return new FileUtilIOS();
 }
 

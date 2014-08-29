@@ -12,8 +12,8 @@
 #include "FileUtil.h"
 
 class FileUtilIOS : public FileUtil {
-    //make template static method able to create an instance
-    friend class Singleton<FileUtil>;
+    //make parent static method able to create an instance
+    friend class FileUtil;
 public:
     virtual std::string getWritablePath();
     virtual std::string getResourcePath(const std::string& fileName);

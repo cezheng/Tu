@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		79075B6F19A5DF5F00310B88 /* CurlClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B5E19A5DF5F00310B88 /* CurlClient.cpp */; };
-		79075B7019A5DF5F00310B88 /* CurlTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6019A5DF5F00310B88 /* CurlTest.cpp */; };
-		79075B7119A5DF5F00310B88 /* RandomString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6219A5DF5F00310B88 /* RandomString.cpp */; };
 		79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6519A5DF5F00310B88 /* DBUtil.cpp */; };
 		79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6919A5DF5F00310B88 /* FileUtil.cpp */; };
 		79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */; };
@@ -18,8 +15,10 @@
 		79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */; };
 		79075B8119A6209100310B88 /* regex in Resources */ = {isa = PBXBuildFile; fileRef = 79075B8019A6209100310B88 /* regex */; };
 		79075B8919A6295B00310B88 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79075B8819A6295B00310B88 /* libleveldb.a */; settings = {ATTRIBUTES = (Required, ); }; };
-		79BD333019A758EF009B322B /* MyHomeUICollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */; };
-		79BD333319A75978009B322B /* MyHomeCollectionViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */; };
+		79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333519AB3846009B322B /* WatchListTableViewCell.m */; };
+		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
+		79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333A19AB4248009B322B /* DownloadManager.cpp */; };
+		79BD333F19AB448E009B322B /* CurlClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333D19AB448E009B322B /* CurlClient.cpp */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -49,12 +48,6 @@
 
 /* Begin PBXFileReference section */
 		79075B5D19A5DF5F00310B88 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		79075B5E19A5DF5F00310B88 /* CurlClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlClient.cpp; sourceTree = "<group>"; };
-		79075B5F19A5DF5F00310B88 /* CurlClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlClient.h; sourceTree = "<group>"; };
-		79075B6019A5DF5F00310B88 /* CurlTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlTest.cpp; sourceTree = "<group>"; };
-		79075B6119A5DF5F00310B88 /* CurlTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlTest.h; sourceTree = "<group>"; };
-		79075B6219A5DF5F00310B88 /* RandomString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RandomString.cpp; sourceTree = "<group>"; };
-		79075B6319A5DF5F00310B88 /* RandomString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomString.h; sourceTree = "<group>"; };
 		79075B6519A5DF5F00310B88 /* DBUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBUtil.cpp; sourceTree = "<group>"; };
 		79075B6619A5DF5F00310B88 /* DBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtil.h; sourceTree = "<group>"; };
 		79075B6919A5DF5F00310B88 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
@@ -70,10 +63,14 @@
 		79075B7D19A5EDBD00310B88 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
 		79075B8019A6209100310B88 /* regex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regex; sourceTree = "<group>"; };
 		79075B8819A6295B00310B88 /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/leveldb/libleveldb.a; sourceTree = "<group>"; };
-		79BD332E19A758EF009B322B /* MyHomeUICollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHomeUICollectionViewController.h; path = Frontend/MyHomeUICollectionViewController.h; sourceTree = "<group>"; };
-		79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyHomeUICollectionViewController.mm; path = Frontend/MyHomeUICollectionViewController.mm; sourceTree = "<group>"; };
-		79BD333119A75978009B322B /* MyHomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHomeCollectionViewCell.h; path = Frontend/MyHomeCollectionViewCell.h; sourceTree = "<group>"; };
-		79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MyHomeCollectionViewCell.mm; path = Frontend/MyHomeCollectionViewCell.mm; sourceTree = "<group>"; };
+		79BD333419AB3846009B322B /* WatchListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewCell.h; path = Frontend/WatchListTableViewCell.h; sourceTree = "<group>"; };
+		79BD333519AB3846009B322B /* WatchListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchListTableViewCell.m; path = Frontend/WatchListTableViewCell.m; sourceTree = "<group>"; };
+		79BD333719AB3989009B322B /* WatchListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewController.h; path = Frontend/WatchListTableViewController.h; sourceTree = "<group>"; };
+		79BD333819AB3989009B322B /* WatchListTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = WatchListTableViewController.mm; path = Frontend/WatchListTableViewController.mm; sourceTree = "<group>"; };
+		79BD333A19AB4248009B322B /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DownloadManager.cpp; sourceTree = "<group>"; };
+		79BD333B19AB4248009B322B /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		79BD333D19AB448E009B322B /* CurlClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlClient.cpp; sourceTree = "<group>"; };
+		79BD333E19AB448E009B322B /* CurlClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlClient.h; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,19 +122,13 @@
 		79075B5B19A5DF5F00310B88 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
+				79075B5C19A5DF5F00310B88 /* Base */,
+				79075B7719A5DF7700310B88 /* Common */,
+				79075B6419A5DF5F00310B88 /* Utils */,
 				79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */,
 				79075B7D19A5EDBD00310B88 /* PlayerInfo.h */,
 				79075B7919A5ED9500310B88 /* Crawler.cpp */,
 				79075B7A19A5ED9500310B88 /* Crawler.h */,
-				79075B7719A5DF7700310B88 /* Common */,
-				79075B5C19A5DF5F00310B88 /* Base */,
-				79075B5E19A5DF5F00310B88 /* CurlClient.cpp */,
-				79075B5F19A5DF5F00310B88 /* CurlClient.h */,
-				79075B6019A5DF5F00310B88 /* CurlTest.cpp */,
-				79075B6119A5DF5F00310B88 /* CurlTest.h */,
-				79075B6219A5DF5F00310B88 /* RandomString.cpp */,
-				79075B6319A5DF5F00310B88 /* RandomString.h */,
-				79075B6419A5DF5F00310B88 /* Utils */,
 			);
 			path = Backend;
 			sourceTree = "<group>";
@@ -153,6 +144,8 @@
 		79075B6419A5DF5F00310B88 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				79BD333D19AB448E009B322B /* CurlClient.cpp */,
+				79BD333E19AB448E009B322B /* CurlClient.h */,
 				79075B6519A5DF5F00310B88 /* DBUtil.cpp */,
 				79075B6619A5DF5F00310B88 /* DBUtil.h */,
 				79075B6919A5DF5F00310B88 /* FileUtil.cpp */,
@@ -161,6 +154,8 @@
 				79075B6C19A5DF5F00310B88 /* FileUtilIOS.h */,
 				79075B6D19A5DF5F00310B88 /* RegexManager.cpp */,
 				79075B6E19A5DF5F00310B88 /* RegexManager.h */,
+				79BD333A19AB4248009B322B /* DownloadManager.cpp */,
+				79BD333B19AB4248009B322B /* DownloadManager.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -184,10 +179,10 @@
 		79B77EBF19790A96005C6432 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
-				79BD332E19A758EF009B322B /* MyHomeUICollectionViewController.h */,
-				79BD332F19A758EF009B322B /* MyHomeUICollectionViewController.mm */,
-				79BD333119A75978009B322B /* MyHomeCollectionViewCell.h */,
-				79BD333219A75978009B322B /* MyHomeCollectionViewCell.mm */,
+				79BD333419AB3846009B322B /* WatchListTableViewCell.h */,
+				79BD333519AB3846009B322B /* WatchListTableViewCell.m */,
+				79BD333719AB3989009B322B /* WatchListTableViewController.h */,
+				79BD333819AB3989009B322B /* WatchListTableViewController.mm */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -366,19 +361,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79075B7019A5DF5F00310B88 /* CurlTest.cpp in Sources */,
-				79075B7119A5DF5F00310B88 /* RandomString.cpp in Sources */,
+				79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */,
 				79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */,
 				79F9E8E1194FD0A70040F0FB /* AppDelegate.m in Sources */,
+				79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */,
 				79075B7619A5DF5F00310B88 /* RegexManager.cpp in Sources */,
 				79F9E8DD194FD0A70040F0FB /* main.m in Sources */,
 				79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */,
-				79075B6F19A5DF5F00310B88 /* CurlClient.cpp in Sources */,
-				79BD333319A75978009B322B /* MyHomeCollectionViewCell.mm in Sources */,
 				79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */,
-				79BD333019A758EF009B322B /* MyHomeUICollectionViewController.mm in Sources */,
+				79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */,
 				79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */,
 				79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */,
+				79BD333F19AB448E009B322B /* CurlClient.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

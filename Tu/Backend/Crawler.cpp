@@ -7,7 +7,6 @@
 //
 
 #include "Crawler.h"
-#include <iostream>
 #include "Utils/RegexManager.h"
 
 const std::string Crawler::s_urlBase = "http://loldb.gameguyz.com";
@@ -22,7 +21,7 @@ PlayerInfo Crawler::queryByPlayerName(const std::string& name, const std::string
         
     auto searchRes = this->request(url);
     
-    auto pageUrlRegex = regexManager->getRegexByName("#SearchResult");
+    auto pageUrlRegex = (*regexManager)["#SearchResult"];
 
     std::cmatch resultSearch;
     std::regex_search(searchRes.data.c_str(), resultSearch, pageUrlRegex);
@@ -35,14 +34,24 @@ PlayerInfo Crawler::queryByPlayerName(const std::string& name, const std::string
     
     auto pageRes = this->request(s_urlBase + playerPageUrl);
     
-    auto classicDataRegex = regexManager->getRegexByName("#ClassicModeData");
+    auto classicDataRegex = (*regexManager)["#ClassicModeData"];
     std::cmatch resultClassic;
     std::regex_search(pageRes.data.c_str(), resultClassic, classicDataRegex);
     
     if (resultClassic.empty()) {
         return ret;
     }
-    ret.modeDataMap["classic"].winrate = std::stof(resultClassic[1].str());
+    ret.modeDataMap["classic"].winrate = resultClassic[1].str();
+    
+    auto profileImageRegex = (*regexManager)["#ProfileImage"];
+    std::cmatch resultProfileImage;
+    std::regex_search(pageRes.data.c_str(), resultProfileImage, profileImageRegex);
+    if (resultProfileImage.empty()) {
+        std::cout<<"get profile url failed"<<std::endl;
+        return ret;
+    }
+    ret.profileImageUrl = s_urlBase + "/" + resultProfileImage[1].str();
     
     return ret;
 }
+
