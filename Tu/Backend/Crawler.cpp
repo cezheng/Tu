@@ -55,3 +55,7 @@ PlayerInfo Crawler::queryByPlayerName(const std::string& name, const std::string
     return ret;
 }
 
+std::string  queryRecentMatches(const std::string name, const std::string servers) {
+    return "";
+}
+

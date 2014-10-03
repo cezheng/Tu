@@ -16,7 +16,6 @@ class RegexManager: public Singleton<RegexManager> {
 public:
     std::regex getRegexByName(const std::string &name);
     std::regex operator[](const std::string &name);
-    
     static RegexManager* constructInstance();
 private:
     leveldb::DB* _db;

@@ -5,16 +5,29 @@
 //  Created by Ce Zheng on 8/25/14.
 //  Copyright (c) 2014 Ce Zheng. All rights reserved.
 //
-
+#import "../Bridge/LocalServiceObjc.h"
 #import "WatchListTableViewController.h"
-#import "../Backend/Crawler.h"
-#import "../Backend/Utils/DownloadManager.h"
+#import "AddToWatchListController.h"
+#import "../Backend/Utils/UserDefault.h"
 
-@interface WatchListTableViewController ()
+@interface WatchListTableViewController () {
+    dispatch_semaphore_t semaphore;
+}
 
 @end
 
 @implementation WatchListTableViewController
+
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue {
+    AddToWatchListController* source = [segue sourceViewController];
+    if (source.summonerName.length > 0) {
+        [_watchList addObject:source.summonerName];
+        [self writeWatchList];
+        [self.refreshControl beginRefreshing];
+        [self refresh];
+    }
+    
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,17 +47,23 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    _watchList = [[NSMutableArray alloc] init];
-    [_watchList addObject:@"AdamCe"];
-    [_watchList addObject:@"JokerRin"];
-    [_watchList addObject:@"kanatatsuki"];
+    NSError *error = nil;
+    NSString* listJson = [NSString stringWithUTF8String:UserDefault::getInstance()->get("watchlist").c_str()];
+    if (listJson.length <= 0) {
+        listJson = @"[]";
+    }
+    _watchList = [NSJSONSerialization JSONObjectWithData:[listJson dataUsingEncoding:NSUTF8StringEncoding]
+                                                 options: NSJSONReadingMutableContainers
+                                                   error: &error];
+
+    _fetchedList = [[NSMutableDictionary alloc] init];
+    semaphore = dispatch_semaphore_create(0);
     self.refreshControl = [[UIRefreshControl alloc] init];
-
-    NSArray *countryCodes = [NSLocale ISOCountryCodes];
-    NSArray *currencyCodes = [NSLocale ISOCurrencyCodes];
-    NSLog(@"%@", countryCodes);
-    NSLog(@"%@", currencyCodes);
-
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.refreshControl beginRefreshing];
+    [self refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,15 +88,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WatchListCell" forIndexPath:indexPath];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(queue, ^{
-        Crawler client;
-        PlayerInfo info = client.queryByPlayerName([[_watchList objectAtIndex:indexPath.row] UTF8String]);
-        NSString *imagePath = [NSString stringWithUTF8String:DownloadManager::getInstance()->download(info.profileImageUrl, "#profile#" + info.name).c_str()];
-        UIImage *image = [[UIImage alloc] initWithContentsOfFile:imagePath];
+    NSDictionary* cellInfo = _fetchedList[[@(indexPath.row) stringValue]];
+    if (cellInfo != nil) {
+        UIImage *image = [[UIImage alloc] initWithContentsOfFile:cellInfo[@"image"]];
+        cell.textLabel.text = cellInfo[@"text"];
         void (^updateUI)(void);
         updateUI = ^{
-            cell.textLabel.text = [NSString stringWithUTF8String:(info.name + " " + info.modeDataMap.at("classic").winrate).c_str()];
             [cell.imageView setImage:image];
             [cell setNeedsLayout];
         };
@@ -86,33 +102,34 @@
         } else {
             dispatch_sync(dispatch_get_main_queue(), updateUI);
         }
-    });
-
+    }
     return cell;
 }
 
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [_watchList removeObjectAtIndex:indexPath.row];
+        [_fetchedList removeObjectForKey:[@(indexPath.row) stringValue]];
+        [self writeWatchList];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -140,5 +157,46 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+//custom methods
+- (void)refresh {
+    if (_watchList.count <= 0) {
+        [self.refreshControl endRefreshing];
+        return;
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (int i = 0; i < _watchList.count; i++) {
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+    });
+    for (int i = 0; i < _watchList.count; i++) {
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [[LocalServiceObjc getInstance] callWithAPIEndPoint:@"basic_info"
+                                                     params:@{
+                                                              @"summoner_name" : [_watchList objectAtIndex:indexPath.row]
+                                                              }
+                                               successBlock:^(NSDictionary* response){
+                                                   [_fetchedList setObject:response forKey:[@(i) stringValue]];
+                                                   dispatch_sync(dispatch_get_main_queue(), ^{
+                                                       [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                                       dispatch_semaphore_signal(semaphore);
+                                                   });
+                                               }
+                                                failedBlock:^(NSString* response) {
+                                                    NSLog(@"%@", response);
+                                                }
+         ];
+    }
+}
+
+- (void)writeWatchList {
+    NSError* error = nil;
+    NSString *jsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:_watchList options:NSJSONWritingPrettyPrinted error:&error]
+                                                 encoding:NSUTF8StringEncoding];
+    UserDefault::getInstance()->set("watchlist", [jsonString UTF8String]);
+}
 
 @end

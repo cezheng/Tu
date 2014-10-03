@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface WatchListTableViewController : UITableViewController
-@property NSMutableArray *watchList;
+- (IBAction)unwindToList:(UIStoryboardSegue *)segue;
+@property NSMutableArray* watchList;
+@property NSMutableDictionary* fetchedList;
 @end

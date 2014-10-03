@@ -16,9 +16,9 @@ public:
     std::string getFilePathByKey(const std::string& key);
     std::string download(const std::string& url, const std::string& key);
     bool isDownloaded(const std::string& url);
-    static DownloadManager* constructInstance();
 
-    static std::string s_downloadedKeyPrefix;
+    static const std::string s_downloadedKeyPrefix;
+    static DownloadManager* constructInstance();
 private:
     leveldb::DB* _db;
     DownloadManager(): _db(nullptr){}

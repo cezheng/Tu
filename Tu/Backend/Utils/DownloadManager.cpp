@@ -10,7 +10,7 @@
 #include "FileUtil.h"
 #include "CurlClient.h"
 
-std::string DownloadManager::s_downloadedKeyPrefix = "##";
+const std::string DownloadManager::s_downloadedKeyPrefix = "##";
 
 DownloadManager* DownloadManager::constructInstance() {
     auto ret = new DownloadManager();

@@ -16,7 +16,7 @@
 class Crawler : public CurlClient {
 public:
     PlayerInfo queryByPlayerName(const std::string& name, const std::string servers = "1");
-    
+    std::string queryRecentMatches(const std::string name, const std::string servers = "1");
     static const std::string s_urlBase;
 protected:
     std::cmatch match(const std::string& str, const std::regex& regex);
