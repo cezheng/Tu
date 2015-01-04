@@ -1,11 +1,3 @@
-//
-//  UserDefault.cpp
-//  Tu
-//
-//  Created by Ce Zheng on 10/1/14.
-//  Copyright (c) 2014 Ce Zheng. All rights reserved.
-//
-
 #include "UserDefault.h"
 #include "FileUtil.h"
 

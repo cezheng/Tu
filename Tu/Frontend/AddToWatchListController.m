@@ -32,8 +32,7 @@
     [self.view addGestureRecognizer:tapper];
 }
 
-- (void)handleSingleTap:(UITapGestureRecognizer *) sender
-{
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender {
     [self.view endEditing:YES];
 }
 
