@@ -1,11 +1,5 @@
 #import <UIKit/UIKit.h>
 
-extern NSString *const kRiotJID;
-extern NSString *const kRiotJIDDomain;
-extern NSString *const kRiotLoginName;
-extern NSString *const kRiotPassword;
-
-
 @interface AccountSettingsViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *loginNameField;

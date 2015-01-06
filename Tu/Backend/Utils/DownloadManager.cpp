@@ -8,7 +8,7 @@
 
 #include "DownloadManager.h"
 #include "FileUtil.h"
-#include "CurlClient.h"
+#include "CurlRequest.h"
 
 const std::string DownloadManager::s_downloadedKeyPrefix = "##";
 
@@ -28,12 +28,12 @@ void DownloadManager::init() {
 }
 
 std::string DownloadManager::download(const std::string& url, const std::string& key) {
-    CurlClient client;
+    CurlRequest request;
     std::hash<std::string> hash;
     std::string hashed = std::to_string(hash(url));
     std::string path = FileUtil::getInstance()->getWritablePath() + hashed;
     if(!this->isDownloaded(url)) {
-        client.downloadFile(url, path);
+        request.downloadFile(url, path);
         _db->Put(leveldb::WriteOptions(), key, path);
         _db->Put(leveldb::WriteOptions(), s_downloadedKeyPrefix + hashed, "1");
     }

@@ -1,3 +1,4 @@
+#import "Constants.h"
 #import "XMPPDelegate.h"
 #import "AccountSettingsViewController.h"
 #import "GCDAsyncSocket.h"
@@ -45,7 +46,7 @@
 @synthesize xmppvCardAvatarModule;
 @synthesize xmppCapabilities;
 @synthesize xmppCapabilitiesStorage;
-@synthesize displayName;
+@synthesize myDisplayName;
 
 - (void)dealloc {
 	[self teardownStream];
@@ -124,6 +125,7 @@
 	customCertEvaluation = YES;
     
     chatHistory = [[NSMutableDictionary alloc] init];
+    messageNotifyDelegates = [[NSMutableDictionary alloc] init];
 }
 
 - (ChatHistoryObjc*)chatHistoryWithJID:(NSString*)jid {
@@ -133,6 +135,18 @@
         [chatHistory setObject:ret forKey:jid];
     }
     return ret;
+}
+
+- (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid {
+    [messageNotifyDelegates setObject:delegate forKey:jid];
+}
+
+- (void)removeMessageNotifyDelegateForJID:(NSString*)jid {
+    [messageNotifyDelegates removeObjectForKey:jid];
+}
+
+- (void)setMainMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate {
+    mainMessageNotifyDelegate = delegate;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,8 +196,8 @@
 		return YES;
 	}
 
-	NSString *myJID = [[NSUserDefaults standardUserDefaults] stringForKey:kRiotJID];
-	NSString *myPassword = [[NSUserDefaults standardUserDefaults] stringForKey:kRiotPassword];
+	NSString *myJID = [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotJID];
+	NSString *myPassword = [NSString stringWithFormat:@"%@%@", kRiotPasswordPrefix, [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotPassword]];
 	
 	if (myJID == nil || myPassword == nil) {
 		return NO;
@@ -303,7 +317,7 @@
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    displayName = [[[[sender sessionStartIQ] childElement] elementForName:@"summoner_name"] stringValue];
+    myDisplayName = [[[[sender sessionStartIQ] childElement] elementForName:@"summoner_name"] stringValue];
 	[self goOnline];
 }
 
@@ -334,7 +348,7 @@
                                       @"id" : @"",
                                       @"message" : body,
                                       @"from" : [user jidStr],
-                                      @"to" : [[NSUserDefaults standardUserDefaults] stringForKey:kRiotJID],
+                                      @"to" : [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotJID],
                                       @"read" : @"0",
                                       @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
                                       };
@@ -342,12 +356,8 @@
         [history add:chatMessage];
 
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-			UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
-															  message:body 
-															 delegate:nil 
-													cancelButtonTitle:@"Ok" 
-													otherButtonTitles:nil];
-			[alertView show];
+            [mainMessageNotifyDelegate didReceivedChatMessage:chatMessage];
+            [[messageNotifyDelegates objectForKey:[user jidStr]] didReceivedChatMessage:chatMessage];
 		}
 		else {
 			// We are not active, so use a local notification instead

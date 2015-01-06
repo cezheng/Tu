@@ -1,11 +1,5 @@
+#import "Constants.h"
 #import "AccountSettingsViewController.h"
-
-
-NSString *const kRiotJID = @"kRiotJID";
-NSString *const kRiotJIDDomain = @"pvp.net";
-NSString *const kRiotLoginName = @"kRiotLoginName";
-NSString *const kRiotPassword = @"kRiotmyPassword";
-
 
 @implementation AccountSettingsViewController
 
@@ -23,8 +17,8 @@ NSString *const kRiotPassword = @"kRiotmyPassword";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    loginNameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:kRiotLoginName];
-    passwordField.text = [[NSUserDefaults standardUserDefaults] stringForKey:kRiotPassword];
+    loginNameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotLoginName];
+    passwordField.text = [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotPassword];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,9 +26,9 @@ NSString *const kRiotPassword = @"kRiotmyPassword";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (IBAction)login:(id)sender {
     NSString* jid = loginNameField.text != nil ? [NSString stringWithFormat:@"%@@%@", loginNameField.text, kRiotJIDDomain] : nil;
-    [[NSUserDefaults standardUserDefaults] setObject:loginNameField.text forKey:kRiotLoginName];
-    [[NSUserDefaults standardUserDefaults] setObject:jid forKey:kRiotJID];
-    [[NSUserDefaults standardUserDefaults] setObject:passwordField.text forKey:kRiotPassword];
+    [[NSUserDefaults standardUserDefaults] setObject:loginNameField.text forKey:kUDKRiotLoginName];
+    [[NSUserDefaults standardUserDefaults] setObject:jid forKey:kUDKRiotJID];
+    [[NSUserDefaults standardUserDefaults] setObject:passwordField.text forKey:kUDKRiotPassword];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

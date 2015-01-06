@@ -29,12 +29,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     XMPPDelegate* xmppDelegate = [XMPPDelegate sharedDelegate];
+    [xmppDelegate setMainMessageNotifyDelegate:self];
     if ([xmppDelegate connect]) {
         void (^updateTitle)(void) = ^{
-            self.navigationItem.title = xmppDelegate.displayName;
+            self.navigationItem.title = xmppDelegate.myDisplayName;
         };
         void (^waitForUpdateTitle)(void) =  ^{
-            while (xmppDelegate.displayName == nil) {
+            while (xmppDelegate.myDisplayName == nil) {
                 sleep(1);
             }
             if ([NSThread isMainThread]) {
@@ -48,6 +49,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.navigationItem.title = @"Logged out";
     }
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[XMPPDelegate sharedDelegate] setMainMessageNotifyDelegate:nil];
+    [super viewWillDisappear:animated];
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
@@ -187,5 +194,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (IBAction)login:(id)sender{
     [[XMPPDelegate sharedDelegate] connect];
+}
+
+- (void) didReceivedChatMessage:(ChatMessageObjc*)message {
+    
 }
 @end

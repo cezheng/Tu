@@ -28,6 +28,19 @@
         [messages addObjectsFromArray:[history getRecentN:5]];
     }
     self.navigationItem.title = friendName;
+    UIGestureRecognizer *tapper;
+    tapper = [[UITapGestureRecognizer alloc]
+              initWithTarget:self action:@selector(handleSingleTap:)];
+    tapper.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapper];
+}
+
+- (void) viewWillAppear:(BOOL)animated {
+    [[XMPPDelegate sharedDelegate] addMessageNotifyDelegate:self forJID:friendJID];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [[XMPPDelegate sharedDelegate] removeMessageNotifyDelegateForJID:friendJID];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,9 +131,17 @@
         ChatMessageObjc* historyRecord = [[ChatMessageObjc alloc] initWithDictionary:messageDict];
         [messages addObject:historyRecord];
         [history add:historyRecord];
-        [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:historyRecord] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         [_messageField setText:@""];
-        
     }
+}
+
+- (void) didReceivedChatMessage:(ChatMessageObjc*)message {
+    [messages addObject:message];
+    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:message] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender {
+    [self.view endEditing:YES];
 }
 @end

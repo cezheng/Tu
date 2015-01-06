@@ -1,7 +1,8 @@
 #import <UIKit/UIKit.h>
 #import "../Bridge/ChatHistoryObjc.h"
+#import "ChatMessageNotifyDelegate.h"
 
-@interface ChatViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ChatViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ChatMessageNotifyDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;

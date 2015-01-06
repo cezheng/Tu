@@ -3,6 +3,7 @@
 
 #import "XMPPFramework.h"
 #import "../Bridge/ChatHistoryObjc.h"
+#import "ChatMessageNotifyDelegate.h"
 
 #define DEBUG 1
 @class AccountSettingsViewController;
@@ -26,6 +27,8 @@
 	BOOL isXmppConnected;
     
     NSMutableDictionary* chatHistory;
+    NSMutableDictionary* messageNotifyDelegates;
+    id<ChatMessageNotifyDelegate> mainMessageNotifyDelegate;
 }
 
 @property (nonatomic, strong, readonly) XMPPStream *xmppStream;
@@ -36,11 +39,14 @@
 @property (nonatomic, strong, readonly) XMPPvCardAvatarModule *xmppvCardAvatarModule;
 @property (nonatomic, strong, readonly) XMPPCapabilities *xmppCapabilities;
 @property (nonatomic, strong, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
-@property (nonatomic, strong, readonly) NSString* displayName;
+@property (nonatomic, strong, readonly) NSString* myDisplayName;
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;
 - (ChatHistoryObjc*)chatHistoryWithJID:(NSString*)jid;
+- (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid;
+- (void)removeMessageNotifyDelegateForJID:(NSString*)jid;
+- (void)setMainMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate;
 
 + (id)sharedDelegate;
 - (BOOL)connect;

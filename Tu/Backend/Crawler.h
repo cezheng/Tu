@@ -11,9 +11,9 @@
 #include <iostream>
 #include "PlayerInfo.h"
 #include <regex>
-#include "Utils/CurlClient.h"
+#include "Utils/CurlRequest.h"
 
-class Crawler : public CurlClient {
+class Crawler : public CurlRequest {
 public:
     PlayerInfo queryByPlayerName(const std::string& name, const std::string servers = "1");
     std::string queryRecentMatches(const std::string name, const std::string servers = "1");

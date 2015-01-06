@@ -7,8 +7,8 @@
 //
 
 #include "LocalAPI.h"
-#include "API/APIRecentMatches.h"
-#include "API/APIBasicInfo.h"
+#include "LocalAPI/APIRecentMatches.h"
+#include "LocalAPI/APIBasicInfo.h"
 
 
 LocalAPI* LocalAPI::getInstanceByEndPoint(const EndPoint& endPoint) {
