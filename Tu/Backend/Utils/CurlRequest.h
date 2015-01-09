@@ -18,7 +18,7 @@ class CurlRequest{
 public:
     CurlRequest(std::string cookiePath = "");
     CurlResponse request(const std::string& url);
-    void request(const std::string& url, const std::function<void(const CurlResponse &)> & callback);
+    void request(const std::string& url, const std::function<void(CurlResponse)> & callback);
     CURLcode downloadFile(const std::string& url, const std::string& saveTo);
     static size_t dataToString(void *buffer, size_t size, size_t nmemb, void *userp);
     static size_t dataToFile(void *buffer, size_t size, size_t nmemb, void *userp);

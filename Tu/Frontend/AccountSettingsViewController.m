@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Actions
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-- (IBAction)login:(id)sender {
+- (IBAction)done:(id)sender {
     NSString* jid = loginNameField.text != nil ? [NSString stringWithFormat:@"%@@%@", loginNameField.text, kRiotJIDDomain] : nil;
     [[NSUserDefaults standardUserDefaults] setObject:loginNameField.text forKey:kUDKRiotLoginName];
     [[NSUserDefaults standardUserDefaults] setObject:jid forKey:kUDKRiotJID];
@@ -32,13 +32,8 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (IBAction)back:(id)sender {
-
-}
-
 - (IBAction)hideKeyboard:(id)sender {
     [sender resignFirstResponder];
-    [self login:sender];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,6 @@
 #import "ChatViewController.h"
 #import "FriendsTableViewController.h"
+#import "FriendsTableViewCell.h"
 #import "AccountSettingsViewController.h"
 
 #import "XMPPFramework.h"
@@ -101,20 +102,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark UITableViewCell helpers
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-- (void)configurePhotoForCell:(UITableViewCell *)cell user:(XMPPUserCoreDataStorageObject *)user {
+- (void)configurePhotoForCell:(FriendsTableViewCell *)cell user:(XMPPUserCoreDataStorageObject *)user {
     // Our xmppRosterStorage will cache photos as they arrive from the xmppvCardAvatarModule.
     // We only need to ask the avatar module for a photo, if the roster doesn't have it.
     
     if (user.photo != nil) {
-        cell.imageView.image = user.photo;
+        cell.profileImage.image = user.photo;
     }
     else {
         NSData *photoData = [[[XMPPDelegate sharedDelegate] xmppvCardAvatarModule] photoDataForJID:user.jid];
         
         if (photoData != nil)
-            cell.imageView.image = [UIImage imageWithData:photoData];
+            cell.profileImage.image = [UIImage imageWithData:photoData];
         else
-            cell.imageView.image = [UIImage imageNamed:@"defaultPerson"];
+            cell.profileImage.image = [UIImage imageNamed:@"defaultPerson"];
     }
 }
 
@@ -158,17 +159,18 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"FriendCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    FriendsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[FriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
     }
     
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    cell.textLabel.text = user.displayName;
+    cell.displayNameLabel.text = user.displayName;
     [self configurePhotoForCell:cell user:user];
-    
+    NSSet *resources = [user resources];
+    NSLog(@"resources size for %@: %ld", [user jidStr], [resources count]);
     return cell;
 }
 

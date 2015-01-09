@@ -4249,7 +4249,7 @@ enum XMPPStreamConfig
 	
 	lastSendReceiveTime = [NSDate timeIntervalSinceReferenceDate];
 	numberOfBytesReceived += [data length];
-    NSLog(@"didReadData: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+
 	XMPPLogRecvPre(@"RECV: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	
 	// Asynchronously parse the xml data

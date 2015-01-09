@@ -162,8 +162,26 @@
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A6I-XJ-dEq" id="KO2-LJ-7XP">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lrb-Jr-13i">
+                                            <rect key="frame" x="0.0" y="-1" width="50" height="43.5"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Friend's Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJj-wq-tPb">
+                                            <rect key="frame" x="58" y="10" width="165" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Lrb-Jr-13i" secondAttribute="bottom" constant="2" id="UlB-ak-Wrr"/>
+                                        <constraint firstItem="Lrb-Jr-13i" firstAttribute="top" secondItem="KO2-LJ-7XP" secondAttribute="topMargin" constant="2" id="uto-Et-6Na"/>
+                                        <constraint firstItem="Lrb-Jr-13i" firstAttribute="leading" secondItem="KO2-LJ-7XP" secondAttribute="leadingMargin" constant="2" id="vBK-8x-WMJ"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="displayNameLabel" destination="SJj-wq-tPb" id="8ZX-zA-wlg"/>
+                                    <outlet property="profileImage" destination="Lrb-Jr-13i" id="Uwf-s0-IqF"/>
                                     <segue destination="U08-Rf-tcz" kind="push" identifier="ChatSegue" id="aoW-88-1aI"/>
                                 </connections>
                             </tableViewCell>
@@ -315,14 +333,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Account Settings" id="9LY-dD-ur7">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="F45-Bn-K6e">
+                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="F45-Bn-K6e">
                             <connections>
-                                <action selector="back:" destination="YM7-ha-BWb" id="pZb-Fj-iuX"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Login" id="df2-JG-KAz">
-                            <connections>
-                                <action selector="login:" destination="YM7-ha-BWb" id="xUn-aE-TEK"/>
+                                <action selector="done:" destination="YM7-ha-BWb" id="dbB-wy-nNC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -16,7 +16,7 @@ CurlResponse CurlRequest::request(const std::string& url){
     return response;
 }
 
-void CurlRequest::request(const std::string& url, const std::function<void(const CurlResponse &)> & callback) {
+void CurlRequest::request(const std::string& url, const std::function<void(CurlResponse)> & callback) {
     CurlResponse response;
     std::stringstream headerStream, dataStream;
     CURL *handle = makeRequestHandle(url, &headerStream, &dataStream);

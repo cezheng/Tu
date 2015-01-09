@@ -327,7 +327,7 @@
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    //NSLog(@"GOT IQ: %@", [iq XMLString]);
+    NSLog(@"didReceiveIQ: %@", [iq XMLString]);
 	return NO;
 }
 
@@ -372,6 +372,9 @@
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
+    
+    NSString* status = [[[presence status] stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"] stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    NSLog(@"didReceivePresence: %@", status);
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error {
