@@ -1,0 +1,90 @@
+{
+    "className" : "SummonerInfo",
+    "cppHeader" : "RiotAPI/Response/SummonerInfo.h",
+    "objcHeader" : "RiotAPI/Response/SummonerInfoObjc.h",
+    "objcPrefix" : "",
+    "objcSuffix" : "Objc",
+    "wrapIn" : ["NS_RIOT_BEGIN", "NS_RIOT_END"],
+    "cppNameSpace" : "Riot",
+    "includes" : [
+        "RiotAPI/Response/APIResponse.h"
+    ],
+    "baseClasses" : {
+        "public" : ["APIResponse"]
+    },
+    "cppConstructors" : {
+        "all_in" : {
+            "auto_gen_unspecified" : true,
+            "options" : ["encode_json"]
+        },
+        "json_std_string" : {
+            "auto_gen_unspecified" : false,
+            "arg_list" : [
+                ["const std::string & json"]
+            ],
+            "base_class_init" : [
+                ["APIResponse", ["json"]]
+            ],
+            "options" : ["decode_json"]
+        },
+        "json_cstring" : {
+            "auto_gen_unspecified" : false,
+            "arg_list" : [
+                ["const char * json", "\"\""]
+            ],
+            "base_class_init" : [
+                ["APIResponse", ["json"]]
+            ],
+            "options" : ["decode_json"]
+        },
+        "json_object" : {
+            "auto_gen_unspecified" : false,
+            "arg_list" : [
+                ["const rapidjson::Value & jsonObject"]
+            ],
+            "options" : ["json_object"]
+        }
+    },
+    "objcInit" : {
+        "initWithDictionary" : {
+            "type" : "from_json"
+        }
+    },
+    "instanceMethods" : {
+        "protected" : {
+            "decodeJson" : {},
+            "encodeJson" : {}
+        }
+    },
+    "instanceVariables" : {
+    },
+    "staticMethods" : {
+    },
+    "synthesizeProperties" : [
+        {
+            "name" : "id",
+            "cpp_type" : "long",
+            "options" : ["readonly", "nonatomic", "assign"]
+        },
+        {
+            "name" : "name",
+            "cpp_type" : "std::string",
+            "options" : ["readonly", "nonatomic", "copy"]
+        },
+        {
+            "name" : "profileIconId",
+            "cpp_type" : "int",
+            "options" : ["readonly", "nonatomic", "assign"]
+        },
+        {
+            "name" : "revisionDate",
+            "cpp_type" : "time_t",
+            "options" : ["readonly", "nonatomic", "assign"]
+        },
+        {
+            "name" : "summonerLevel",
+            "cpp_type" : "long",
+            "options" : ["readonly", "nonatomic", "assign"]
+        }
+    ]
+}
