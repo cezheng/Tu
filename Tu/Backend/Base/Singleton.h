@@ -1,14 +1,6 @@
-//
-//  Singleton.h
-//  Tu
-//
-//  Created by Ce Zheng on 8/12/14.
-//  Copyright (c) 2014 Ce Zheng. All rights reserved.
-//
-
 #ifndef Tu_Singleton_h
 #define Tu_Singleton_h
-#include <iostream>
+#include <mutex>
 
 template <typename T>
 class Singleton {

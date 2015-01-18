@@ -11,9 +11,8 @@ public:
     ChatHistoryEntry(const std::string & with);
     ChatHistoryEntry(const char * with);
     virtual ~ChatHistoryEntry();
-    std::size_t getRecentN(const Data & result, int n);
+    Data getRecentN(int n);
     bool add(const Data & messages);
-    bool update(const Data & messages);
     bool updateReadStatus(const std::string & id, bool status);
 protected:
     void fetchCount();

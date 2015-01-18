@@ -2,6 +2,11 @@
 
 NS_RIOT_BEGIN
 
+SummonerInfo::SummonerInfo(const rapidjson::Value & jsonObject) {
+    decodeJson(jsonObject);
+    encodeJson(jsonObject);
+}
+
 SummonerInfo::SummonerInfo(const std::string & json) : APIResponse(json) {
     decodeJson();
 }
@@ -19,22 +24,33 @@ void SummonerInfo::encodeJson() {
     jsonObject.SetObject();
     JSON_ADD_INT64(jsonObject, "id", _id);
     JSON_ADD_STRING(jsonObject, "name", _name);
-    JSON_ADD_int(jsonObject, "profileIconId", _profileIconId);;
-    JSON_ADD_time_t(jsonObject, "revisionDate", _revisionDate);;
+    JSON_ADD_INT(jsonObject, "profileIconId", _profileIconId);
+    JSON_ADD_INT64(jsonObject, "revisionDate", _revisionDate);
     JSON_ADD_INT64(jsonObject, "summonerLevel", _summonerLevel);
+    encodeJson(jsonObject);
+}
+
+void SummonerInfo::encodeJson(const rapidjson::Value & jsonObject) {
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     jsonObject.Accept(writer);
     _json = buffer.GetString();
 }
+
 void SummonerInfo::decodeJson() {
     rapidjson::Document document;
     document.Parse(_json.c_str());
-    _id = document["id"].GetInt64();
-    _name = document["name"].GetString();
-    _profileIconId = document["profileIconId"].Getint();
-    _revisionDate = document["revisionDate"].Gettime_t();
-    _summonerLevel = document["summonerLevel"].GetInt64();
+    if (document.IsObject()) {
+        decodeJson(document);
+    }
+}
+
+void SummonerInfo::decodeJson(const rapidjson::Value & jsonObject) {
+    _id = jsonObject["id"].GetInt64();
+    _name = jsonObject["name"].GetString();
+    _profileIconId = jsonObject["profileIconId"].GetInt();
+    _revisionDate = jsonObject["revisionDate"].GetInt64();
+    _summonerLevel = jsonObject["summonerLevel"].GetInt64();
 }
 long SummonerInfo::getId() {
     return _id;

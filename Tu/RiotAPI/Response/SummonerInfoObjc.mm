@@ -1,16 +1,17 @@
-
 #import "RiotAPI/Response/SummonerInfoObjc.h"
-#imclude "RiotAPI/Response/SummonerInfo.h"
+#include "RiotAPI/Response/SummonerInfo.h"
 
-@implementation SummonerInfoObjc () {
-    SummonerInfo* __cppObject__;
+@interface SummonerInfoObjc () {
+    Riot::SummonerInfo* __cppObject__;
 }
 @end
+
+@implementation SummonerInfoObjc
 
 - (id)initWithCppObject:(void*)obj {
     self = [super init];
     if (self) {
-        __cppObject__ = (ChatMessage*)obj;
+        __cppObject__ = (Riot::SummonerInfo*)obj;
         if (!__cppObject__) self = nil;
     }
     return self;

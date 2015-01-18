@@ -6,8 +6,9 @@ NS_RIOT_BEGIN
 
 class SummonerInfo : public APIResponse {
 public:
+    SummonerInfo(const rapidjson::Value & jsonObject);
     SummonerInfo(const std::string & json);
-    SummonerInfo(const char * json);
+    SummonerInfo(const char * json = "");
     SummonerInfo(long id, const std::string & name, int profileIconId, time_t revisionDate, long summonerLevel);
     long getId();
     std::string getName();
@@ -15,8 +16,10 @@ public:
     time_t getRevisionDate();
     long getSummonerLevel();
 protected:
-void encodeJson();
-void decodeJson();
+    virtual void encodeJson();
+    virtual void encodeJson(const rapidjson::Value & jsonObject);
+    virtual void decodeJson();
+    virtual void decodeJson(const rapidjson::Value & jsonObject);
 private:
     long _id;
     std::string _name;

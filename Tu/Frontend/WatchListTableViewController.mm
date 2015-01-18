@@ -66,8 +66,6 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.refreshControl beginRefreshing];
     [self refresh];
-    Riot::RiotAPI api("a6ef5db9-1e5f-4bc1-aad0-0cdeb42821e7", Riot::Region::NA);
-    NSLog(@"%s", api.getURL(Riot::RiotAPI::EndPoint::CHAMPION_ALL).c_str());
 }
 
 - (void)didReceiveMemoryWarning

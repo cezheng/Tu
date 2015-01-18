@@ -1,14 +1,27 @@
-//
-//  APIResponse.h
-//  Tu
-//
-//  Created by Ce Zheng on 1/13/15.
-//  Copyright (c) 2015 Ce Zheng. All rights reserved.
-//
+#ifndef __RiotAPI_Response_APIResponse_h__
+#define __RiotAPI_Response_APIResponse_h__
 
-#ifndef __Tu__APIResponse__
-#define __Tu__APIResponse__
+#include <string>
+#include "RiotAPI/RiotDefine.h"
+#include "rapidjson/document.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/writer.h"
 
-#include <stdio.h>
+NS_RIOT_BEGIN
 
-#endif /* defined(__Tu__APIResponse__) */
+class APIResponse {
+public:
+    APIResponse(const std::string& json);
+    APIResponse(const char * json = "");
+    std::string getJson() const;
+protected:
+    virtual void encodeJson() = 0;
+    virtual void encodeJson(const rapidjson::Value & jsonObject);
+    virtual void decodeJson();
+    virtual void decodeJson(const rapidjson::Value & jsonObject) = 0;
+    std::string _json;
+};
+
+NS_RIOT_END
+
+#endif /* defined(__RiotAPI_Response_APIResponse_h__) */

@@ -1,4 +1,3 @@
-
 #ifndef __RiotAPI_Response_ChampionStatusObjc_h__
 #define __RiotAPI_Response_ChampionStatusObjc_h__
 

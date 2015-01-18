@@ -115,7 +115,7 @@ void ChatHistory::fetchCount() {
     leveldb::Iterator* it = _db->NewIterator(leveldb::ReadOptions());
     it->SeekToLast();
     if (it->Valid()) {
-        _count = std::stoll(it->key().ToString());
+        _count = std::stoull(it->key().ToString());
     } else {
         _count = 0;
     }

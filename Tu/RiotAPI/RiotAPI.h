@@ -3,8 +3,11 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#define NS_RIOT_BEGIN namespace Riot {
-#define NS_RIOT_END }
+#include <unordered_set>
+#include "RiotDefine.h"
+#include "RiotAPI/Response/ChampionStatus.h"
+#include "RiotAPI/Response/SummonerInfo.h"
+
 NS_RIOT_BEGIN
 enum Region { BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR};
 extern const char* regionStrings[];
@@ -12,10 +15,11 @@ extern const char* regionStrings[];
 struct APIURL {
     struct URLElement {
         enum Type {
-            STRING, REGION, PARAMETER
+            STRING, REGION, PARAMETER, VERSION
         } type;
-        const char* value;
+        std::string value;
     };
+    APIURL(const char* pattern, const char* version);
     std::vector<URLElement> elements;
     std::string getURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params = {}) const;
     void makeBaseURL(Region region, char* store) const;
@@ -28,17 +32,21 @@ public:
         CHAMPION_ALL,
         CHAMPION_BY_ID,
         GAME_RECENT,
-        LEAGUE_BY_SUMMONER_ID_SET,
-        LEAGUE_ENTRY_BY_SUMMONER_ID_SET,
-        LEAGUE_BY_TEAM_ID,
-        LEAGUE_ENTRY_BY_TEAM_ID,
+        LEAGUE_BY_SUMMONER_IDS,
+        LEAGUE_ENTRY_BY_SUMMONER_IDS,
+        LEAGUE_BY_TEAM_IDS,
+        LEAGUE_ENTRY_BY_TEAM_IDS,
         LEAGUE_CHALLENGER,
-        LOL_STATIC_DATA,
+        LOL_STATIC_DATA_CHAMPION,
         LOL_STATUS,
         MATCH,
         MATCH_HISTORY,
         STATS,
-        SUMMONER,
+        SUMMONER_BY_NAMES,
+        SUMMONER_BY_IDS,
+        SUMMONER_MASTERIES_BY_IDS,
+        SUMMONER_NAME_BY_IDS,
+        SUMMONER_RUNES_BY_IDS,
         TEAM
     };
     
@@ -46,15 +54,15 @@ public:
     static const std::unordered_map<RiotAPI::EndPoint, APIURL, std::hash<short>> endPointTable;
 
     RiotAPI(const std::string & apiKey, Region region = NA);
-    std::string getURL(EndPoint endPoint) const;
+    std::string getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params = {}) const;
     void setAPIKey(const std::string &key);
     
     class Champion {
     public:
         static const char* version;
     };
-    std::vector<std::string> getAllChampionStatus();
-    std::string getChampionStatus(long championId);
+    std::vector<ChampionStatus> getAllChampionStatus();
+    ChampionStatus getChampionStatus(long championId);
     
     class Game {
     public:
@@ -95,6 +103,7 @@ public:
     public:
         static const char* version;
     };
+    std::unordered_map<std::string, SummonerInfo> getSummonerByNames(std::unordered_set<std::string> & names);
     
     class Team {
     public:
