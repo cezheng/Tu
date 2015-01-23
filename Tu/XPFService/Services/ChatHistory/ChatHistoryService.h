@@ -10,13 +10,13 @@ NS_XPF_BEGIN
 
 class ChatHistoryService : public Service, public Singleton<ChatHistoryService>  {
 public:
+    virtual ~ChatHistoryService();
     Data getRecentN(const Data & params);
     Data add(const Data & params);
     Data update(const Data & params);
     static ChatHistoryService* constructInstance();
 private:
-    std::unordered_map<std::string, std::size_t> _index;
-    std::vector<ChatHistoryEntry> _entries;
+    std::unordered_map<std::string, ChatHistoryEntry*> _entries;
 };
 
 NS_XPF_END

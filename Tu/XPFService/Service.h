@@ -8,8 +8,6 @@
 NS_XPF_BEGIN
 
 class Service {
-public:
-    static const std::unordered_map<const char *, std::function<Data(const Data & params)>> serviceEndpointTable;
 };
 
 NS_XPF_END

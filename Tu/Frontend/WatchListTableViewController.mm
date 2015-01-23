@@ -10,7 +10,7 @@
 #import "AddToWatchListController.h"
 #import "../Backend/Utils/UserDefault.h"
 
-#import "../RiotAPI/RiotAPI.h"
+#import "XPFService/Portal/XPFService.h"
 
 @interface WatchListTableViewController () {
     dispatch_semaphore_t semaphore;

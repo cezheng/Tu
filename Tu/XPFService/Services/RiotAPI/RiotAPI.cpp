@@ -1,6 +1,8 @@
 #include "RiotAPI.h"
-#include "../Backend/Utils/CurlRequest.h"
+#include "Backend/Utils/CurlRequest.h"
 #include <iostream>
+
+NS_XPF_BEGIN
 NS_RIOT_BEGIN
 #define MAX_URL_LEN 4096
 #define TOKEN_BUFF_LEN 128
@@ -119,6 +121,7 @@ RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _
 }
 
 std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params) const {
+    printf("%s\n", endPointTable.at(endPoint).getURL(_region, _apiKey, params).c_str());
     return endPointTable.at(endPoint).getURL(_region, _apiKey, params);
 }
 
@@ -128,45 +131,43 @@ void RiotAPI::setAPIKey(const std::string &key) {
 
 //Riot APIs
 
-std::vector<ChampionStatus> RiotAPI::getAllChampionStatus() {
+Data RiotAPI::getAllChampionStatus() {
     CurlRequest request;
-    request.request(getURL(CHAMPION_ALL));
-    return {};
+    auto res = request.request(getURL(CHAMPION_ALL));
+    return Data(res.data.c_str());
 }
 
-ChampionStatus RiotAPI::getChampionStatus(long championId) {
+Data RiotAPI::getChampionStatus(long championId) {
     CurlRequest request;
-    CurlResponse res = request.request(getURL(CHAMPION_BY_ID, {{"id", std::to_string(championId)}}));
-    return ChampionStatus(res.data);
+    auto res = request.request(getURL(CHAMPION_BY_ID, {{"id", std::to_string(championId)}}));
+    return Data(res.data.c_str());
 }
 
-std::unordered_map<std::string, SummonerInfo> RiotAPI::getSummonerByNames(std::unordered_set<std::string> & names) {
+Data RiotAPI::getSummonerByNames(const Data & names) {
     const static std::size_t limit = 40;
-    std::size_t n = std::min(limit, names.size());
+    std::size_t n = std::min(limit, names.getSize());
     std::size_t count = 0;
     std::stringstream namess;
-    for (auto & name : names) {
-        namess << name;
+    for (int i = 0; i < n; i++) {
+        namess << names.getString(i);
         if (++count == n) {
             break;
         }
         namess << ',';
     }
-    CurlRequest request;
-    CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {{"summonerNames", namess.str()}}));
-    rapidjson::Document jsonObject;
-    jsonObject.Parse(res.data.c_str());
-    std::unordered_map<std::string, SummonerInfo> ret;
-    count = 0;
-    for (auto & name : names) {
-        if (jsonObject[name.c_str()].IsObject()) {
-            ret[name] = SummonerInfo(jsonObject[name.c_str()]);
-        }
-        if (++count == n) {
-            break;
+    CURL* curl = curl_easy_init();
+    std::string namesStr = namess.str();
+    if (curl) {
+        char * output = curl_easy_escape(curl, namesStr.c_str(), (int)namesStr.length());
+        if (output) {
+            namesStr = output;
+            curl_free(output);
         }
     }
-    return ret;
+    CurlRequest request;
+    CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {{"summonerNames", namesStr}}));
+    return Data(res.data.c_str());
 }
 
 NS_RIOT_END
+NS_XPF_END

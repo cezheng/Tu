@@ -1,11 +1,3 @@
-//
-//  DownloadManager.cpp
-//  Tu
-//
-//  Created by Ce Zheng on 8/25/14.
-//  Copyright (c) 2014 Ce Zheng. All rights reserved.
-//
-
 #include "DownloadManager.h"
 #include "FileUtil.h"
 #include "CurlRequest.h"
@@ -44,7 +36,7 @@ std::string DownloadManager::download(const std::string& url, const std::string&
 bool DownloadManager::isDownloaded(const std::string& url) {
     std::string value;
     std::hash<std::string> hash;
-    leveldb::Status status = _db->Get(leveldb::ReadOptions(), std::to_string(hash(url)), &value);
+    leveldb::Status status = _db->Get(leveldb::ReadOptions(), s_downloadedKeyPrefix + std::to_string(hash(url)), &value);
     if(status.IsNotFound()) {
         return false;
     }

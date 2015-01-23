@@ -4,6 +4,7 @@
 @property (readonly, nonatomic) void* cppObject;
 @property (readonly, nonatomic, copy) NSString* json;
 
-- (id)initWithDictionary:(NSDictionary*)dict;
-- (id)initWithCppObject:(void*)obj;
+- (id) initWithObject:(NSDictionary*)dict;
+- (id) initWithCppObject:(void*)obj;
+- (id) decodeObject;
 @end

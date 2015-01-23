@@ -2,6 +2,8 @@
 #import "FriendsTableViewController.h"
 #import "FriendsTableViewCell.h"
 #import "AccountSettingsViewController.h"
+#import "XPFService/Portal/XPFService.h"
+#import "XMPPUserCoreDataStorageObject+Riot.h"
 
 #import "XMPPFramework.h"
 #import "DDLog.h"
@@ -13,7 +15,10 @@ static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
 
-@interface FriendsTableViewController ()
+@interface FriendsTableViewController () {
+    BOOL needRefresh;
+    NSDictionary* summonerInfo;
+}
 
 @end
 
@@ -25,12 +30,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    needRefresh = YES;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     XMPPDelegate* xmppDelegate = [XMPPDelegate sharedDelegate];
-    [xmppDelegate setMainMessageNotifyDelegate:self];
+    [[XMPPDelegate sharedDelegate] setMainMessageNotifyDelegate:self];
     if ([xmppDelegate connect]) {
         void (^updateTitle)(void) = ^{
             self.navigationItem.title = xmppDelegate.myDisplayName;
@@ -94,8 +101,93 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return fetchedResultsController;
 }
 
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [[self tableView] reloadData];
+    [self.tableView endUpdates];
+    if (needRefresh) {
+        needRefresh = NO;
+        NSMutableArray* names = [[NSMutableArray alloc] init];
+        for (XMPPUserCoreDataStorageObject *user in [fetchedResultsController fetchedObjects]) {
+            [names addObject:user.displayName];
+        }
+        void (^updateProfileImage)(id) = ^(id response) {
+            summonerInfo = response;
+            for (XMPPUserCoreDataStorageObject * user in [fetchedResultsController fetchedObjects]) {
+                void (^updateProfileImage)(id) = ^(id response) {
+                    NSString* path = [(NSDictionary*)response objectForKey:@"path"];
+                    user.photo = [[UIImage alloc] initWithContentsOfFile:path];
+                    NSLog(@"set done %@\n", user.displayName);
+                };
+                void (^fetchProfileImage)() = ^{
+                    while (summonerInfo == nil) {
+                        sleep(1);
+                    }
+                    NSString* key = [user.displayName lowercaseString];
+                    NSString* imgUrl = [NSString stringWithFormat:@"http://ddragon.leagueoflegends.com/cdn/5.1.1/img/profileicon/%@.png",[[summonerInfo objectForKey:key] objectForKey:@"profileIconId"]];
+                    NSDictionary* downloadedResponse = [[[XPFService sharedService] callWithEndPoint:@"Download/getDownloaded" params:@{@"url" : imgUrl}] decodeObject];
+                    if ([downloadedResponse[@"downloaded"] isEqual: @YES]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            updateProfileImage(downloadedResponse);
+                        });
+                    } else {
+                        [[XPFService sharedService] callWithEndPoint:@"Download/download" params:@{@"url" : imgUrl, @"key" : [NSString stringWithFormat:@"profileIcon-%@", user.jidStr]} callback:updateProfileImage callbackInMainThread:YES];
+                    }
+                };
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), fetchProfileImage);
+            }
+        };
+        [[XPFService sharedService] callWithEndPoint:@"RiotAPI/summonerByNames"
+                                              params:names
+                                            callback:updateProfileImage];
+    }
+}
+
+- (void) controller:(NSFetchedResultsController *)controller
+   didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+            atIndex:(NSUInteger)sectionIndex
+      forChangeType:(NSFetchedResultsChangeType)type {
+    UITableView *tableView = self.tableView;
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void) controller:(NSFetchedResultsController *)controller
+    didChangeObject:(id)anObject
+        atIndexPath:(NSIndexPath *)indexPath
+      forChangeType:(NSFetchedResultsChangeType)type
+       newIndexPath:(NSIndexPath *)newIndexPath {
+    UITableView *tableView = self.tableView;
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        default:
+            break;
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,19 +195,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - (void)configurePhotoForCell:(FriendsTableViewCell *)cell user:(XMPPUserCoreDataStorageObject *)user {
-    // Our xmppRosterStorage will cache photos as they arrive from the xmppvCardAvatarModule.
-    // We only need to ask the avatar module for a photo, if the roster doesn't have it.
-    
-    if (user.photo != nil) {
+    if (user.photo) {
         cell.profileImage.image = user.photo;
-    }
-    else {
-        NSData *photoData = [[[XMPPDelegate sharedDelegate] xmppvCardAvatarModule] photoDataForJID:user.jid];
-        
-        if (photoData != nil)
-            cell.profileImage.image = [UIImage imageWithData:photoData];
-        else
-            cell.profileImage.image = [UIImage imageNamed:@"defaultPerson"];
     }
 }
 
@@ -166,11 +247,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    NSString* status = [user gameStatus];
+    NSString* displayName = [NSString stringWithFormat:@"%@ [%@]", user.displayName, status];
+    if (status) {
+        cell.displayNameLabel.text = displayName;
+    } else {
+        cell.displayNameLabel.text = user.displayName;
+    }
     
-    cell.displayNameLabel.text = user.displayName;
     [self configurePhotoForCell:cell user:user];
-    NSSet *resources = [user resources];
-    NSLog(@"resources size for %@: %ld", [user jidStr], [resources count]);
+    
     return cell;
 }
 
@@ -186,7 +272,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             destinationViewController.friendJID = user.jidStr;
             destinationViewController.friendName = user.displayName;
             [destinationViewController.messages removeAllObjects];
-            destinationViewController.history = [[XMPPDelegate sharedDelegate] chatHistoryWithJID:user.jidStr];
         }
     }
 }
@@ -198,7 +283,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [[XMPPDelegate sharedDelegate] connect];
 }
 
-- (void) didReceivedChatMessage:(ChatMessageObjc*)message {
+- (void) didReceivedChatMessage:(NSDictionary*)message {
     
 }
 @end

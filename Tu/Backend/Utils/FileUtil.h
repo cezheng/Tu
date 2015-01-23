@@ -3,6 +3,7 @@
 
 #include "../Base/Singleton.h"
 #include <string>
+#include "sys/stat.h"
 
 class FileUtil : public Singleton<FileUtil> {
 public:

@@ -5,5 +5,6 @@
 #define NS_XPF_END }
 
 #define XPF_ENDPOINT(CLASS, METHOD) std::bind(&CLASS::METHOD, CLASS::getInstance(), std::placeholders::_1)
+#define XPF_ENDPOINT_INSTANCE(CLASS, METHOD, INSTANCE) std::bind(&CLASS::METHOD, INSTANCE, std::placeholders::_1)
 
 #endif  // __XPFService_XPFDefine_h__

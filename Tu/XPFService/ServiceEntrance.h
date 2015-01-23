@@ -1,14 +1,18 @@
-//
-//  ServiceEntry.h
-//  Tu
-//
-//  Created by Ce Zheng on 1/19/15.
-//  Copyright (c) 2015 Ce Zheng. All rights reserved.
-//
+#ifndef __XPFSerivce_ServiceEntrance_h__
+#define __XPFSerivce_ServiceEntrance_h__
 
-#ifndef __Tu__ServiceEntry__
-#define __Tu__ServiceEntry__
+#include "Base/Singleton.h"
+#include "XPFService/Data.h"
+#include <unordered_map>
+#include <functional>
 
-#include <stdio.h>
+NS_XPF_BEGIN
+class ServiceEntrance : public Singleton<ServiceEntrance> {
+public:
+    static const std::unordered_map<const char *, std::function<Data(const Data & params)>> serviceEndpointTable;
+    static ServiceEntrance* constructInstance();
+    Data call(const char * endpoint, const Data & params);
+};
+NS_XPF_END
 
-#endif /* defined(__Tu__ServiceEntry__) */
+#endif // __XPFSerivce_ServiceEntrance_h__

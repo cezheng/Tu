@@ -2,24 +2,35 @@
 
 NS_XPF_BEGIN
 
-ChatHistoryService* ChatHistoryService::constructInstance() {
-    auto ret = new ChatHistoryService();
-    return ret;
+ChatHistoryService::~ChatHistoryService() {
+    for (auto & kv : _entries) {
+        delete kv.second;
+    }
 }
 
+ChatHistoryService* ChatHistoryService::constructInstance() {
+    return new ChatHistoryService();
+}
 
 Data ChatHistoryService::getRecentN(const Data & params) {
     std::string withWhom = params.getString("withWhom");
     int n = params.getInt("amount");
-    if (_index.find(withWhom) != _index.end()) {
-        _entries.push_back(ChatHistoryEntry(withWhom));
-        _index[withWhom] = _entries.size() - 1;
+    if (_entries.find(withWhom) == _entries.end()) {
+        _entries[withWhom] = new ChatHistoryEntry(withWhom);
     }
-    return _entries[_index[withWhom]].getRecentN(n);
+    return _entries[withWhom]->getRecentN(n);
 }
 
 Data ChatHistoryService::add(const Data & params) {
-    return Data("");
+    std::string withWhom = params.getString("withWhom");
+    if (_entries.find(withWhom) == _entries.end()) {
+        _entries[withWhom] = new ChatHistoryEntry(withWhom);
+    }
+    //TODO avoid data copy here
+    if(_entries[withWhom]->add(params.getObjectJson("messages").c_str())) {
+        return Data("{\"ok\":true}");
+    }
+    return Data("{\"ok\":false}");
 }
 
 Data ChatHistoryService::update(const Data & params) {

@@ -1,15 +1,7 @@
-//
-//  TypeUtils.m
-//  Tu
-//
-//  Created by Ce Zheng on 10/3/14.
-//  Copyright (c) 2014 Ce Zheng. All rights reserved.
-//
-
 #import "TypeUtils.h"
 
 NSString* stringToNSString(const std::string& str) {
-    return [NSString stringWithUTF8String:str.c_str()];
+    return @(str.c_str());
 }
 
 std::string nsstringToString(NSString* str) {
@@ -28,11 +20,11 @@ NSString* jsonEncodeNS(NSDictionary* dict) {
     return [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
 }
 
-NSDictionary* jsonDecode(const std::string& str) {
+id jsonDecode(const std::string& str) {
     return jsonDecode(stringToNSString(str));
 }
 
-NSDictionary* jsonDecode(NSString* str) {
+id jsonDecode(NSString* str) {
     NSError *error;
     return [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
 }

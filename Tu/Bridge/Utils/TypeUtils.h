@@ -14,6 +14,6 @@ NSString* stringToNSString(const std::string& str);
 std::string nsstringToString(NSString* str);
 std::string jsonEncodeStd(NSDictionary* dict);
 NSString* jsonEncodeNS(NSDictionary* dict);
-NSDictionary* jsonDecode(const std::string& str);
-NSDictionary* jsonDecode(NSString* str);
+id jsonDecode(const std::string& str);
+id jsonDecode(NSString* str);
 #endif

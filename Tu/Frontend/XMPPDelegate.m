@@ -124,17 +124,7 @@
 	
 	customCertEvaluation = YES;
     
-    chatHistory = [[NSMutableDictionary alloc] init];
     messageNotifyDelegates = [[NSMutableDictionary alloc] init];
-}
-
-- (ChatHistoryObjc*)chatHistoryWithJID:(NSString*)jid {
-    ChatHistoryObjc* ret = [chatHistory objectForKey:jid];
-    if (ret == nil) {
-        ret = [[ChatHistoryObjc alloc] initWithFriendJID:jid];
-        [chatHistory setObject:ret forKey:jid];
-    }
-    return ret;
 }
 
 - (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid {
@@ -327,7 +317,7 @@
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    NSLog(@"didReceiveIQ: %@", [iq XMLString]);
+    //NSLog(@"didReceiveIQ: %@", [iq XMLString]);
 	return NO;
 }
 
@@ -339,25 +329,28 @@
 		XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
 		                                                         xmppStream:xmppStream
 		                                               managedObjectContext:[self managedObjectContext_roster]];
-		
 		NSString *body = [[message elementForName:@"body"] stringValue];
 		NSString *displayName = [user displayName];
-        NSLog(@"from %@, to %@", [message fromStr], [message to]);
-        ChatHistoryObjc* history = [self chatHistoryWithJID:user.jidStr];
-        NSDictionary* messageDict = @{
-                                      @"id" : @"",
-                                      @"message" : body,
-                                      @"from" : [user jidStr],
-                                      @"to" : [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotJID],
-                                      @"read" : @"0",
-                                      @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
-                                      };
-        ChatMessageObjc* chatMessage = [[ChatMessageObjc alloc] initWithDictionary:messageDict];
-        [history add:chatMessage];
+        //NSLog(@"from %@, to %@", [message fromStr], [message to]);
+        NSDictionary* messageDict = \
+        @{
+          @"id" : @"",
+          @"message" : body,
+          @"from" : [user jidStr],
+          @"to" : [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotJID],
+          @"read" : @"0",
+          @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
+          };
+        NSDictionary* params = \
+        @{
+          @"withWhom" : [user jidStr],
+          @"messages" : messageDict
+          };
+        [[XPFService sharedService] callWithEndPoint:@"ChatHistory/add" params:params];
 
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-            [mainMessageNotifyDelegate didReceivedChatMessage:chatMessage];
-            [[messageNotifyDelegates objectForKey:[user jidStr]] didReceivedChatMessage:chatMessage];
+            [mainMessageNotifyDelegate didReceivedChatMessage:messageDict];
+            [[messageNotifyDelegates objectForKey:[user jidStr]] didReceivedChatMessage:messageDict];
 		}
 		else {
 			// We are not active, so use a local notification instead
@@ -374,6 +367,7 @@
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
     
     NSString* status = [[[presence status] stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"] stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    NSLog(@"whole presence: %@", [presence stringValue]);
     NSLog(@"didReceivePresence: %@", status);
 }
 

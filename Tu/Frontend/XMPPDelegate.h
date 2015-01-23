@@ -2,7 +2,7 @@
 #import <CoreData/CoreData.h>
 
 #import "XMPPFramework.h"
-#import "../Bridge/ChatHistoryObjc.h"
+#import "XPFService/Portal/XPFService.h"
 #import "ChatMessageNotifyDelegate.h"
 
 #define DEBUG 1
@@ -26,7 +26,6 @@
 	
 	BOOL isXmppConnected;
     
-    NSMutableDictionary* chatHistory;
     NSMutableDictionary* messageNotifyDelegates;
     id<ChatMessageNotifyDelegate> mainMessageNotifyDelegate;
 }
@@ -43,7 +42,6 @@
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;
-- (ChatHistoryObjc*)chatHistoryWithJID:(NSString*)jid;
 - (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid;
 - (void)removeMessageNotifyDelegateForJID:(NSString*)jid;
 - (void)setMainMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate;

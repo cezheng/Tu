@@ -16,9 +16,9 @@ public:
         ARRAY,
         OBJECT
     };
-    Data(const char * json, Mode mode = OBJECT);
+    Data(const char * json = "", Mode mode = OBJECT);
     Data(Data && data) noexcept ;
-    Data(std::vector<Data> && dataArray);
+    Data(std::vector<Data> & dataArray);
     Data(rapidjson::Value && value);
     
     //Object
@@ -32,20 +32,27 @@ public:
     std::size_t getSizeT(const char * key) const ;
     const char * getString(const char * key) const ;
     std::string getObjectJson(const char * key) const ;
+    bool hasKey(const char* key) const ;
     
     //Array
     void pushBack(Data && data);
     void popBack();
+    int getInt(int index) const ;
+    bool getBool(int index) const ;
+    std::size_t getSizeT(int index) const ;
+    const char * getString(int index) const ;
     
     std::string getObjectJson(int index) const;
     
     bool isEmpty() const;
     size_t getSize() const;
     
-    std::string getJson();
+    std::string getJson() const ;
     Mode getMode() const;
     
     Data & operator= (Data && data);
+    
+    static Data OK();
 protected:
     rapidjson::Document _document;
 private:

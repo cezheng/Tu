@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "../Bridge/ChatMessageObjc.h"
+#import "XPFService/XPFData.h"
 
 @protocol ChatMessageNotifyDelegate
 @required
-- (void) didReceivedChatMessage:(ChatMessageObjc*)message;
+- (void) didReceivedChatMessage:(NSDictionary*)message;
 @end

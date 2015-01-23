@@ -1,8 +1,7 @@
 #include "ChatHistoryEntry.h"
 #include "Backend/Utils/FileUtil.h"
-#include "sys/stat.h"
 #include "leveldb/write_batch.h"
-#include <algorithm>
+#include <sstream>
 
 NS_XPF_BEGIN
 
@@ -22,7 +21,7 @@ void ChatHistoryEntry::init() {
     auto fu = FileUtil::getInstance();
     leveldb::Options options;
     options.create_if_missing = true;
-    std::string basePath = fu->getWritablePath() + "ChatHistoryEntry/";
+    std::string basePath = fu->getWritablePath() + "XPF/ChatHistoryEntry/";
     _dbPath = basePath + _withWhom + ".leveldb";
     mkdir(basePath.c_str(), 0755);
     leveldb::Status status = leveldb::DB::Open(options, _dbPath, &_db);
@@ -33,25 +32,36 @@ void ChatHistoryEntry::init() {
 Data ChatHistoryEntry::getRecentN(int n) {
     leveldb::Iterator* it = _db->NewIterator(leveldb::ReadOptions());
     std::size_t fetched = 0;
-    std::vector<Data> result;
+    std::vector<std::string> result;
     for (it->SeekToLast(); it->Valid() && fetched < n; it->Prev(), fetched++) {
-        result.push_back(Data(it->value().ToString().c_str()));
+        result.push_back(it->value().ToString());
     }
-    std::reverse(result.begin(), result.end());
-    return Data(std::move(result));
+    delete it;
+    std::stringstream ss;
+    ss << '[';
+    for (auto rit = result.rbegin(); rit != result.rend(); rit++) {
+        if (rit != result.rbegin()) {
+            ss << ',';
+        }
+        ss << *rit;
+    }
+    ss << ']';
+    return Data(ss.str().c_str());
 }
 
 bool ChatHistoryEntry::add(const Data & messages) {
-    if (messages.isEmpty()) {
-        return true;
-    } else if(messages.getSize() == 1) {
+    if(messages.getMode() == Data::OBJECT) {
         std::string formattedId = formatId(_count + 1);
-        leveldb::Status s = _db->Put(leveldb::WriteOptions(), formattedId, messages.getObjectJson(0));
+        Data message(messages.getJson().c_str());
+        message.set("id", formattedId.c_str());
+        leveldb::Status s = _db->Put(leveldb::WriteOptions(), formattedId, message.getJson());
         if(s.ok()) {
             ++_count;
             return true;
         }
         return false;
+    } else if (messages.isEmpty()) {
+        return true;
     } else {
         std::size_t id = _count;
         leveldb::WriteBatch writeBatch;
@@ -90,6 +100,7 @@ void ChatHistoryEntry::fetchCount() {
     } else {
         _count = 0;
     }
+    delete it;
 }
 
 std::string ChatHistoryEntry::formatId(std::size_t intId) {
