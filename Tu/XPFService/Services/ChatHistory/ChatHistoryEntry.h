@@ -1,8 +1,11 @@
 #ifndef __XPFSerivce_Services_ChatHistory_ChatHistoryEntry_h__
 #define __XPFSerivce_Services_ChatHistory_ChatHistoryEntry_h__
+#include "XPFService/XPFDefine.h"
 #include "leveldb/db.h"
 #include <vector>
-#include "XPFService/Data.h"
+#include "json11/json11.hpp"
+
+using json11::Json;
 
 NS_XPF_BEGIN
 
@@ -11,8 +14,8 @@ public:
     ChatHistoryEntry(const std::string & with);
     ChatHistoryEntry(const char * with);
     virtual ~ChatHistoryEntry();
-    Data getRecentN(int n);
-    bool add(const Data & messages);
+    Json getRecentN(int n);
+    bool add(const Json & messages);
     bool updateReadStatus(const std::string & id, bool status);
 protected:
     void fetchCount();

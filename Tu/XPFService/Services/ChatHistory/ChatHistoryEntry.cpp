@@ -29,44 +29,36 @@ void ChatHistoryEntry::init() {
     //TODO throw exception on not ok
 }
 
-Data ChatHistoryEntry::getRecentN(int n) {
+Json ChatHistoryEntry::getRecentN(int n) {
     leveldb::Iterator* it = _db->NewIterator(leveldb::ReadOptions());
     std::size_t fetched = 0;
-    std::vector<std::string> result;
+    Json::array result;
+    std::string err;
     for (it->SeekToLast(); it->Valid() && fetched < n; it->Prev(), fetched++) {
-        result.push_back(it->value().ToString());
+        result.push_back(Json::parse(it->value().ToString(), err));
     }
     delete it;
-    std::stringstream ss;
-    ss << '[';
-    for (auto rit = result.rbegin(); rit != result.rend(); rit++) {
-        if (rit != result.rbegin()) {
-            ss << ',';
-        }
-        ss << *rit;
-    }
-    ss << ']';
-    return Data(ss.str().c_str());
+    return result;
 }
 
-bool ChatHistoryEntry::add(const Data & messages) {
-    if(messages.getMode() == Data::OBJECT) {
+bool ChatHistoryEntry::add(const Json & messages) {
+    if(messages.is_object()) {
         std::string formattedId = formatId(_count + 1);
-        Data message(messages.getJson().c_str());
-        message.set("id", formattedId.c_str());
-        leveldb::Status s = _db->Put(leveldb::WriteOptions(), formattedId, message.getJson());
+        auto message = messages.object_items();
+        message["id"] = formattedId;
+        leveldb::Status s = _db->Put(leveldb::WriteOptions(), formattedId, Json(message).dump());
         if(s.ok()) {
             ++_count;
             return true;
         }
         return false;
-    } else if (messages.isEmpty()) {
+    } else if (messages.array_items().empty()) {
         return true;
     } else {
         std::size_t id = _count;
         leveldb::WriteBatch writeBatch;
-        for (int i = 0; i < messages.getSize(); i++) {
-            writeBatch.Put(formatId(++id), messages.getObjectJson(i));
+        for (int i = 0; i < messages.array_items().size(); i++) {
+            writeBatch.Put(formatId(++id), messages.array_items()[i].dump());
         }
         leveldb::Status s = _db->Write(leveldb::WriteOptions(), &writeBatch);
         bool success = s.ok();
@@ -81,12 +73,13 @@ bool ChatHistoryEntry::add(const Data & messages) {
 
 bool ChatHistoryEntry::updateReadStatus(const std::string & id, bool status) {
     std::string value;
+    std::string err;
     leveldb::Status s = _db->Get(leveldb::ReadOptions(), id, &value);
     if (s.ok()) {
-        Data message(value.c_str());
-        if(message.getBool("read") == false) {
-            message.set("read", true);
-            s = _db->Put(leveldb::WriteOptions(), id, message.getJson());
+        Json::object message = Json::parse(value, err).object_items();
+        if(message["read"] == false) {
+            message["read"] = true;
+            s = _db->Put(leveldb::WriteOptions(), id, Json(message).dump());
         }
     }
     return s.ok();

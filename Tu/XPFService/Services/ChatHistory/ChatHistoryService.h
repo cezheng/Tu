@@ -11,9 +11,18 @@ NS_XPF_BEGIN
 class ChatHistoryService : public Service, public Singleton<ChatHistoryService>  {
 public:
     virtual ~ChatHistoryService();
-    Data getRecentN(const Data & params);
-    Data add(const Data & params);
-    Data update(const Data & params);
+    //APIs
+    XPF_SERVICE_API_DECLARE(ChatHistoryService, GetRecentN, ({
+        {"withWhom", Json::STRING},
+        {"amount", Json::NUMBER}
+    }));
+    XPF_SERVICE_API_DECLARE(ChatHistoryService, Add, ({
+        {"withWhom", Json::STRING},
+        {"messages", Json::ARRAY}
+    }));
+    XPF_SERVICE_API_DECLARE(ChatHistoryService, Update, ({
+        {"messages", Json::ARRAY}
+    }));
     static ChatHistoryService* constructInstance();
 private:
     std::unordered_map<std::string, ChatHistoryEntry*> _entries;

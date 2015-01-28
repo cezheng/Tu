@@ -4,12 +4,15 @@
 #include "leveldb/db.h"
 NS_XPF_BEGIN
 
-class DownloadService : public Singleton<DownloadService> {
+class DownloadService : public Service, public Singleton<DownloadService> {
 public:
     virtual ~DownloadService();
     //Service API
-    Data download(const Data & params);
-    Data getDownloaded(const Data & params);
+    XPF_SERVICE_API_DECLARE(DownloadService, Download, ({
+        {"url", Json::STRING},
+        {"key", Json::STRING}
+    }));
+    XPF_SERVICE_API_DECLARE(DownloadService, GetDownloaded, ({}));
 
     std::string downloadUrl(const std::string& url, const std::string& key);
     bool isDownloaded(const std::string& url);

@@ -33,6 +33,7 @@ public:
     const char * getString(const char * key) const ;
     std::string getObjectJson(const char * key) const ;
     bool hasKey(const char* key) const ;
+    rapidjson::Type getType(const char * key) const;
     
     //Array
     void pushBack(Data && data);

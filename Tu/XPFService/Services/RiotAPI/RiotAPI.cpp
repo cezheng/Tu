@@ -2,7 +2,6 @@
 #include "Backend/Utils/CurlRequest.h"
 #include <iostream>
 
-NS_XPF_BEGIN
 NS_RIOT_BEGIN
 #define MAX_URL_LEN 4096
 #define TOKEN_BUFF_LEN 128
@@ -121,7 +120,6 @@ RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _
 }
 
 std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params) const {
-    printf("%s\n", endPointTable.at(endPoint).getURL(_region, _apiKey, params).c_str());
     return endPointTable.at(endPoint).getURL(_region, _apiKey, params);
 }
 
@@ -129,27 +127,31 @@ void RiotAPI::setAPIKey(const std::string &key) {
     _apiKey = key;
 }
 
+void RiotAPI::setRegion(Riot::Region region) {
+    _region = region;
+}
+
 //Riot APIs
 
-Data RiotAPI::getAllChampionStatus() {
+Json RiotAPI::getAllChampionStatus() {
     CurlRequest request;
     auto res = request.request(getURL(CHAMPION_ALL));
-    return Data(res.data.c_str());
+    return Json(res.data.c_str());
 }
 
-Data RiotAPI::getChampionStatus(long championId) {
+Json RiotAPI::getChampionStatus(long championId) {
     CurlRequest request;
     auto res = request.request(getURL(CHAMPION_BY_ID, {{"id", std::to_string(championId)}}));
-    return Data(res.data.c_str());
+    return Json(res.data.c_str());
 }
 
-Data RiotAPI::getSummonerByNames(const Data & names) {
+Json RiotAPI::getSummonerByNames(const Json & names) {
     const static std::size_t limit = 40;
-    std::size_t n = std::min(limit, names.getSize());
+    std::size_t n = std::min(limit, names.array_items().size());
     std::size_t count = 0;
     std::stringstream namess;
     for (int i = 0; i < n; i++) {
-        namess << names.getString(i);
+        namess << names[i].string_value();
         if (++count == n) {
             break;
         }
@@ -166,8 +168,8 @@ Data RiotAPI::getSummonerByNames(const Data & names) {
     }
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {{"summonerNames", namesStr}}));
-    return Data(res.data.c_str());
+    std::string err;
+    return Json::parse(res.data, err);
 }
 
 NS_RIOT_END
-NS_XPF_END

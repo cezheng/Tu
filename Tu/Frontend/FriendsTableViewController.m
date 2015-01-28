@@ -140,7 +140,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             }
         };
         [[XPFService sharedService] callWithEndPoint:@"RiotAPI/summonerByNames"
-                                              params:names
+                                              params:@{@"names" : names}
                                             callback:updateProfileImage];
     }
 }

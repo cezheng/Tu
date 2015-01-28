@@ -227,12 +227,12 @@
                                 <rect key="frame" x="0.0" y="458" width="320" height="46"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1Cj-Ny-S0r">
-                                        <rect key="frame" x="8" y="8" width="235" height="30"/>
+                                        <rect key="frame" x="8" y="8" width="238" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJe-oB-0Aj">
-                                        <rect key="frame" x="261" y="8" width="46" height="30"/>
+                                        <rect key="frame" x="264" y="8" width="46" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="mdJ-yn-Qbh"/>
                                         </constraints>
@@ -251,7 +251,7 @@
                                     <constraint firstItem="1Cj-Ny-S0r" firstAttribute="top" secondItem="BZw-jV-IiT" secondAttribute="top" constant="8" id="OwX-Ld-c7B"/>
                                     <constraint firstItem="QJe-oB-0Aj" firstAttribute="top" secondItem="BZw-jV-IiT" secondAttribute="top" constant="8" id="SwQ-NP-JLE"/>
                                     <constraint firstItem="1Cj-Ny-S0r" firstAttribute="leading" secondItem="BZw-jV-IiT" secondAttribute="leading" constant="8" id="XV5-lh-BmJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="QJe-oB-0Aj" secondAttribute="trailing" constant="13" id="dAj-6L-odZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="QJe-oB-0Aj" secondAttribute="trailing" constant="10" id="dAj-6L-odZ"/>
                                     <constraint firstItem="QJe-oB-0Aj" firstAttribute="leading" secondItem="1Cj-Ny-S0r" secondAttribute="trailing" constant="18" id="kGo-i5-Oo9"/>
                                     <constraint firstItem="QJe-oB-0Aj" firstAttribute="leading" secondItem="1Cj-Ny-S0r" secondAttribute="trailing" constant="18" id="rcF-0C-BnI"/>
                                 </constraints>

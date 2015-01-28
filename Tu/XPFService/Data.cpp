@@ -114,6 +114,10 @@ bool Data::hasKey(const char * key) const {
     return _document.HasMember(key);
 }
 
+rapidjson::Type Data::getType(const char * key) const {
+    return _document[key].GetType();
+}
+
 void Data::pushBack(Data && data) {
     _document.PushBack(_document, _document.GetAllocator());
 }

@@ -1,18 +1,17 @@
 #include "ServiceEntrance.h"
 #include "Services/ChatHistory/ChatHistoryService.h"
-#include "Services/RiotAPI/RiotAPI.h"
+#include "Services/RiotAPI/RiotService.h"
 #include "Services/Download/DownloadService.h"
-
 
 NS_XPF_BEGIN
 
-const std::unordered_map<const char *, std::function<Data(const Data & params)>> ServiceEntrance::serviceEndpointTable = {
-    {"ChatHistory/getRecentN", XPF_ENDPOINT(ChatHistoryService, getRecentN)},
-    {"ChatHistory/add", XPF_ENDPOINT(ChatHistoryService, add)},
-    {"ChatHistory/update", XPF_ENDPOINT(ChatHistoryService, update)},
-    {"RiotAPI/summonerByNames", XPF_ENDPOINT_INSTANCE(Riot::RiotAPI, getSummonerByNames, Riot::RiotAPI("a6ef5db9-1e5f-4bc1-aad0-0cdeb42821e7"))},
-    {"Download/download", XPF_ENDPOINT(DownloadService, download)},
-    {"Download/getDownloaded", XPF_ENDPOINT(DownloadService, getDownloaded)}
+const std::unordered_map<const char *, std::function<Json(Json && params)>> ServiceEntrance::serviceEndpointTable = {
+    {"ChatHistory/getRecentN", XPF_API_VALUE(ChatHistoryService, GetRecentN)},
+    {"ChatHistory/add", XPF_API_VALUE(ChatHistoryService, Add)},
+    {"ChatHistory/update", XPF_API_VALUE(ChatHistoryService, Update)},
+    {"Download/download", XPF_API_VALUE(DownloadService, Download)},
+    {"Download/getDownloaded", XPF_API_VALUE(DownloadService, GetDownloaded)},
+    {"RiotAPI/summonerByNames", XPF_API_VALUE(RiotService, GetSummonerByNames)}
 };
 
 ServiceEntrance* ServiceEntrance::constructInstance() {
@@ -20,8 +19,12 @@ ServiceEntrance* ServiceEntrance::constructInstance() {
     return ret;
 }
 
-Data ServiceEntrance::call(const char * endpoint, const Data & params) {
-    return std::move(serviceEndpointTable.at(endpoint)(params));
+Json ServiceEntrance::call(const char * endpoint, Json && params) {
+    try {
+        return serviceEndpointTable.at(endpoint)(std::move(params));
+    } catch (std::exception & e) {
+        return Json(Json::object {{"ok", false}, {"message", e.what()}});
+    }
 }
 
 NS_XPF_END

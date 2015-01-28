@@ -251,6 +251,9 @@
 		79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D3F19D9662000E00AB2 /* libcurl.a */; };
 		79B64D4219D9664400E00AB2 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D4119D9664400E00AB2 /* libleveldb.a */; };
 		79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */; };
+		79BA07071A761FCF00480D33 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07061A761FCF00480D33 /* Service.cpp */; };
+		79BA070C1A77806B00480D33 /* RiotService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070A1A77806B00480D33 /* RiotService.cpp */; };
+		79BA07161A78A9F800480D33 /* json11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070F1A78A9F800480D33 /* json11.cpp */; };
 		79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333519AB3846009B322B /* WatchListTableViewCell.m */; };
 		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
 		79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333A19AB4248009B322B /* DownloadManager.cpp */; };
@@ -721,6 +724,11 @@
 		79B64D4119D9664400E00AB2 /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/leveldb/libleveldb.a; sourceTree = "<group>"; };
 		79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XMPPUserCoreDataStorageObject+Riot.h"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.h"; sourceTree = "<group>"; };
 		79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XMPPUserCoreDataStorageObject+Riot.m"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.m"; sourceTree = "<group>"; };
+		79BA07061A761FCF00480D33 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
+		79BA070A1A77806B00480D33 /* RiotService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotService.cpp; sourceTree = "<group>"; };
+		79BA070B1A77806B00480D33 /* RiotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotService.h; sourceTree = "<group>"; };
+		79BA070F1A78A9F800480D33 /* json11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json11.cpp; sourceTree = "<group>"; };
+		79BA07101A78A9F800480D33 /* json11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json11.hpp; sourceTree = "<group>"; };
 		79BD333419AB3846009B322B /* WatchListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewCell.h; path = Frontend/WatchListTableViewCell.h; sourceTree = "<group>"; };
 		79BD333519AB3846009B322B /* WatchListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchListTableViewCell.m; path = Frontend/WatchListTableViewCell.m; sourceTree = "<group>"; };
 		79BD333719AB3989009B322B /* WatchListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewController.h; path = Frontend/WatchListTableViewController.h; sourceTree = "<group>"; };
@@ -1808,6 +1816,8 @@
 				792A9FAF1A6D457500549042 /* RiotDefine.h */,
 				792A9FA31A6D450A00549042 /* RiotAPI.cpp */,
 				792A9FA41A6D450A00549042 /* RiotAPI.h */,
+				79BA070A1A77806B00480D33 /* RiotService.cpp */,
+				79BA070B1A77806B00480D33 /* RiotService.h */,
 			);
 			path = RiotAPI;
 			sourceTree = "<group>";
@@ -1831,6 +1841,7 @@
 				7980B79E1A693A9F00F10FE8 /* Base */,
 				7980B7A01A693A9F00F10FE8 /* Data.cpp */,
 				7980B7A11A693A9F00F10FE8 /* Data.h */,
+				79BA07061A761FCF00480D33 /* Service.cpp */,
 				7980B7A21A693A9F00F10FE8 /* Service.h */,
 				7980B7A91A693A9F00F10FE8 /* XPFDefine.h */,
 				7980B7C01A6BA87200F10FE8 /* XPFData.h */,
@@ -1949,9 +1960,20 @@
 			name = Frontend;
 			sourceTree = "<group>";
 		};
+		79BA070D1A78A9F800480D33 /* json11 */ = {
+			isa = PBXGroup;
+			children = (
+				79BA070F1A78A9F800480D33 /* json11.cpp */,
+				79BA07101A78A9F800480D33 /* json11.hpp */,
+			);
+			name = json11;
+			path = lib/json11;
+			sourceTree = "<group>";
+		};
 		79F9E8C4194FD0A70040F0FB = {
 			isa = PBXGroup;
 			children = (
+				79BA070D1A78A9F800480D33 /* json11 */,
 				0C1527F11A55EA3300B2864C /* XMPP */,
 				791E7A5A1999AAFD00B709E9 /* Resources */,
 				79F9E8D6194FD0A70040F0FB /* Tu */,
@@ -2227,6 +2249,7 @@
 				7980B7AA1A693A9F00F10FE8 /* Data.cpp in Sources */,
 				0C1529C31A55EA3400B2864C /* XMPPPresence+XEP_0172.m in Sources */,
 				795D16641A5BD983009A0E54 /* ChatTableViewController.m in Sources */,
+				79BA07071A761FCF00480D33 /* Service.cpp in Sources */,
 				79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */,
 				0C15297B1A55EA3400B2864C /* XMPPGoogleSharedStatus.m in Sources */,
 				0C15298C1A55EA3400B2864C /* XMPPLastActivity.m in Sources */,
@@ -2302,6 +2325,7 @@
 				0C1529DC1A55EA3400B2864C /* XMPPSRVResolver.m in Sources */,
 				0C15299E1A55EA3400B2864C /* XMPPvCardCoreDataStorage.m in Sources */,
 				0C1529AD1A55EA3400B2864C /* TURNSocket.m in Sources */,
+				79BA07161A78A9F800480D33 /* json11.cpp in Sources */,
 				0C1529841A55EA3400B2864C /* XMPPRosterMemoryStorage.m in Sources */,
 				0C1529661A55EA3400B2864C /* XMPPPlainAuthentication.m in Sources */,
 				0C1529931A55EA3400B2864C /* XMPPRoomHybridStorage.m in Sources */,
@@ -2322,6 +2346,7 @@
 				0C15299C1A55EA3400B2864C /* XMPPvCard.xcdatamodeld in Sources */,
 				0C1529E91A55EA3400B2864C /* NSString+DDXML.m in Sources */,
 				0C1529D11A55EA3400B2864C /* XMPPMessage+XEP_0224.m in Sources */,
+				79BA070C1A77806B00480D33 /* RiotService.cpp in Sources */,
 				0C1529D81A55EA3400B2864C /* DDList.m in Sources */,
 				79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */,
 				0C1529BA1A55EA3400B2864C /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,

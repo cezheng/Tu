@@ -4,11 +4,12 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include "XPFService/Service.h"
 #include "RiotDefine.h"
+#include "json11/json11.hpp"
+using json11::Json;
 
-NS_XPF_BEGIN
 NS_RIOT_BEGIN
+
 enum Region { BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR};
 extern const char* regionStrings[];
 
@@ -25,8 +26,7 @@ struct APIURL {
     void makeBaseURL(Region region, char* store) const;
 };
 
-class RiotAPI : public Service {
-protected:
+class RiotAPI {
 public:
     enum EndPoint : short {
         CHAMPION_ALL,
@@ -57,13 +57,14 @@ public:
     
     std::string getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params = {}) const;
     void setAPIKey(const std::string &key);
+    void setRegion(Region region);
     
     class Champion {
     public:
         static const char* version;
     };
-    Data getAllChampionStatus();
-    Data getChampionStatus(long championId);
+    Json getAllChampionStatus();
+    Json getChampionStatus(long championId);
     
     class Game {
     public:
@@ -104,7 +105,7 @@ public:
     public:
         static const char* version;
     };
-    Data getSummonerByNames(const Data & names);
+    Json getSummonerByNames(const Json & names);
     
     class Team {
     public:
@@ -116,6 +117,5 @@ private:
 };
 
 NS_RIOT_END
-NS_XPF_END
 
 #endif /* defined(__Tu__RiotAPI__) */

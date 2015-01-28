@@ -10,37 +10,31 @@ DownloadService::~DownloadService() {
     delete _db;
 }
 
-Data DownloadService::download(const Data & params) {
-    std::string path = downloadUrl(params.getString("url"), params.getString("key"));
-    Data response;
-    response.set("path", path.c_str());
-    return response;
+Json DownloadService::Download::internalCall() {
+    std::string path = _service->downloadUrl(_params["url"].string_value(), _params["key"].string_value());
+    Json::object response;
+    response["path"] = path;
+    return Json(response);
 }
 
-Data DownloadService::getDownloaded(const Data &params) {
-    Data response;
-    if (params.hasKey("url")) {
-        std::string url = params.getString("url");
-        if (isDownloaded(url)) {
-            response.set("downloaded", true);
-            response.set("path", makeDownloadPath(url).c_str());
-        } else {
-            response.set("downloaded", false);
+Json DownloadService::GetDownloaded::internalCall() {
+    Json::object response {{"downloaded", false}};
+    std::string err;
+    if (_params.has_shape({{"url", Json::STRING}}, err)) {
+        std::string url = _params["url"].string_value();
+        if (_service->isDownloaded(url)) {
+            response["downloaded"] = true;
+            response["path"] = _service->makeDownloadPath(url);
         }
-        
-    } else if (params.hasKey("key")) {
-        std::string key = params.getString("key");
-        std::string path = getDownloadedPathByKey(key);
-        if (path.empty()) {
-            response.set("downloaded", false);
-        } else {
-            response.set("downloaded", true);
-            response.set("path", path.c_str());
+    } else if (_params.has_shape({{"key", Json::STRING}}, err)) {
+        std::string key = _params["key"].string_value();
+        std::string path = _service->getDownloadedPathByKey(key);
+        if (!path.empty()) {
+            response["downloaded"] = true;
+            response["path"] = path;
         }
-    } else {
-        response.set("downloaded", false);
     }
-    return response;
+    return Json(response);
 }
 
 DownloadService* DownloadService::constructInstance() {

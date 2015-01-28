@@ -1,9 +1,9 @@
 #import "XPFData.h"
-#import "Data.h"
+#include "json11/json11.hpp"
 #import "../Bridge/Utils/TypeUtils.h"
 
 @interface XPFData () {
-    XPF::Data* __cppObject__;;
+    json11::Json* __cppObject__;;
 }
 
 @end
@@ -15,7 +15,8 @@
     if (self) {
         NSError* error;
         NSString *jsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:object options:NSJSONWritingPrettyPrinted error:&error] encoding:NSUTF8StringEncoding];
-        __cppObject__ = new XPF::Data([jsonString UTF8String]);
+        std::string parseError;
+        __cppObject__ = new json11::Json(std::move(json11::Json::parse([jsonString UTF8String], parseError)));
         if (!__cppObject__) self = nil;
     }
     return self;
@@ -28,7 +29,7 @@
     }
     self = [super init];
     if (self) {
-        __cppObject__ = new XPF::Data(std::move(*(XPF::Data*)obj));
+        __cppObject__ = new json11::Json(std::move(*(json11::Json*)obj));
         if (!__cppObject__) self = nil;
     }
     return self;
@@ -40,7 +41,7 @@
 }
 
 - (id) decodeObject {
-    return jsonDecode(__cppObject__->getJson());
+    return jsonDecode(__cppObject__->dump());
 }
 
 - (void*) cppObject {
@@ -48,7 +49,7 @@
 }
 
 - (NSString*) json {
-    return @(__cppObject__->getJson().c_str());
+    return @(__cppObject__->dump().c_str());
 }
 
 @end

@@ -19,7 +19,7 @@ static const char * requestQueueName = "xpf.network.request";
 }
 
 - (XPFData*) callWithEndPoint:(NSString*)endPoint params:(id) params {
-    XPF::Data response = XPF::ServiceEntrance::getInstance()->call([endPoint UTF8String], *(XPF::Data*)[[XPFData alloc]initWithObject:params].cppObject);
+    json11::Json response = XPF::ServiceEntrance::getInstance()->call([endPoint UTF8String], std::move(*(json11::Json*)[[XPFData alloc]initWithObject:params].cppObject));
     return [[XPFData alloc] initWithCppObject:&response];
 }
 
@@ -40,7 +40,7 @@ static const char * requestQueueName = "xpf.network.request";
         queue = requestQueue;
     }
     dispatch_async(requestQueue, ^{
-        XPF::Data response = XPF::ServiceEntrance::getInstance()->call([endPoint UTF8String], *(XPF::Data*)[[XPFData alloc]initWithObject:params].cppObject);
+        Json response = XPF::ServiceEntrance::getInstance()->call([endPoint UTF8String], std::move(*(Json*)[[XPFData alloc]initWithObject:params].cppObject));
         if (onResponse) {
             if (callbackInMainThread) {
                 void* resPtr = &response;

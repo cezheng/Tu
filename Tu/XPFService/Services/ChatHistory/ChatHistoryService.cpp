@@ -12,29 +12,28 @@ ChatHistoryService* ChatHistoryService::constructInstance() {
     return new ChatHistoryService();
 }
 
-Data ChatHistoryService::getRecentN(const Data & params) {
-    std::string withWhom = params.getString("withWhom");
-    int n = params.getInt("amount");
-    if (_entries.find(withWhom) == _entries.end()) {
-        _entries[withWhom] = new ChatHistoryEntry(withWhom);
+Json ChatHistoryService::GetRecentN::internalCall() {
+    std::string withWhom = _params["withWhom"].string_value();
+    int n = _params["amount"].int_value();
+    if (_service->_entries.find(withWhom) == _service->_entries.end()) {
+        _service->_entries[withWhom] = new ChatHistoryEntry(withWhom);
     }
-    return _entries[withWhom]->getRecentN(n);
+    return _service->_entries[withWhom]->getRecentN(n);
 }
 
-Data ChatHistoryService::add(const Data & params) {
-    std::string withWhom = params.getString("withWhom");
-    if (_entries.find(withWhom) == _entries.end()) {
-        _entries[withWhom] = new ChatHistoryEntry(withWhom);
+Json ChatHistoryService::Add::internalCall() {
+    std::string withWhom = _params["withWhom"].string_value();
+    if (_service->_entries.find(withWhom) == _service->_entries.end()) {
+        _service->_entries[withWhom] = new ChatHistoryEntry(withWhom);
     }
-    //TODO avoid data copy here
-    if(_entries[withWhom]->add(params.getObjectJson("messages").c_str())) {
-        return Data("{\"ok\":true}");
+    if(_service->_entries[withWhom]->add(_params["messages"])) {
+        return Json(Json::object {{"ok", true}});
     }
-    return Data("{\"ok\":false}");
+    return Json(Json::object {{"ok", true}});
 }
 
-Data ChatHistoryService::update(const Data & params) {
-    return Data("");
+Json ChatHistoryService::Update::internalCall() {
+    return Json(Json::object {{"ok", true}});
 }
 
 NS_XPF_END
