@@ -3,6 +3,7 @@
 
 #include "RiotAPI.h"
 #include "XPFService/Service.h"
+#include "XPFService/Base/LevelDBHolder.h"
 
 NS_XPF_BEGIN
 
@@ -11,6 +12,12 @@ public:
     RiotService(std::string apiKey, Riot::Region region = Riot::Region::NA);
     XPF_SERVICE_API_DECLARE(RiotService, GetSummonerByNames, ({
         {"names", Json::ARRAY}
+    }));
+    XPF_SERVICE_API_DECLARE(RiotService, GetMatchFeedByNames, ({
+        {"names", Json::ARRAY}
+    }));
+    XPF_SERVICE_API_DECLARE(RiotService, GetServiceStatusByRegion, ({
+        {"region", Json::STRING}
     }));
     void setRegion(Riot::Region region);
     void setApiKey(std::string apiKey);

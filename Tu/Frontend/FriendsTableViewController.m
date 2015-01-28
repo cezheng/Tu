@@ -31,7 +31,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     needRefresh = YES;
-    
+    [[XPFService sharedService] callWithEndPoint:@"RiotAPI/serviceStatusByRegion" params:@{@"region" : @"na"} callback:^(id response) {
+        NSLog(@"%@", response);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

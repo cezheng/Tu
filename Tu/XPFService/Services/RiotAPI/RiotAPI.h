@@ -22,8 +22,7 @@ struct APIURL {
     };
     APIURL(const char* pattern, const char* version);
     std::vector<URLElement> elements;
-    std::string getURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params = {}) const;
-    void makeBaseURL(Region region, char* store) const;
+    std::string getEndPointURL(Region region, const std::string& apiKey = "", const std::unordered_map<std::string, std::string> & params = {}) const;
 };
 
 class RiotAPI {
@@ -38,7 +37,8 @@ public:
         LEAGUE_ENTRY_BY_TEAM_IDS,
         LEAGUE_CHALLENGER,
         LOL_STATIC_DATA_CHAMPION,
-        LOL_STATUS,
+        LOL_STATUS_SHARD_LIST,
+        LOL_STATUS_SHARD_BY_REGION,
         MATCH,
         MATCH_HISTORY,
         STATS,
@@ -54,8 +54,8 @@ public:
     static const std::unordered_map<RiotAPI::EndPoint, APIURL, std::hash<short>> endPointTable;
     
     RiotAPI(const std::string & apiKey, Region region = NA);
-    
-    std::string getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params = {}) const;
+    std::string makeBaseUrl(EndPoint endPoint) const;
+    std::string getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params = {}, bool appendApiKey = true) const;
     void setAPIKey(const std::string &key);
     void setRegion(Region region);
     
@@ -85,6 +85,7 @@ public:
     public:
         static const char* version;
     };
+    Json getShardByRegion(std::string region);
     
     class Match {
     public:

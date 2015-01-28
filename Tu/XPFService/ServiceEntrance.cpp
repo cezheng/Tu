@@ -11,7 +11,8 @@ const std::unordered_map<const char *, std::function<Json(Json && params)>> Serv
     {"ChatHistory/update", XPF_API_VALUE(ChatHistoryService, Update)},
     {"Download/download", XPF_API_VALUE(DownloadService, Download)},
     {"Download/getDownloaded", XPF_API_VALUE(DownloadService, GetDownloaded)},
-    {"RiotAPI/summonerByNames", XPF_API_VALUE(RiotService, GetSummonerByNames)}
+    {"RiotAPI/summonerByNames", XPF_API_VALUE(RiotService, GetSummonerByNames)},
+    {"RiotAPI/serviceStatusByRegion", XPF_API_VALUE(RiotService, GetServiceStatusByRegion)}
 };
 
 ServiceEntrance* ServiceEntrance::constructInstance() {

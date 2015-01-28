@@ -20,26 +20,28 @@ const char* RiotAPI::Team::version = "v2.4";
 const char* regionStrings[] = {"br", "eune", "euw", "kr", "lan", "las", "na", "oce", "ru", "tr"};
 
 const std::unordered_map<RiotAPI::EndPoint, APIURL, std::hash<short>> RiotAPI::endPointTable = {
-    {RiotAPI::CHAMPION_ALL,
+    {CHAMPION_ALL,
         {"/api/lol/{region}/{version}/champion", Champion::version}},
-    {RiotAPI::CHAMPION_BY_ID,
+    {CHAMPION_BY_ID,
         {"/api/lol/{region}/{version}/champion/{id}", Champion::version}},
-    {RiotAPI::GAME_RECENT,
+    {GAME_RECENT,
         {"/api/lol/{region}/{version}/game/by-summoner/{summonerId}/recent", Game::version}},
-    {RiotAPI::LEAGUE_BY_SUMMONER_IDS,
+    {LEAGUE_BY_SUMMONER_IDS,
         {"/api/lol/{region}/{version}/league/by-summoner/{summonerIds}", League::version}},
     {LEAGUE_ENTRY_BY_SUMMONER_IDS,
         {"/api/lol/{region}/{version}/league/by-summoner/{summonerIds}/entry", League::version}},
-    {RiotAPI::LEAGUE_BY_TEAM_IDS,
+    {LEAGUE_BY_TEAM_IDS,
         {"/api/lol/{region}/{version}/league/by-team/{teamIds}", League::version}},
-    {RiotAPI::LEAGUE_ENTRY_BY_TEAM_IDS,
+    {LEAGUE_ENTRY_BY_TEAM_IDS,
         {"/api/lol/{region}/{version}/league/by-team/{teamIds}/entry", League::version}},
-    {RiotAPI::LEAGUE_CHALLENGER,
+    {LEAGUE_CHALLENGER,
         {"/api/lol/{region}/{version}/league/challenger", League::version}},
-    {RiotAPI::LOL_STATIC_DATA_CHAMPION,
+    {LOL_STATIC_DATA_CHAMPION,
         {"/api/lol/static-data/{region}/{version}/champion", LOLStaticData::version}},
-    {RiotAPI::LOL_STATUS,
-        {"", LOLStatus::version}},
+    {LOL_STATUS_SHARD_LIST,
+        {"/shards", LOLStatus::version}},
+    {LOL_STATUS_SHARD_BY_REGION,
+        {"/shards/{region}", LOLStatus::version}},
     {SUMMONER_BY_NAMES,
         {"/api/lol/{region}/{version}/summoner/by-name/{summonerNames}", Summoner::version}},
     {SUMMONER_BY_IDS,
@@ -83,10 +85,9 @@ APIURL::APIURL(const char* pattern, const char* version) {
     }
 }
 
-std::string APIURL::getURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
+std::string APIURL::getEndPointURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
     char buf[MAX_URL_LEN];
-    makeBaseURL(region, buf);
-    std::size_t at = strlen(buf);
+    std::size_t at = 0;
     int written = 0;
     for (auto & e : elements) {
         switch (e.type) {
@@ -108,19 +109,31 @@ std::string APIURL::getURL(Region region, const std::string& apiKey, const std::
             at += written;
         }
     }
-    sprintf(buf + at, "?api_key=%s", apiKey.c_str());
+    if(!apiKey.empty()) {
+        sprintf(buf + at, "?api_key=%s", apiKey.c_str());
+    }
     return buf;
 }
 
-void APIURL::makeBaseURL(Region region, char* store) const {
-    sprintf(store, "https://%s.api.pvp.net", regionStrings[region]);
+std::string RiotAPI::makeBaseUrl(RiotAPI::EndPoint endpoint) const {
+    char buf[MAX_URL_LEN];
+    switch (endpoint) {
+        case LOL_STATUS_SHARD_LIST:
+        case LOL_STATUS_SHARD_BY_REGION:
+            sprintf(buf, "http://status.leagueoflegends.com");
+            break;
+        default:
+            sprintf(buf, "https://%s.api.pvp.net", regionStrings[_region]);
+            break;
+    }
+    return buf;
 }
 
 RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _region(region) {
 }
 
-std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params) const {
-    return endPointTable.at(endPoint).getURL(_region, _apiKey, params);
+std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params, bool appendApiKey) const {
+    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).getEndPointURL(_region, appendApiKey ? _apiKey : "", params);
 }
 
 void RiotAPI::setAPIKey(const std::string &key) {
@@ -141,8 +154,11 @@ Json RiotAPI::getAllChampionStatus() {
 
 Json RiotAPI::getChampionStatus(long championId) {
     CurlRequest request;
-    auto res = request.request(getURL(CHAMPION_BY_ID, {{"id", std::to_string(championId)}}));
-    return Json(res.data.c_str());
+    auto res = request.request(getURL(CHAMPION_BY_ID, {
+        {"id", std::to_string(championId)}
+    }));
+    std::string err;
+    return Json::parse(res.data, err);
 }
 
 Json RiotAPI::getSummonerByNames(const Json & names) {
@@ -167,7 +183,18 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
         }
     }
     CurlRequest request;
-    CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {{"summonerNames", namesStr}}));
+    CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {
+        {"summonerNames", namesStr}
+    }));
+    std::string err;
+    return Json::parse(res.data, err);
+}
+
+Json RiotAPI::getShardByRegion(std::string region) {
+    CurlRequest request;
+    auto res = request.request(getURL(LOL_STATUS_SHARD_BY_REGION, {
+        {"region", region}
+    }, false));
     std::string err;
     return Json::parse(res.data, err);
 }

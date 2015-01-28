@@ -2,13 +2,14 @@
 #define __XPFSerivce_Services_ChatHistory_ChatHistoryService_h__
 
 #include "XPFService/Service.h"
+#include "XPFService/Base/LevelDBHolder.h"
 #include "ChatHistoryEntry.h"
 #include <unordered_map>
 #include <vector>
 
 NS_XPF_BEGIN
 
-class ChatHistoryService : public Service, public Singleton<ChatHistoryService>  {
+class ChatHistoryService : public Service, public Singleton<ChatHistoryService> {
 public:
     virtual ~ChatHistoryService();
     //APIs
