@@ -13,15 +13,18 @@ public:
     static T* getInstance(){
         std::call_once(s_onceFlag,
                        [] {
-                           s_instance.reset(constructInstance());
+                           s_instance.reset(_constructInstance());
                        });
         return s_instance.get();
     }
     static T* constructInstance() {
-        return T::constructInstance();
+        return new T();
     }
     //TODO add destroyInstance
 protected:
+    static T* _constructInstance() {
+        return T::constructInstance();
+    }
     static std::unique_ptr<T> s_instance;
     static std::once_flag s_onceFlag;
 

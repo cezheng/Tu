@@ -7,7 +7,7 @@ Json Service::API::call() {
 
 void Service::API::requireParams() const {
     std::string err;
-    if (!_params.has_shape(this->getRequirements(), err)) {
+    if (!_params.has_shape(_requirements, err)) {
         throw std::invalid_argument(err);
     }
 }

@@ -2,7 +2,6 @@
 #define __XPFSerivce_Services_ChatHistory_ChatHistoryService_h__
 
 #include "XPFService/Service.h"
-#include "XPFService/Base/LevelDBHolder.h"
 #include "ChatHistoryEntry.h"
 #include <unordered_map>
 #include <vector>
@@ -18,13 +17,14 @@ public:
         {"amount", Json::NUMBER}
     }));
     XPF_SERVICE_API_DECLARE(ChatHistoryService, Add, ({
-        {"withWhom", Json::STRING},
-        {"messages", Json::ARRAY}
+        {"withWhom", Json::STRING}
+        //{"messages", Json::ARRAY}
     }));
     XPF_SERVICE_API_DECLARE(ChatHistoryService, Update, ({
         {"messages", Json::ARRAY}
     }));
-    static ChatHistoryService* constructInstance();
+
+
 private:
     std::unordered_map<std::string, ChatHistoryEntry*> _entries;
 };

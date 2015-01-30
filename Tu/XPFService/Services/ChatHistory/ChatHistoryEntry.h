@@ -4,25 +4,28 @@
 #include "leveldb/db.h"
 #include <vector>
 #include "json11/json11.hpp"
+#include "XPFService/Base/LevelDBHolder.h"
 
 using json11::Json;
 
 NS_XPF_BEGIN
 
-class ChatHistoryEntry {
+class ChatHistoryEntry : public LevelDBHolder {
 public:
     ChatHistoryEntry(const std::string & with);
     ChatHistoryEntry(const char * with);
-    virtual ~ChatHistoryEntry();
+    virtual ~ChatHistoryEntry() {}
     Json getRecentN(int n);
     bool add(const Json & messages);
     bool updateReadStatus(const std::string & id, bool status);
 protected:
     void fetchCount();
     std::string formatId(std::size_t intId);
+    virtual std::string getLevelDBBasePath() const;
+    virtual std::string getLevelDBFileName() const;
 private:
-    leveldb::DB* _db;
-    std::string _dbPath;
+    //leveldb::DB* _db;
+    //std::string _dbPath;
     std::string _withWhom;
     std::size_t _count;
     void init();

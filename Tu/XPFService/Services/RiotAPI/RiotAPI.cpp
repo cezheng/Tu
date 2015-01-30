@@ -152,10 +152,19 @@ Json RiotAPI::getAllChampionStatus() {
     return Json(res.data.c_str());
 }
 
-Json RiotAPI::getChampionStatus(long championId) {
+Json RiotAPI::getChampionStatusById(long championId) {
     CurlRequest request;
     auto res = request.request(getURL(CHAMPION_BY_ID, {
         {"id", std::to_string(championId)}
+    }));
+    std::string err;
+    return Json::parse(res.data, err);
+}
+
+Json RiotAPI::getRecentGamesBySummonerId(const std::string & id) {
+    CurlRequest request;
+    auto res = request.request(getURL(GAME_RECENT, {
+        {"summonerId", id}
     }));
     std::string err;
     return Json::parse(res.data, err);
@@ -185,6 +194,27 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {
         {"summonerNames", namesStr}
+    }));
+    std::string err;
+    return Json::parse(res.data, err);
+}
+
+Json RiotAPI::getSummonerByIds(const Json & ids) {
+    const static std::size_t limit = 40;
+    std::size_t n = std::min(limit, ids.array_items().size());
+    std::size_t count = 0;
+    std::stringstream idss;
+    for (int i = 0; i < n; i++) {
+        idss << ids[i].int_value();
+        if (++count == n) {
+            break;
+        }
+        idss << ',';
+    }
+    std::string namesStr = idss.str();
+    CurlRequest request;
+    CurlResponse res = request.request(getURL(SUMMONER_BY_IDS, {
+        {"summonerIds", namesStr}
     }));
     std::string err;
     return Json::parse(res.data, err);

@@ -15,10 +15,9 @@ const std::unordered_map<const char *, std::function<Json(Json && params)>> Serv
     {"RiotAPI/serviceStatusByRegion", XPF_API_VALUE(RiotService, GetServiceStatusByRegion)}
 };
 
-ServiceEntrance* ServiceEntrance::constructInstance() {
-    auto ret = new ServiceEntrance();
-    return ret;
-}
+const std::unordered_map<const char *, std::function<Json(Json&&, std::function<void(Json)>)>> ServiceEntrance::streamEndpointTable = {
+    {"RiotService/matchFeedByIds", XPF_STREAM_API_VALUE(RiotService, GetMatchFeedByIds)}
+};
 
 Json ServiceEntrance::call(const char * endpoint, Json && params) {
     try {
@@ -26,6 +25,11 @@ Json ServiceEntrance::call(const char * endpoint, Json && params) {
     } catch (std::exception & e) {
         return Json(Json::object {{"ok", false}, {"message", e.what()}});
     }
+}
+
+Json ServiceEntrance::readStream(const char * endpoint, Json && params, std::function<void(Json)> && onRead) {
+    printf("b4 fuk! %s\n", params.dump().c_str());
+    return streamEndpointTable.at(endpoint)(std::move(params), std::move(onRead));
 }
 
 NS_XPF_END

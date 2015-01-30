@@ -8,10 +8,6 @@ ChatHistoryService::~ChatHistoryService() {
     }
 }
 
-ChatHistoryService* ChatHistoryService::constructInstance() {
-    return new ChatHistoryService();
-}
-
 Json ChatHistoryService::GetRecentN::internalCall() {
     std::string withWhom = _params["withWhom"].string_value();
     int n = _params["amount"].int_value();

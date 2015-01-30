@@ -259,6 +259,8 @@
 		79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333519AB3846009B322B /* WatchListTableViewCell.m */; };
 		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
 		79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333A19AB4248009B322B /* DownloadManager.cpp */; };
+		79CF82551A7B344000376BBA /* KVS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82541A7B344000376BBA /* KVS.cpp */; };
+		79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -741,6 +743,10 @@
 		79BD333819AB3989009B322B /* WatchListTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = WatchListTableViewController.mm; path = Frontend/WatchListTableViewController.mm; sourceTree = "<group>"; };
 		79BD333A19AB4248009B322B /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DownloadManager.cpp; sourceTree = "<group>"; };
 		79BD333B19AB4248009B322B /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
+		79CF82531A7B344000376BBA /* KVS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVS.h; sourceTree = "<group>"; };
+		79CF82541A7B344000376BBA /* KVS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KVS.cpp; sourceTree = "<group>"; };
+		79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewCell.h; path = Frontend/NewsFeedTableViewCell.h; sourceTree = "<group>"; };
+		79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewCell.m; path = Frontend/NewsFeedTableViewCell.m; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1963,6 +1969,8 @@
 				0C152A0C1A580EE900B2864C /* ChatViewController.m */,
 				79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */,
 				79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */,
+				79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */,
+				79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -1980,6 +1988,8 @@
 		79BA071E1A78BAE800480D33 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				79CF82531A7B344000376BBA /* KVS.h */,
+				79CF82541A7B344000376BBA /* KVS.cpp */,
 				79BA07251A78BD5400480D33 /* FileUtil.cpp */,
 				79BA07201A78BAE800480D33 /* FileUtil.h */,
 				79BA07211A78BAE800480D33 /* FileUtilIOS.h */,
@@ -2284,6 +2294,7 @@
 				0C1529671A55EA3400B2864C /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				0C1529A11A55EA3400B2864C /* XMPPvCardTemp.m in Sources */,
 				0C1529631A55EA3400B2864C /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */,
 				79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */,
 				79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */,
 				7980B7C21A6BA87200F10FE8 /* XPFData.mm in Sources */,
@@ -2358,6 +2369,7 @@
 				0C1529C91A55EA3400B2864C /* XMPPStreamManagement.m in Sources */,
 				0C1529DA1A55EA3400B2864C /* RFImageToDataTransformer.m in Sources */,
 				79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */,
+				79CF82551A7B344000376BBA /* KVS.cpp in Sources */,
 				0C1529851A55EA3400B2864C /* XMPPUserMemoryStorageObject.m in Sources */,
 				0C1529E41A55EA3400B2864C /* DDTTYLogger.m in Sources */,
 				0C1529871A55EA3400B2864C /* XMPPSystemInputActivityMonitor.m in Sources */,
@@ -2543,8 +2555,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SDKROOT)/usr/include/libxml2",
 					"$(SRCROOT)/Tu",
+					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "Tu/Tu-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -2576,8 +2588,8 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SDKROOT)/usr/include/libxml2",
 					"$(SRCROOT)/Tu",
+					"$(SDKROOT)/usr/include/libxml2",
 				);
 				INFOPLIST_FILE = "Tu/Tu-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;

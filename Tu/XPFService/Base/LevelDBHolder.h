@@ -8,7 +8,10 @@ NS_XPF_BEGIN
 
 class LevelDBHolder {
 public:
+    LevelDBHolder(leveldb::DB * db = nullptr);
     virtual ~LevelDBHolder();
+    bool set(const std::string & key, const std::string & value);
+    bool get(const std::string & key, std::string & value);
 protected:
     virtual void init();
     leveldb::DB* _db;

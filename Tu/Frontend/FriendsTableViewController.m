@@ -39,30 +39,28 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     XMPPDelegate* xmppDelegate = [XMPPDelegate sharedDelegate];
-    [[XMPPDelegate sharedDelegate] setMainMessageNotifyDelegate:self];
+    [xmppDelegate setMainMessageNotifyDelegate:self];
+    [xmppDelegate addObserver:self
+                   forKeyPath:@"myDisplayName"
+                      options:0
+                      context:nil];
     if ([xmppDelegate connect]) {
-        void (^updateTitle)(void) = ^{
-            self.navigationItem.title = xmppDelegate.myDisplayName;
-        };
-        void (^waitForUpdateTitle)(void) =  ^{
-            while (xmppDelegate.myDisplayName == nil) {
-                sleep(1);
-            }
-            if ([NSThread isMainThread]) {
-                updateTitle();
-            } else {
-                dispatch_async(dispatch_get_main_queue(), updateTitle);
-            }
-        };
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), waitForUpdateTitle);
     } else {
         self.navigationItem.title = @"Logged out";
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[XMPPDelegate sharedDelegate] setMainMessageNotifyDelegate:nil];
+    XMPPDelegate* xmppDelegate = [XMPPDelegate sharedDelegate];
+    [xmppDelegate setMainMessageNotifyDelegate:nil];
+    [xmppDelegate removeObserver:self forKeyPath:@"myDisplayName"];
     [super viewWillDisappear:animated];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"myDisplayName"]) {
+        self.navigationItem.title = [object valueForKeyPath:keyPath];
+    }
 }
 
 
@@ -121,7 +119,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 void (^updateProfileImage)(id) = ^(id response) {
                     NSString* path = [(NSDictionary*)response objectForKey:@"path"];
                     user.photo = [[UIImage alloc] initWithContentsOfFile:path];
-                    NSLog(@"set done %@\n", user.displayName);
                 };
                 void (^fetchProfileImage)() = ^{
                     while (summonerInfo == nil) {

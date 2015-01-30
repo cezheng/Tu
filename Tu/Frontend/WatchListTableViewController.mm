@@ -132,7 +132,6 @@
     }   
 }
 
-
 /*
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -178,7 +177,7 @@
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [[LocalServiceObjc getInstance] callWithAPIEndPoint:@"basic_info"
                                                      params:@{
-                                                              @"summoner_name" : [_watchList objectAtIndex:indexPath.row]
+                                                              @"summoner_name" :[_watchList objectAtIndex:indexPath.row]
                                                               }
                                                successBlock:^(NSDictionary* response){
                                                    [_fetchedList setObject:response forKey:[@(i) stringValue]];

@@ -9,13 +9,36 @@
 
 #define XPF_API_VALUE(SERVICE, CLASS) [](Json && params) -> Json {return SERVICE::CLASS(SERVICE::getInstance(), std::move(params)).call();}
 
+#define XPF_STREAM_API_VALUE(SERVICE, CLASS) [](Json && params, Service::StreamAPI::OnReadCallBack && onRead) -> Json {return SERVICE::CLASS(SERVICE::getInstance(), std::move(params), std::move(onRead)).call();}
+
 #define XPF_SERVICE_API_DECLARE(SERVICE, CLASS, REQUIREMENTS) \
 class CLASS : public Service::API { \
 public: \
     CLASS(SERVICE* service, Json && params) : API(std::move(params)), _service(service) {}\
-    virtual Json::shape getRequirements() const { return Json::shape REQUIREMENTS;} \
 protected: \
     virtual Json internalCall(); \
+    virtual void requireParams() const { \
+        std::string err; \
+        if (!_params.has_shape(Json::shape REQUIREMENTS, err)) { \
+            throw std::invalid_argument(err); \
+        }\
+    }\
+private: \
+    SERVICE* _service;\
+}
+
+#define XPF_SERVICE_STREAM_API_DECLARE(SERVICE, CLASS, REQUIREMENTS) \
+class CLASS : public Service::StreamAPI { \
+public: \
+    CLASS(SERVICE* service, Json && params, OnReadCallBack && callback) : StreamAPI(std::move(params), std::move(callback)), _service(service) {}\
+protected: \
+    virtual Json internalCall(); \
+    virtual void requireParams() const { \
+        std::string err; \
+        if (!_params.has_shape(Json::shape REQUIREMENTS, err)) { \
+            throw std::invalid_argument(err); \
+        }\
+    }\
 private: \
     SERVICE* _service;\
 }

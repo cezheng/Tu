@@ -5,28 +5,25 @@
 
 NS_XPF_BEGIN
 
-ChatHistoryEntry::ChatHistoryEntry(const std::string & with): _db(nullptr), _withWhom(with), _count(0) {
+ChatHistoryEntry::ChatHistoryEntry(const std::string & with): _withWhom(with), _count(0) {
     this->init();
 }
 
-ChatHistoryEntry::ChatHistoryEntry(const char * with): _db(nullptr), _withWhom(with), _count(0) {
+ChatHistoryEntry::ChatHistoryEntry(const char * with): _withWhom(with), _count(0) {
     this->init();
 }
 
-ChatHistoryEntry::~ChatHistoryEntry() {
-    delete _db;
+std::string ChatHistoryEntry::getLevelDBBasePath() const {
+    return FileUtil::getInstance()->getWritablePath() + "XPF/ChatHistoryEntry/";
+}
+
+std::string ChatHistoryEntry::getLevelDBFileName() const {
+    return _withWhom + ".leveldb";
 }
 
 void ChatHistoryEntry::init() {
-    auto fu = FileUtil::getInstance();
-    leveldb::Options options;
-    options.create_if_missing = true;
-    std::string basePath = fu->getWritablePath() + "XPF/ChatHistoryEntry/";
-    _dbPath = basePath + _withWhom + ".leveldb";
-    mkdir(basePath.c_str(), 0755);
-    leveldb::Status status = leveldb::DB::Open(options, _dbPath, &_db);
+    LevelDBHolder::init();
     fetchCount();
-    //TODO throw exception on not ok
 }
 
 Json ChatHistoryEntry::getRecentN(int n) {

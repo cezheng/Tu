@@ -17,12 +17,18 @@ public:
         API(Json && params) : _params(std::move(params)) {}
         virtual Json call();
         virtual void requireParams() const;
-        virtual Json::shape getRequirements() const = 0;
     protected:
         virtual Json internalCall() = 0;
+        const Json::shape _requirements;
         Json _params;
     };
-
+    class StreamAPI : public API {
+    public:
+        typedef std::function<void(Json)> OnReadCallBack;
+        StreamAPI(Json && params, OnReadCallBack && callback) : API(std::move(params)), _onRead(std::move(callback)) {}
+    protected:
+        OnReadCallBack _onRead;
+    };
 };
 
 NS_XPF_END

@@ -64,12 +64,14 @@ public:
         static const char* version;
     };
     Json getAllChampionStatus();
-    Json getChampionStatus(long championId);
+    Json getChampionStatusById(long championId);
     
     class Game {
     public:
         static const char* version;
     };
+    
+    Json getRecentGamesBySummonerId(const std::string & id);
     
     class League {
     public:
@@ -106,6 +108,7 @@ public:
     public:
         static const char* version;
     };
+    Json getSummonerByIds(const Json & ids);
     Json getSummonerByNames(const Json & names);
     
     class Team {

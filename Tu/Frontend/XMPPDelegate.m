@@ -23,7 +23,7 @@
 #endif
 
 @interface XMPPDelegate()
-
+@property (nonatomic, strong) NSString* myDisplayName;
 - (void)setupStream;
 - (void)teardownStream;
 
@@ -307,7 +307,7 @@
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    myDisplayName = [[[[sender sessionStartIQ] childElement] elementForName:@"summoner_name"] stringValue];
+    self.myDisplayName = [[[[sender sessionStartIQ] childElement] elementForName:@"summoner_name"] stringValue];
 	[self goOnline];
 }
 

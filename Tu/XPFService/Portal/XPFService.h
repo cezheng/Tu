@@ -12,5 +12,11 @@
 - (void) callWithEndPoint:(NSString*)endPoint
                    params:(id)params
                  callback:(void(^)(id))onResponse;
+
+- (void) readStreamWithEndPoint:(NSString*)endPoint
+                         params:(id)params
+                       callback:(void(^)(id))onRead
+           callbackInMainThread:(BOOL)callbackInMainThread;
+
 + (XPFService*) sharedService;
 @end

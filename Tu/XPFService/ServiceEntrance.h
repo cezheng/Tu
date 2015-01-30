@@ -12,9 +12,10 @@ using json11::Json;
 NS_XPF_BEGIN
 class ServiceEntrance : public Singleton<ServiceEntrance> {
 public:
-    static const std::unordered_map<const char *, std::function<Json(Json && params)>> serviceEndpointTable;
-    static ServiceEntrance* constructInstance();
+    static const std::unordered_map<const char *, std::function<Json(Json&&)>> serviceEndpointTable;
+    static const std::unordered_map<const char *, std::function<Json(Json&&, std::function<void(Json)>)>> streamEndpointTable;
     Json call(const char * endpoint, Json && params);
+    Json readStream(const char * endpoint, Json && params, std::function<void(Json)> && onRead);
 };
 NS_XPF_END
 
