@@ -58,7 +58,7 @@
     cell.contentLabel.text = [NSString stringWithFormat:@"%@ went %@/%@/%@ in a %@ match.", match[@"name"], stats[@"championsKilled"], stats[@"numDeaths"] ? stats[@"numDeaths"] : @0, stats[@"assists"], match[@"subType"]];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[recentMatches[indexPath.row][@"createDate"] integerValue] / 1000];
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[recentMatches[indexPath.row][@"createDate"] longLongValue] / 1000];
     cell.datetimeLabel.text = [dateFormatter stringFromDate:date];
     NSLog(@"%@", recentMatches[indexPath.row]);
     return cell;

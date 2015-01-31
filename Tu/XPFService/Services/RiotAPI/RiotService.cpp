@@ -1,6 +1,6 @@
 #include "RiotService.h"
 #include <sstream>
-#include "Backend/Utils/CurlRequest.h"
+#include "XPFService/Utils/CurlRequest.h"
 #include "XPFService/Utils/FileUtil.h"
 #include "XPFService/Utils/KVS.h"
 #include <future>
@@ -13,6 +13,11 @@ Json RiotService::GetSummonerByNames::internalCall() {
     return _service->_api.getSummonerByNames(_params["names"]);
 }
 
+Json RiotService::GetServiceStatusByRegion::internalCall() {
+    Json status = _service->_api.getShardByRegion(_params["region"].string_value());
+    return Json(status);
+}
+
 Json RiotService::GetMatchFeedByIds::internalCall() {
     Json summoners = _service->_api.getSummonerByIds(_params["ids"]);
     Json::object diff;
@@ -23,7 +28,8 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     };
     for (auto & kv : summoners.object_items()) {
         Json cache = _service->getSummonerInfoCache(kv.first);
-        if (cache.is_null() || cache["revisionDate"].int_value() < kv.second["revisionDate"].int_value()) {
+        printf("cache : %s\nnew: %s", cache.dump().c_str(), kv.second.dump().c_str());
+        if (cache.is_null() || cache["revisionDate"].number_value() < kv.second["revisionDate"].number_value()) {
             diff[kv.first] = kv.second;
         } else {
             matches.insert(matches.end(), cache["games"].array_items().begin(), cache["games"].array_items().end());
@@ -34,8 +40,7 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
         _onRead(matches);
     }
     for (auto & kv : diff) {
-        auto future = std::async(std::launch::async, [this, kv, cmp, &matches](){
-            printf("kv %s\n", kv.first.c_str());
+        auto future = std::async(std::launch::async, [this, kv, cmp, &matches]() {
             Json newInfo = _service->_api.getRecentGamesBySummonerId(kv.first);
             if (!newInfo.is_null()) {
                 Json::array modifiedMatches;
@@ -58,9 +63,26 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     return Json(matches);
 }
 
-Json RiotService::GetServiceStatusByRegion::internalCall() {
-    Json status = _service->_api.getShardByRegion(_params["region"].string_value());
-    return Json(status);
+Json RiotService::GetProfileByIds::internalCall() {
+    auto future1 = std::async(std::launch::async, [this]() {
+        return _service->_api.getSummonerByIds(_params["ids"]);
+    });
+    auto future2 = std::async(std::launch::async, [this]() {
+        _service->_assetManager.updateVersionInfo();
+    });
+    Json summoners = future1.get();
+    future2.get();
+    printf("ids : %s\n", summoners.dump().c_str());
+    for (auto & kv : summoners.object_items()) {
+        auto future = std::async(std::launch::async, [this, kv]() {
+            Json::object info(kv.second.object_items());
+                printf("summoner info : %s\n", kv.second.dump().c_str());
+            info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value());;
+            _onRead(Json(info));
+        });
+        future.get();
+    }
+    return Json();
 }
 
 //----

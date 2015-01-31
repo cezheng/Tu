@@ -2,6 +2,7 @@
 #define __Tu__RiotService__
 
 #include "RiotAPI.h"
+#include "RiotAssetManager.h"
 #include "XPFService/Service.h"
 
 NS_XPF_BEGIN
@@ -20,7 +21,11 @@ public:
     }));
 
     XPF_SERVICE_STREAM_API_DECLARE(RiotService, GetMatchFeedByIds, ({
-        {"ids", Json::Type::ARRAY}
+        {"ids", Json::ARRAY}
+    }));
+    
+    XPF_SERVICE_STREAM_API_DECLARE(RiotService, GetProfileByIds, ({
+        {"ids", Json::ARRAY}
     }));
     
     void setRegion(Riot::Region region);
@@ -30,6 +35,7 @@ protected:
     std::string _apiKey;
     Riot::Region _region;
     Riot::RiotAPI _api;
+    Riot::RiotAssetManager _assetManager;
     bool saveSummonerInfo(const std::string & summonerId, const Json & res);
     Json getSummonerInfoCache(const std::string & summonerId);
 };

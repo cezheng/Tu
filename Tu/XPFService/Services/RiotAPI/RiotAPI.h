@@ -1,33 +1,16 @@
 #ifndef __Tu__RiotAPI__
 #define __Tu__RiotAPI__
-#include <string>
-#include <vector>
-#include <unordered_map>
+
 #include <unordered_set>
-#include "RiotDefine.h"
+#include "RiotBase.h"
 #include "json11/json11.hpp"
 using json11::Json;
 
 NS_RIOT_BEGIN
 
-enum Region { BR, EUNE, EUW, KR, LAN, LAS, NA, OCE, RU, TR};
-extern const char* regionStrings[];
-
-struct APIURL {
-    struct URLElement {
-        enum Type {
-            STRING, REGION, PARAMETER, VERSION
-        } type;
-        std::string value;
-    };
-    APIURL(const char* pattern, const char* version);
-    std::vector<URLElement> elements;
-    std::string getEndPointURL(Region region, const std::string& apiKey = "", const std::unordered_map<std::string, std::string> & params = {}) const;
-};
-
 class RiotAPI {
 public:
-    enum EndPoint : short {
+    enum EndPoint : unsigned char {
         CHAMPION_ALL,
         CHAMPION_BY_ID,
         GAME_RECENT,

@@ -160,6 +160,10 @@
 		0C152A071A57D9A200B2864C /* ChatMessageObjc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A061A57D9A200B2864C /* ChatMessageObjc.mm */; };
 		0C152A0A1A5807B400B2864C /* FriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A091A5807B400B2864C /* FriendsTableViewCell.m */; };
 		0C152A0D1A580EE900B2864C /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A0C1A580EE900B2864C /* ChatViewController.m */; };
+		0CD1DF351A7C919700199BFA /* RiotAssetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF331A7C919700199BFA /* RiotAssetManager.cpp */; };
+		0CD1DF381A7C92A100199BFA /* RiotBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF361A7C92A100199BFA /* RiotBase.cpp */; };
+		0CD1DF3B1A7C9C0700199BFA /* CurlRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF391A7C9C0700199BFA /* CurlRequest.cpp */; };
+		0CD1DF411A7CC49500199BFA /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */; };
 		79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6519A5DF5F00310B88 /* DBUtil.cpp */; };
 		79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6919A5DF5F00310B88 /* FileUtil.cpp */; };
 		79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */; };
@@ -602,6 +606,14 @@
 		0C152A091A5807B400B2864C /* FriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsTableViewCell.m; path = Frontend/FriendsTableViewCell.m; sourceTree = "<group>"; };
 		0C152A0B1A580EE800B2864C /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = Frontend/ChatViewController.h; sourceTree = "<group>"; };
 		0C152A0C1A580EE900B2864C /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatViewController.m; path = Frontend/ChatViewController.m; sourceTree = "<group>"; };
+		0CD1DF331A7C919700199BFA /* RiotAssetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotAssetManager.cpp; sourceTree = "<group>"; };
+		0CD1DF341A7C919700199BFA /* RiotAssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotAssetManager.h; sourceTree = "<group>"; };
+		0CD1DF361A7C92A100199BFA /* RiotBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotBase.cpp; sourceTree = "<group>"; };
+		0CD1DF371A7C92A100199BFA /* RiotBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotBase.h; sourceTree = "<group>"; };
+		0CD1DF391A7C9C0700199BFA /* CurlRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlRequest.cpp; sourceTree = "<group>"; };
+		0CD1DF3A1A7C9C0700199BFA /* CurlRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlRequest.h; sourceTree = "<group>"; };
+		0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Downloader.cpp; sourceTree = "<group>"; };
+		0CD1DF401A7CC49500199BFA /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
 		79075B5D19A5DF5F00310B88 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		79075B6519A5DF5F00310B88 /* DBUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBUtil.cpp; sourceTree = "<group>"; };
 		79075B6619A5DF5F00310B88 /* DBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtil.h; sourceTree = "<group>"; };
@@ -1830,6 +1842,10 @@
 				792A9FA41A6D450A00549042 /* RiotAPI.h */,
 				79BA070A1A77806B00480D33 /* RiotService.cpp */,
 				79BA070B1A77806B00480D33 /* RiotService.h */,
+				0CD1DF331A7C919700199BFA /* RiotAssetManager.cpp */,
+				0CD1DF341A7C919700199BFA /* RiotAssetManager.h */,
+				0CD1DF361A7C92A100199BFA /* RiotBase.cpp */,
+				0CD1DF371A7C92A100199BFA /* RiotBase.h */,
 			);
 			path = RiotAPI;
 			sourceTree = "<group>";
@@ -1988,6 +2004,10 @@
 		79BA071E1A78BAE800480D33 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */,
+				0CD1DF401A7CC49500199BFA /* Downloader.h */,
+				0CD1DF391A7C9C0700199BFA /* CurlRequest.cpp */,
+				0CD1DF3A1A7C9C0700199BFA /* CurlRequest.h */,
 				79CF82531A7B344000376BBA /* KVS.h */,
 				79CF82541A7B344000376BBA /* KVS.cpp */,
 				79BA07251A78BD5400480D33 /* FileUtil.cpp */,
@@ -2268,6 +2288,7 @@
 				0C1529FB1A57A5F400B2864C /* ChatMessage.cpp in Sources */,
 				0C1529771A55EA3400B2864C /* XMPPCoreDataStorage.m in Sources */,
 				0C1529761A55EA3400B2864C /* XMPPBandwidthMonitor.m in Sources */,
+				0CD1DF351A7C919700199BFA /* RiotAssetManager.cpp in Sources */,
 				0C1529B31A55EA3400B2864C /* XMPPMessage+XEP_0085.m in Sources */,
 				795D16581A5BD940009A0E54 /* APIBasicInfo.cpp in Sources */,
 				0C1529CA1A55EA3400B2864C /* XMPPAutoPing.m in Sources */,
@@ -2309,6 +2330,7 @@
 				0C15297A1A55EA3400B2864C /* XMPPOutgoingFileTransfer.m in Sources */,
 				79BA071D1A78B93A00480D33 /* LevelDBHolder.cpp in Sources */,
 				0C1529901A55EA3400B2864C /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
+				0CD1DF411A7CC49500199BFA /* Downloader.cpp in Sources */,
 				7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */,
 				0C1529691A55EA3400B2864C /* XMPPXOAuth2Google.m in Sources */,
 				0C1529E51A55EA3400B2864C /* DDContextFilterLogFormatter.m in Sources */,
@@ -2320,6 +2342,7 @@
 				7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */,
 				0C1529B81A55EA3400B2864C /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				791CD26619DBE2BA005A0167 /* AddToWatchListController.m in Sources */,
+				0CD1DF381A7C92A100199BFA /* RiotBase.cpp in Sources */,
 				0C1527ED1A55E84C00B2864C /* FriendsTableViewController.m in Sources */,
 				79F9E8E1194FD0A70040F0FB /* AppDelegate.m in Sources */,
 				0C1529821A55EA3400B2864C /* XMPPUserCoreDataStorageObject.m in Sources */,
@@ -2401,6 +2424,7 @@
 				0C1529DF1A55EA3400B2864C /* GCDAsyncSocket.m in Sources */,
 				0C15297D1A55EA3400B2864C /* XMPPReconnect.m in Sources */,
 				0C1529E61A55EA3400B2864C /* DDDispatchQueueLogFormatter.m in Sources */,
+				0CD1DF3B1A7C9C0700199BFA /* CurlRequest.cpp in Sources */,
 				0C152A041A57D74100B2864C /* ChatHistoryObjc.mm in Sources */,
 				791E22741A6DF938003DDF8C /* DownloadService.cpp in Sources */,
 				0C1529921A55EA3400B2864C /* XMPPRoomHybrid.xcdatamodeld in Sources */,

@@ -109,38 +109,22 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.tableView endUpdates];
     if (needRefresh) {
         needRefresh = NO;
-        NSMutableArray* names = [[NSMutableArray alloc] init];
+        NSMutableArray* ids = [[NSMutableArray alloc] init];
+        NSMutableDictionary* userDict = [[NSMutableDictionary alloc] init];
         for (XMPPUserCoreDataStorageObject *user in [fetchedResultsController fetchedObjects]) {
-            [names addObject:user.displayName];
+            NSInteger summonerId = [user.summonerId integerValue];
+            [ids addObject:@(summonerId)];
+            [userDict setObject:user forKey:@(summonerId)];
         }
-        void (^updateProfileImage)(id) = ^(id response) {
-            summonerInfo = response;
-            for (XMPPUserCoreDataStorageObject * user in [fetchedResultsController fetchedObjects]) {
-                void (^updateProfileImage)(id) = ^(id response) {
-                    NSString* path = [(NSDictionary*)response objectForKey:@"path"];
-                    user.photo = [[UIImage alloc] initWithContentsOfFile:path];
-                };
-                void (^fetchProfileImage)() = ^{
-                    while (summonerInfo == nil) {
-                        sleep(1);
-                    }
-                    NSString* key = [user.displayName lowercaseString];
-                    NSString* imgUrl = [NSString stringWithFormat:@"http://ddragon.leagueoflegends.com/cdn/5.1.1/img/profileicon/%@.png",[[summonerInfo objectForKey:key] objectForKey:@"profileIconId"]];
-                    NSDictionary* downloadedResponse = [[[XPFService sharedService] callWithEndPoint:@"Download/getDownloaded" params:@{@"url" : imgUrl}] decodeObject];
-                    if ([downloadedResponse[@"downloaded"] isEqual: @YES]) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            updateProfileImage(downloadedResponse);
-                        });
-                    } else {
-                        [[XPFService sharedService] callWithEndPoint:@"Download/download" params:@{@"url" : imgUrl, @"key" : [NSString stringWithFormat:@"profileIcon-%@", user.jidStr]} callback:updateProfileImage callbackInMainThread:YES];
-                    }
-                };
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), fetchProfileImage);
-            }
+        void (^onReadData)(id) = ^(id data) {
+            XMPPUserCoreDataStorageObject *user = [userDict objectForKey:[data objectForKey:@"id"]];
+            NSString* path = [data objectForKey:@"profileImagePath"];
+            user.photo = [[UIImage alloc] initWithContentsOfFile:path];
         };
-        [[XPFService sharedService] callWithEndPoint:@"RiotAPI/summonerByNames"
-                                              params:@{@"names" : names}
-                                            callback:updateProfileImage];
+        [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
+                                                    params:@{@"ids" : ids}
+                                                  callback:onReadData
+                                      callbackInMainThread:YES];
     }
 }
 
