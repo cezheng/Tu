@@ -154,24 +154,14 @@
 		0C1529F21A55ECF200B2864C /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1529F11A55ECF200B2864C /* libresolv.dylib */; };
 		0C1529F51A56822F00B2864C /* AccountSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1529F41A56822F00B2864C /* AccountSettingsViewController.m */; };
 		0C1529F71A56EFC600B2864C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1529F61A56EFC600B2864C /* CoreData.framework */; };
-		0C1529FB1A57A5F400B2864C /* ChatMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1529F91A57A5F400B2864C /* ChatMessage.cpp */; };
-		0C1529FE1A57B0C600B2864C /* ChatHistory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1529FC1A57B0C600B2864C /* ChatHistory.cpp */; };
-		0C152A041A57D74100B2864C /* ChatHistoryObjc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A031A57D74100B2864C /* ChatHistoryObjc.mm */; };
-		0C152A071A57D9A200B2864C /* ChatMessageObjc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A061A57D9A200B2864C /* ChatMessageObjc.mm */; };
 		0C152A0A1A5807B400B2864C /* FriendsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A091A5807B400B2864C /* FriendsTableViewCell.m */; };
 		0C152A0D1A580EE900B2864C /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C152A0C1A580EE900B2864C /* ChatViewController.m */; };
 		0CD1DF351A7C919700199BFA /* RiotAssetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF331A7C919700199BFA /* RiotAssetManager.cpp */; };
 		0CD1DF381A7C92A100199BFA /* RiotBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF361A7C92A100199BFA /* RiotBase.cpp */; };
 		0CD1DF3B1A7C9C0700199BFA /* CurlRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF391A7C9C0700199BFA /* CurlRequest.cpp */; };
 		0CD1DF411A7CC49500199BFA /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */; };
-		79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6519A5DF5F00310B88 /* DBUtil.cpp */; };
-		79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6919A5DF5F00310B88 /* FileUtil.cpp */; };
-		79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */; };
-		79075B7619A5DF5F00310B88 /* RegexManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B6D19A5DF5F00310B88 /* RegexManager.cpp */; };
-		79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B7919A5ED9500310B88 /* Crawler.cpp */; };
-		79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */; };
+		0CD1DF431A7D244100199BFA /* RiotService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF421A7D244100199BFA /* RiotService.cpp */; };
 		79075B8119A6209100310B88 /* regex in Resources */ = {isa = PBXBuildFile; fileRef = 79075B8019A6209100310B88 /* regex */; };
-		791CD26019DBCBE4005A0167 /* UserDefault.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791CD25E19DBCBE4005A0167 /* UserDefault.cpp */; };
 		791CD26619DBE2BA005A0167 /* AddToWatchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CD26519DBE2BA005A0167 /* AddToWatchListController.m */; };
 		791E22741A6DF938003DDF8C /* DownloadService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E22721A6DF938003DDF8C /* DownloadService.cpp */; };
 		791E24AE1A6E862F003DDF8C /* airdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E23411A6E862F003DDF8C /* airdrop.png */; };
@@ -235,9 +225,6 @@
 		791E24E81A6E8630003DDF8C /* wine_glass_angle.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E237B1A6E862F003DDF8C /* wine_glass_angle.png */; };
 		791E24E91A6E8630003DDF8C /* world_times.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E237C1A6E862F003DDF8C /* world_times.png */; };
 		792A9FAD1A6D450A00549042 /* RiotAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792A9FA31A6D450A00549042 /* RiotAPI.cpp */; };
-		795D16521A5BD919009A0E54 /* CurlRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 795D16511A5BD919009A0E54 /* CurlRequest.cpp */; };
-		795D16581A5BD940009A0E54 /* APIBasicInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 795D16541A5BD940009A0E54 /* APIBasicInfo.cpp */; };
-		795D16591A5BD940009A0E54 /* APIRecentMatches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 795D16561A5BD940009A0E54 /* APIRecentMatches.cpp */; };
 		795D16641A5BD983009A0E54 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D165F1A5BD983009A0E54 /* ChatTableViewController.m */; };
 		795D16651A5BD983009A0E54 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D16611A5BD983009A0E54 /* ChatMessageTableViewCell.m */; };
 		795D16671A5BDA89009A0E54 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D16661A5BDA89009A0E54 /* Constants.m */; };
@@ -246,23 +233,18 @@
 		7980B7C91A6BABA900F10FE8 /* ChatHistoryEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7C51A6BABA900F10FE8 /* ChatHistoryEntry.cpp */; };
 		7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7C71A6BABA900F10FE8 /* ChatHistoryService.cpp */; };
 		7980B7CF1A6CA58300F10FE8 /* ServiceEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7CD1A6CA58300F10FE8 /* ServiceEntrance.cpp */; };
-		7996364419DD56E600C40A7A /* LocalAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7996363F19DD56E600C40A7A /* LocalAPI.cpp */; };
-		7996364519DD56E600C40A7A /* LocalService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7996364119DD56E600C40A7A /* LocalService.cpp */; };
 		7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7996364719DD572900C40A7A /* NewsFeedTableViewController.m */; };
-		7996364F19DE2BF900C40A7A /* LocalServiceObjc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7996364E19DE2BF900C40A7A /* LocalServiceObjc.mm */; };
 		7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7996365119DE2D2D00C40A7A /* TypeUtils.mm */; };
 		79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D3F19D9662000E00AB2 /* libcurl.a */; };
 		79B64D4219D9664400E00AB2 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D4119D9664400E00AB2 /* libleveldb.a */; };
 		79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */; };
 		79BA07071A761FCF00480D33 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07061A761FCF00480D33 /* Service.cpp */; };
-		79BA070C1A77806B00480D33 /* RiotService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070A1A77806B00480D33 /* RiotService.cpp */; };
 		79BA07161A78A9F800480D33 /* json11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070F1A78A9F800480D33 /* json11.cpp */; };
 		79BA071D1A78B93A00480D33 /* LevelDBHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA071B1A78B93A00480D33 /* LevelDBHolder.cpp */; };
 		79BA07241A78BAE800480D33 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07221A78BAE800480D33 /* FileUtilIOS.mm */; };
 		79BA07261A78BD5400480D33 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07251A78BD5400480D33 /* FileUtil.cpp */; };
 		79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333519AB3846009B322B /* WatchListTableViewCell.m */; };
 		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
-		79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333A19AB4248009B322B /* DownloadManager.cpp */; };
 		79CF82551A7B344000376BBA /* KVS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82541A7B344000376BBA /* KVS.cpp */; };
 		79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
@@ -594,14 +576,6 @@
 		0C1529F31A56822F00B2864C /* AccountSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountSettingsViewController.h; path = Frontend/AccountSettingsViewController.h; sourceTree = "<group>"; };
 		0C1529F41A56822F00B2864C /* AccountSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountSettingsViewController.m; path = Frontend/AccountSettingsViewController.m; sourceTree = "<group>"; };
 		0C1529F61A56EFC600B2864C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		0C1529F91A57A5F400B2864C /* ChatMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChatMessage.cpp; sourceTree = "<group>"; };
-		0C1529FA1A57A5F400B2864C /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessage.h; sourceTree = "<group>"; };
-		0C1529FC1A57B0C600B2864C /* ChatHistory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ChatHistory.cpp; sourceTree = "<group>"; };
-		0C1529FD1A57B0C600B2864C /* ChatHistory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistory.h; sourceTree = "<group>"; };
-		0C152A021A57D74100B2864C /* ChatHistoryObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistoryObjc.h; sourceTree = "<group>"; };
-		0C152A031A57D74100B2864C /* ChatHistoryObjc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatHistoryObjc.mm; sourceTree = "<group>"; };
-		0C152A051A57D99100B2864C /* ChatMessageObjc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatMessageObjc.h; sourceTree = "<group>"; };
-		0C152A061A57D9A200B2864C /* ChatMessageObjc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChatMessageObjc.mm; sourceTree = "<group>"; };
 		0C152A081A5807B400B2864C /* FriendsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FriendsTableViewCell.h; path = Frontend/FriendsTableViewCell.h; sourceTree = "<group>"; };
 		0C152A091A5807B400B2864C /* FriendsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FriendsTableViewCell.m; path = Frontend/FriendsTableViewCell.m; sourceTree = "<group>"; };
 		0C152A0B1A580EE800B2864C /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatViewController.h; path = Frontend/ChatViewController.h; sourceTree = "<group>"; };
@@ -614,23 +588,8 @@
 		0CD1DF3A1A7C9C0700199BFA /* CurlRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlRequest.h; sourceTree = "<group>"; };
 		0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Downloader.cpp; sourceTree = "<group>"; };
 		0CD1DF401A7CC49500199BFA /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
-		79075B5D19A5DF5F00310B88 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
-		79075B6519A5DF5F00310B88 /* DBUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBUtil.cpp; sourceTree = "<group>"; };
-		79075B6619A5DF5F00310B88 /* DBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUtil.h; sourceTree = "<group>"; };
-		79075B6919A5DF5F00310B88 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
-		79075B6A19A5DF5F00310B88 /* FileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtil.h; sourceTree = "<group>"; };
-		79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileUtilIOS.mm; sourceTree = "<group>"; };
-		79075B6C19A5DF5F00310B88 /* FileUtilIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtilIOS.h; sourceTree = "<group>"; };
-		79075B6D19A5DF5F00310B88 /* RegexManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RegexManager.cpp; sourceTree = "<group>"; };
-		79075B6E19A5DF5F00310B88 /* RegexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexManager.h; sourceTree = "<group>"; };
-		79075B7819A5DF9B00310B88 /* PlatformDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformDefine.h; sourceTree = "<group>"; };
-		79075B7919A5ED9500310B88 /* Crawler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Crawler.cpp; sourceTree = "<group>"; };
-		79075B7A19A5ED9500310B88 /* Crawler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crawler.h; sourceTree = "<group>"; };
-		79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerInfo.cpp; sourceTree = "<group>"; };
-		79075B7D19A5EDBD00310B88 /* PlayerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerInfo.h; sourceTree = "<group>"; };
+		0CD1DF421A7D244100199BFA /* RiotService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotService.cpp; sourceTree = "<group>"; };
 		79075B8019A6209100310B88 /* regex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regex; sourceTree = "<group>"; };
-		791CD25E19DBCBE4005A0167 /* UserDefault.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserDefault.cpp; sourceTree = "<group>"; };
-		791CD25F19DBCBE4005A0167 /* UserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefault.h; sourceTree = "<group>"; };
 		791CD26419DBE2BA005A0167 /* AddToWatchListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddToWatchListController.h; path = Frontend/AddToWatchListController.h; sourceTree = "<group>"; };
 		791CD26519DBE2BA005A0167 /* AddToWatchListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddToWatchListController.m; path = Frontend/AddToWatchListController.m; sourceTree = "<group>"; };
 		791E22721A6DF938003DDF8C /* DownloadService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DownloadService.cpp; sourceTree = "<group>"; };
@@ -698,12 +657,6 @@
 		792A9FA31A6D450A00549042 /* RiotAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotAPI.cpp; sourceTree = "<group>"; };
 		792A9FA41A6D450A00549042 /* RiotAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotAPI.h; sourceTree = "<group>"; };
 		792A9FAF1A6D457500549042 /* RiotDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotDefine.h; sourceTree = "<group>"; };
-		795D16501A5BD919009A0E54 /* CurlRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurlRequest.h; sourceTree = "<group>"; };
-		795D16511A5BD919009A0E54 /* CurlRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CurlRequest.cpp; sourceTree = "<group>"; };
-		795D16541A5BD940009A0E54 /* APIBasicInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APIBasicInfo.cpp; sourceTree = "<group>"; };
-		795D16551A5BD940009A0E54 /* APIBasicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIBasicInfo.h; sourceTree = "<group>"; };
-		795D16561A5BD940009A0E54 /* APIRecentMatches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APIRecentMatches.cpp; sourceTree = "<group>"; };
-		795D16571A5BD940009A0E54 /* APIRecentMatches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIRecentMatches.h; sourceTree = "<group>"; };
 		795D165E1A5BD983009A0E54 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Frontend/Constants.h; sourceTree = "<group>"; };
 		795D165F1A5BD983009A0E54 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatTableViewController.m; path = Frontend/ChatTableViewController.m; sourceTree = "<group>"; };
 		795D16601A5BD983009A0E54 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatTableViewController.h; path = Frontend/ChatTableViewController.h; sourceTree = "<group>"; };
@@ -724,14 +677,8 @@
 		7980B7C81A6BABA900F10FE8 /* ChatHistoryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistoryService.h; sourceTree = "<group>"; };
 		7980B7CD1A6CA58300F10FE8 /* ServiceEntrance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServiceEntrance.cpp; sourceTree = "<group>"; };
 		7980B7CE1A6CA58300F10FE8 /* ServiceEntrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceEntrance.h; sourceTree = "<group>"; };
-		7996363F19DD56E600C40A7A /* LocalAPI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalAPI.cpp; sourceTree = "<group>"; };
-		7996364019DD56E600C40A7A /* LocalAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalAPI.h; sourceTree = "<group>"; };
-		7996364119DD56E600C40A7A /* LocalService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalService.cpp; sourceTree = "<group>"; };
-		7996364219DD56E600C40A7A /* LocalService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalService.h; sourceTree = "<group>"; };
 		7996364619DD572900C40A7A /* NewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewController.h; path = Frontend/NewsFeedTableViewController.h; sourceTree = "<group>"; };
 		7996364719DD572900C40A7A /* NewsFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewController.m; path = Frontend/NewsFeedTableViewController.m; sourceTree = "<group>"; };
-		7996364D19DE2BF900C40A7A /* LocalServiceObjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalServiceObjc.h; sourceTree = "<group>"; };
-		7996364E19DE2BF900C40A7A /* LocalServiceObjc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocalServiceObjc.mm; sourceTree = "<group>"; };
 		7996365119DE2D2D00C40A7A /* TypeUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeUtils.mm; sourceTree = "<group>"; };
 		7996365319DE2D3A00C40A7A /* TypeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeUtils.h; sourceTree = "<group>"; };
 		79B64D3F19D9662000E00AB2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
@@ -739,7 +686,6 @@
 		79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XMPPUserCoreDataStorageObject+Riot.h"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.h"; sourceTree = "<group>"; };
 		79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XMPPUserCoreDataStorageObject+Riot.m"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.m"; sourceTree = "<group>"; };
 		79BA07061A761FCF00480D33 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
-		79BA070A1A77806B00480D33 /* RiotService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotService.cpp; sourceTree = "<group>"; };
 		79BA070B1A77806B00480D33 /* RiotService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotService.h; sourceTree = "<group>"; };
 		79BA070F1A78A9F800480D33 /* json11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json11.cpp; sourceTree = "<group>"; };
 		79BA07101A78A9F800480D33 /* json11.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json11.hpp; sourceTree = "<group>"; };
@@ -753,8 +699,6 @@
 		79BD333519AB3846009B322B /* WatchListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchListTableViewCell.m; path = Frontend/WatchListTableViewCell.m; sourceTree = "<group>"; };
 		79BD333719AB3989009B322B /* WatchListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewController.h; path = Frontend/WatchListTableViewController.h; sourceTree = "<group>"; };
 		79BD333819AB3989009B322B /* WatchListTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = WatchListTableViewController.mm; path = Frontend/WatchListTableViewController.mm; sourceTree = "<group>"; };
-		79BD333A19AB4248009B322B /* DownloadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DownloadManager.cpp; sourceTree = "<group>"; };
-		79BD333B19AB4248009B322B /* DownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadManager.h; sourceTree = "<group>"; };
 		79CF82531A7B344000376BBA /* KVS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVS.h; sourceTree = "<group>"; };
 		79CF82541A7B344000376BBA /* KVS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KVS.cpp; sourceTree = "<group>"; };
 		79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewCell.h; path = Frontend/NewsFeedTableViewCell.h; sourceTree = "<group>"; };
@@ -1678,69 +1622,6 @@
 			path = libidn;
 			sourceTree = "<group>";
 		};
-		0C1529F81A57A5A300B2864C /* Value */ = {
-			isa = PBXGroup;
-			children = (
-				0C1529F91A57A5F400B2864C /* ChatMessage.cpp */,
-				0C1529FA1A57A5F400B2864C /* ChatMessage.h */,
-			);
-			path = Value;
-			sourceTree = "<group>";
-		};
-		79075B5B19A5DF5F00310B88 /* Backend */ = {
-			isa = PBXGroup;
-			children = (
-				0C1529F81A57A5A300B2864C /* Value */,
-				79075B5C19A5DF5F00310B88 /* Base */,
-				79075B7719A5DF7700310B88 /* Common */,
-				79075B6419A5DF5F00310B88 /* Utils */,
-				79075B7C19A5EDBC00310B88 /* PlayerInfo.cpp */,
-				79075B7D19A5EDBD00310B88 /* PlayerInfo.h */,
-				79075B7919A5ED9500310B88 /* Crawler.cpp */,
-				79075B7A19A5ED9500310B88 /* Crawler.h */,
-			);
-			path = Backend;
-			sourceTree = "<group>";
-		};
-		79075B5C19A5DF5F00310B88 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				79075B5D19A5DF5F00310B88 /* Singleton.h */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		79075B6419A5DF5F00310B88 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				795D16501A5BD919009A0E54 /* CurlRequest.h */,
-				795D16511A5BD919009A0E54 /* CurlRequest.cpp */,
-				79075B6519A5DF5F00310B88 /* DBUtil.cpp */,
-				79075B6619A5DF5F00310B88 /* DBUtil.h */,
-				79075B6919A5DF5F00310B88 /* FileUtil.cpp */,
-				79075B6A19A5DF5F00310B88 /* FileUtil.h */,
-				79075B6B19A5DF5F00310B88 /* FileUtilIOS.mm */,
-				79075B6C19A5DF5F00310B88 /* FileUtilIOS.h */,
-				79075B6D19A5DF5F00310B88 /* RegexManager.cpp */,
-				79075B6E19A5DF5F00310B88 /* RegexManager.h */,
-				79BD333A19AB4248009B322B /* DownloadManager.cpp */,
-				79BD333B19AB4248009B322B /* DownloadManager.h */,
-				791CD25E19DBCBE4005A0167 /* UserDefault.cpp */,
-				791CD25F19DBCBE4005A0167 /* UserDefault.h */,
-				0C1529FC1A57B0C600B2864C /* ChatHistory.cpp */,
-				0C1529FD1A57B0C600B2864C /* ChatHistory.h */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
-		79075B7719A5DF7700310B88 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				79075B7819A5DF9B00310B88 /* PlatformDefine.h */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
 		791E22711A6DF938003DDF8C /* Download */ = {
 			isa = PBXGroup;
 			children = (
@@ -1840,7 +1721,7 @@
 				792A9FAF1A6D457500549042 /* RiotDefine.h */,
 				792A9FA31A6D450A00549042 /* RiotAPI.cpp */,
 				792A9FA41A6D450A00549042 /* RiotAPI.h */,
-				79BA070A1A77806B00480D33 /* RiotService.cpp */,
+				0CD1DF421A7D244100199BFA /* RiotService.cpp */,
 				79BA070B1A77806B00480D33 /* RiotService.h */,
 				0CD1DF331A7C919700199BFA /* RiotAssetManager.cpp */,
 				0CD1DF341A7C919700199BFA /* RiotAssetManager.h */,
@@ -1848,17 +1729,6 @@
 				0CD1DF371A7C92A100199BFA /* RiotBase.h */,
 			);
 			path = RiotAPI;
-			sourceTree = "<group>";
-		};
-		795D16531A5BD940009A0E54 /* LocalAPI */ = {
-			isa = PBXGroup;
-			children = (
-				795D16541A5BD940009A0E54 /* APIBasicInfo.cpp */,
-				795D16551A5BD940009A0E54 /* APIBasicInfo.h */,
-				795D16561A5BD940009A0E54 /* APIRecentMatches.cpp */,
-				795D16571A5BD940009A0E54 /* APIRecentMatches.h */,
-			);
-			path = LocalAPI;
 			sourceTree = "<group>";
 		};
 		7980B79D1A693A9F00F10FE8 /* XPFService */ = {
@@ -1919,28 +1789,10 @@
 			path = ChatHistory;
 			sourceTree = "<group>";
 		};
-		7996363B19DD56E600C40A7A /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				795D16531A5BD940009A0E54 /* LocalAPI */,
-				7996363F19DD56E600C40A7A /* LocalAPI.cpp */,
-				7996364019DD56E600C40A7A /* LocalAPI.h */,
-				7996364119DD56E600C40A7A /* LocalService.cpp */,
-				7996364219DD56E600C40A7A /* LocalService.h */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		7996364C19DE2BF900C40A7A /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
 				7996365019DE2CEF00C40A7A /* Utils */,
-				0C152A021A57D74100B2864C /* ChatHistoryObjc.h */,
-				0C152A031A57D74100B2864C /* ChatHistoryObjc.mm */,
-				7996364D19DE2BF900C40A7A /* LocalServiceObjc.h */,
-				7996364E19DE2BF900C40A7A /* LocalServiceObjc.mm */,
-				0C152A051A57D99100B2864C /* ChatMessageObjc.h */,
-				0C152A061A57D9A200B2864C /* ChatMessageObjc.mm */,
 			);
 			name = Bridge;
 			path = Tu/Bridge;
@@ -2062,8 +1914,6 @@
 			children = (
 				7980B79D1A693A9F00F10FE8 /* XPFService */,
 				7996364C19DE2BF900C40A7A /* Bridge */,
-				7996363B19DD56E600C40A7A /* Service */,
-				79075B5B19A5DF5F00310B88 /* Backend */,
 				79B77EBF19790A96005C6432 /* Frontend */,
 				79F9E8DF194FD0A70040F0FB /* AppDelegate.h */,
 				79F9E8E0194FD0A70040F0FB /* AppDelegate.m */,
@@ -2285,15 +2135,12 @@
 				0C1529AF1A55EA3400B2864C /* XMPPMessage+XEP_0066.m in Sources */,
 				0C1529EA1A55EA3400B2864C /* DDXMLDocument.m in Sources */,
 				0C1529AC1A55EA3400B2864C /* XMPPPubSub.m in Sources */,
-				0C1529FB1A57A5F400B2864C /* ChatMessage.cpp in Sources */,
 				0C1529771A55EA3400B2864C /* XMPPCoreDataStorage.m in Sources */,
 				0C1529761A55EA3400B2864C /* XMPPBandwidthMonitor.m in Sources */,
 				0CD1DF351A7C919700199BFA /* RiotAssetManager.cpp in Sources */,
 				0C1529B31A55EA3400B2864C /* XMPPMessage+XEP_0085.m in Sources */,
-				795D16581A5BD940009A0E54 /* APIBasicInfo.cpp in Sources */,
 				0C1529CA1A55EA3400B2864C /* XMPPAutoPing.m in Sources */,
 				792A9FAD1A6D450A00549042 /* RiotAPI.cpp in Sources */,
-				0C1529FE1A57B0C600B2864C /* ChatHistory.cpp in Sources */,
 				0C15298D1A55EA3400B2864C /* XMPPPrivacy.m in Sources */,
 				0C1529C31A55EA3400B2864C /* XMPPPresence+XEP_0172.m in Sources */,
 				795D16641A5BD983009A0E54 /* ChatTableViewController.m in Sources */,
@@ -2309,14 +2156,11 @@
 				7980B7CF1A6CA58300F10FE8 /* ServiceEntrance.cpp in Sources */,
 				0C1529C41A55EA3400B2864C /* XMPPMessage+XEP_0184.m in Sources */,
 				0C1529891A55EA3400B2864C /* XMPPIQ+JabberRPCResonse.m in Sources */,
-				0C152A071A57D9A200B2864C /* ChatMessageObjc.mm in Sources */,
-				7996364F19DE2BF900C40A7A /* LocalServiceObjc.mm in Sources */,
 				0C1529731A55EA3400B2864C /* XMPPParser.m in Sources */,
 				0C1529671A55EA3400B2864C /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				0C1529A11A55EA3400B2864C /* XMPPvCardTemp.m in Sources */,
 				0C1529631A55EA3400B2864C /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */,
-				79075B7E19A5EDBD00310B88 /* PlayerInfo.cpp in Sources */,
 				79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */,
 				7980B7C21A6BA87200F10FE8 /* XPFData.mm in Sources */,
 				0C1529E71A55EA3400B2864C /* DDMultiFormatter.m in Sources */,
@@ -2336,7 +2180,6 @@
 				0C1529E51A55EA3400B2864C /* DDContextFilterLogFormatter.m in Sources */,
 				0C1529D61A55EA3400B2864C /* XMPPMessage+XEP_0333.m in Sources */,
 				0C1529971A55EA3400B2864C /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
-				795D16591A5BD940009A0E54 /* APIRecentMatches.cpp in Sources */,
 				0C1529681A55EA3400B2864C /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				0C1529881A55EA3400B2864C /* XMPPIQ+JabberRPC.m in Sources */,
 				7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */,
@@ -2349,14 +2192,13 @@
 				0C1529AB1A55EA3400B2864C /* XMPPIQ+XEP_0060.m in Sources */,
 				0C1529991A55EA3400B2864C /* XMPPMessage+XEP0045.m in Sources */,
 				0C15296F1A55EA3400B2864C /* XMPPIQ.m in Sources */,
-				791CD26019DBCBE4005A0167 /* UserDefault.cpp in Sources */,
 				0C1529641A55EA3400B2864C /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				0C15299B1A55EA3400B2864C /* XMPPRoom.m in Sources */,
 				0C1529A61A55EA3400B2864C /* XMPPvCardTempLabel.m in Sources */,
 				0C152A0D1A580EE900B2864C /* ChatViewController.m in Sources */,
 				795D16651A5BD983009A0E54 /* ChatMessageTableViewCell.m in Sources */,
-				79BD333C19AB4248009B322B /* DownloadManager.cpp in Sources */,
 				0C1529701A55EA3400B2864C /* XMPPJID.m in Sources */,
+				0CD1DF431A7D244100199BFA /* RiotService.cpp in Sources */,
 				0C1529C51A55EA3400B2864C /* XMPPMessageDeliveryReceipts.m in Sources */,
 				0C1529751A55EA3400B2864C /* XMPPStream.m in Sources */,
 				7980B7BD1A6BA40700F10FE8 /* XPFService.mm in Sources */,
@@ -2365,16 +2207,13 @@
 				0C1529A31A55EA3400B2864C /* XMPPvCardTempAdrTypes.m in Sources */,
 				0C1529801A55EA3400B2864C /* XMPPRoster.xcdatamodel in Sources */,
 				7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */,
-				79075B7619A5DF5F00310B88 /* RegexManager.cpp in Sources */,
 				0C1529C81A55EA3400B2864C /* XMPPStreamManagementStanzas.m in Sources */,
-				7996364519DD56E600C40A7A /* LocalService.cpp in Sources */,
 				0C1529D31A55EA3400B2864C /* XMPPMessageCarbons.m in Sources */,
 				0C1529CE1A55EA3400B2864C /* NSXMLElement+XEP_0203.m in Sources */,
 				0C1529791A55EA3400B2864C /* XMPPIncomingFileTransfer.m in Sources */,
 				0C1529A01A55EA3400B2864C /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				0C1529B01A55EA3400B2864C /* XMPPRegistration.m in Sources */,
 				0C15296A1A55EA3400B2864C /* NSData+XMPP.m in Sources */,
-				795D16521A5BD919009A0E54 /* CurlRequest.cpp in Sources */,
 				79F9E8DD194FD0A70040F0FB /* main.m in Sources */,
 				0C1529DC1A55EA3400B2864C /* XMPPSRVResolver.m in Sources */,
 				0C15299E1A55EA3400B2864C /* XMPPvCardCoreDataStorage.m in Sources */,
@@ -2385,13 +2224,11 @@
 				0C1529931A55EA3400B2864C /* XMPPRoomHybridStorage.m in Sources */,
 				0C1529941A55EA3400B2864C /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				0C1529D91A55EA3400B2864C /* GCDMulticastDelegate.m in Sources */,
-				79075B7419A5DF5F00310B88 /* FileUtil.cpp in Sources */,
 				0C15298E1A55EA3400B2864C /* XMPPRoom.xcdatamodeld in Sources */,
 				0C1529741A55EA3400B2864C /* XMPPPresence.m in Sources */,
 				0C15299D1A55EA3400B2864C /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				0C1529C91A55EA3400B2864C /* XMPPStreamManagement.m in Sources */,
 				0C1529DA1A55EA3400B2864C /* RFImageToDataTransformer.m in Sources */,
-				79075B7B19A5ED9500310B88 /* Crawler.cpp in Sources */,
 				79CF82551A7B344000376BBA /* KVS.cpp in Sources */,
 				0C1529851A55EA3400B2864C /* XMPPUserMemoryStorageObject.m in Sources */,
 				0C1529E41A55EA3400B2864C /* DDTTYLogger.m in Sources */,
@@ -2401,14 +2238,12 @@
 				0C15299C1A55EA3400B2864C /* XMPPvCard.xcdatamodeld in Sources */,
 				0C1529E91A55EA3400B2864C /* NSString+DDXML.m in Sources */,
 				0C1529D11A55EA3400B2864C /* XMPPMessage+XEP_0224.m in Sources */,
-				79BA070C1A77806B00480D33 /* RiotService.cpp in Sources */,
 				0C1529D81A55EA3400B2864C /* DDList.m in Sources */,
 				79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */,
 				0C1529BA1A55EA3400B2864C /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				0C1529951A55EA3400B2864C /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				0C15299A1A55EA3400B2864C /* XMPPMUC.m in Sources */,
 				0C1529A81A55EA3400B2864C /* XMPPvCardTempTel.m in Sources */,
-				79075B7519A5DF5F00310B88 /* FileUtilIOS.mm in Sources */,
 				0C1529BE1A55EA3400B2864C /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				0C15297E1A55EA3400B2864C /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				0C1529B61A55EA3400B2864C /* NSString+XEP_0106.m in Sources */,
@@ -2418,20 +2253,17 @@
 				0C1529711A55EA3400B2864C /* XMPPMessage.m in Sources */,
 				0C1529961A55EA3400B2864C /* XMPPRoomMemoryStorage.m in Sources */,
 				0C1529C71A55EA3400B2864C /* XMPPStreamManagementMemoryStorage.m in Sources */,
-				79075B7219A5DF5F00310B88 /* DBUtil.cpp in Sources */,
 				0C1529CD1A55EA3400B2864C /* XMPPTime.m in Sources */,
 				0C15296C1A55EA3400B2864C /* NSXMLElement+XMPP.m in Sources */,
 				0C1529DF1A55EA3400B2864C /* GCDAsyncSocket.m in Sources */,
 				0C15297D1A55EA3400B2864C /* XMPPReconnect.m in Sources */,
 				0C1529E61A55EA3400B2864C /* DDDispatchQueueLogFormatter.m in Sources */,
 				0CD1DF3B1A7C9C0700199BFA /* CurlRequest.cpp in Sources */,
-				0C152A041A57D74100B2864C /* ChatHistoryObjc.mm in Sources */,
 				791E22741A6DF938003DDF8C /* DownloadService.cpp in Sources */,
 				0C1529921A55EA3400B2864C /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				0C1529A21A55EA3400B2864C /* XMPPvCardTempAdr.m in Sources */,
 				0C15296E1A55EA3400B2864C /* XMPPElement.m in Sources */,
 				0C1529781A55EA3400B2864C /* XMPPFileTransfer.m in Sources */,
-				7996364419DD56E600C40A7A /* LocalAPI.cpp in Sources */,
 				0C1529D71A55EA3400B2864C /* NSXMLElement+XEP_0335.m in Sources */,
 				0C1529D51A55EA3400B2864C /* XMPPMessage+XEP_0308.m in Sources */,
 				0C1529B71A55EA3400B2864C /* XMPPCapabilities.xcdatamodel in Sources */,
