@@ -28,7 +28,6 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     };
     for (auto & kv : summoners.object_items()) {
         Json cache = _service->getSummonerInfoCache(kv.first);
-        printf("cache : %s\nnew: %s", cache.dump().c_str(), kv.second.dump().c_str());
         if (cache.is_null() || cache["revisionDate"].number_value() < kv.second["revisionDate"].number_value()) {
             diff[kv.first] = kv.second;
         } else {
@@ -72,11 +71,9 @@ Json RiotService::GetProfileByIds::internalCall() {
     });
     Json summoners = future1.get();
     future2.get();
-    printf("ids : %s\n", summoners.dump().c_str());
     for (auto & kv : summoners.object_items()) {
         auto future = std::async(std::launch::async, [this, kv]() {
             Json::object info(kv.second.object_items());
-                printf("summoner info : %s\n", kv.second.dump().c_str());
             info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value());;
             _onRead(Json(info));
         });

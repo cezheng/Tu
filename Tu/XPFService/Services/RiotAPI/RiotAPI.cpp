@@ -103,7 +103,7 @@ RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _
 }
 
 std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params, bool appendApiKey) const {
-    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).getEndPointURL(_region, appendApiKey ? _apiKey : "", params);
+    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).generateURL(_region, appendApiKey ? _apiKey : "", params);
 }
 
 void RiotAPI::setAPIKey(const std::string &key) {
@@ -182,7 +182,6 @@ Json RiotAPI::getSummonerByIds(const Json & ids) {
         idss << ',';
     }
     std::string idsStr = idss.str();
-    printf("ids : %s\n", ids.dump().c_str());
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_IDS, {
         {"summonerIds", idsStr}

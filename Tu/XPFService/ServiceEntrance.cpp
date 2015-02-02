@@ -29,7 +29,6 @@ Json ServiceEntrance::call(const char * endpoint, Json && params) {
 }
 
 Json ServiceEntrance::readStream(const char * endpoint, Json && params, std::function<void(Json)> && onRead) {
-    printf("b4 fuk! %s\n", params.dump().c_str());
     return streamEndpointTable.at(endpoint)(std::move(params), std::move(onRead));
 }
 

@@ -14,7 +14,7 @@ const char * RiotAssetManager::profileImageUrlPattern = "/cdn/{version}/img/prof
 
 void RiotAssetManager::updateVersionInfo(Region region) {
     CurlRequest request;
-    std::string url = baseUrl + versionUrl.getEndPointURL(region);
+    std::string url = baseUrl + versionUrl.generateURL(region);
     auto res = request.request(url);
     std::string err;
     _versionInfo[region] = Json::parse(res.data, err);
@@ -27,7 +27,7 @@ std::string RiotAssetManager::getProfileIconVersion(Region region) const {
 
 std::string RiotAssetManager::getProfileIconUrl(long id, Region region) {
     URLPattern urlPattern(profileImageUrlPattern, getProfileIconVersion(region).c_str());
-    return baseUrl + urlPattern.getEndPointURL(region, "", {{"icon_id", std::to_string(id)}});
+    return baseUrl + urlPattern.generateURL(region, "", {{"icon_id", std::to_string(id)}});
 }
 
 std::string RiotAssetManager::getProfileIconPath(long id, Region region) {

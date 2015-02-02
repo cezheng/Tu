@@ -42,7 +42,7 @@ URLPattern::URLPattern(const char* pattern, const char* version) {
     }
 }
 
-std::string URLPattern::getEndPointURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
+std::string URLPattern::generateURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
     char buf[MAX_URL_LEN];
     std::size_t at = 0;
     int written = 0;

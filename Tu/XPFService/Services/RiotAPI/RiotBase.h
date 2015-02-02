@@ -21,7 +21,7 @@ struct URLPattern {
     };
     URLPattern(const char* pattern, const char* version = NULL);
     std::vector<URLElement> elements;
-    std::string getEndPointURL(Region region, const std::string& apiKey = "", const std::unordered_map<std::string, std::string> & params = {}) const;
+    std::string generateURL(Region region, const std::string& apiKey = "", const std::unordered_map<std::string, std::string> & params = {}) const;
 };
 
 NS_RIOT_END
