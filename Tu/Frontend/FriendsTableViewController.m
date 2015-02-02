@@ -24,9 +24,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @implementation FriendsTableViewController
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark View lifecycle
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,16 +55,30 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [super viewWillDisappear:animated];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"ChatSegue"]) {
+        ChatViewController* destinationViewController = [segue destinationViewController];
+        UITableViewCell* cell = (UITableViewCell*)sender;
+        XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForCell:cell]];
+        if (![destinationViewController.friendJID isEqualToString:user.jidStr]) {
+            destinationViewController.friendJID = user.jidStr;
+            destinationViewController.friendName = user.displayName;
+            [destinationViewController.messages removeAllObjects];
+        }
+    }
+}
+
+#pragma mark - NSObject
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"myDisplayName"]) {
         self.navigationItem.title = [object valueForKeyPath:keyPath];
     }
 }
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark NSFetchedResultsController
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSFetchedResultsController
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (fetchedResultsController == nil) {
@@ -173,9 +185,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark UITableViewCell helpers
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UITableViewCell helpers
 
 - (void)configurePhotoForCell:(FriendsTableViewCell *)cell user:(XMPPUserCoreDataStorageObject *)user {
     if (user.photo) {
@@ -183,9 +193,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark UITableView
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[[self fetchedResultsController] sections] count];
@@ -243,28 +251,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return cell;
 }
 
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"ChatSegue"]) {
-        ChatViewController* destinationViewController = [segue destinationViewController];
-        UITableViewCell* cell = (UITableViewCell*)sender;
-        XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[self.tableView indexPathForCell:cell]];
-        if (![destinationViewController.friendJID isEqualToString:user.jidStr]) {
-            destinationViewController.friendJID = user.jidStr;
-            destinationViewController.friendName = user.displayName;
-            [destinationViewController.messages removeAllObjects];
-        }
-    }
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark Actions
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - IBAction
 
 - (IBAction)login:(id)sender{
     [[XMPPDelegate sharedDelegate] connect];
 }
+
+#pragma mark - ChatMessageNotifyDelegate
 
 - (void) didReceivedChatMessage:(NSDictionary*)message {
     
