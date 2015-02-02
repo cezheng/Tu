@@ -236,7 +236,6 @@
 		7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7996364719DD572900C40A7A /* NewsFeedTableViewController.m */; };
 		7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7996365119DE2D2D00C40A7A /* TypeUtils.mm */; };
 		79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D3F19D9662000E00AB2 /* libcurl.a */; };
-		79B64D4219D9664400E00AB2 /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D4119D9664400E00AB2 /* libleveldb.a */; };
 		79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */; };
 		79BA07071A761FCF00480D33 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07061A761FCF00480D33 /* Service.cpp */; };
 		79BA07161A78A9F800480D33 /* json11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070F1A78A9F800480D33 /* json11.cpp */; };
@@ -247,6 +246,7 @@
 		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
 		79CF82551A7B344000376BBA /* KVS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82541A7B344000376BBA /* KVS.cpp */; };
 		79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */; };
+		79CF825A1A7F380200376BBA /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CF82591A7F380200376BBA /* libleveldb.a */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -682,7 +682,6 @@
 		7996365119DE2D2D00C40A7A /* TypeUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeUtils.mm; sourceTree = "<group>"; };
 		7996365319DE2D3A00C40A7A /* TypeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeUtils.h; sourceTree = "<group>"; };
 		79B64D3F19D9662000E00AB2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
-		79B64D4119D9664400E00AB2 /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/leveldb/libleveldb.a; sourceTree = "<group>"; };
 		79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XMPPUserCoreDataStorageObject+Riot.h"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.h"; sourceTree = "<group>"; };
 		79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XMPPUserCoreDataStorageObject+Riot.m"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.m"; sourceTree = "<group>"; };
 		79BA07061A761FCF00480D33 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
@@ -703,6 +702,7 @@
 		79CF82541A7B344000376BBA /* KVS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KVS.cpp; sourceTree = "<group>"; };
 		79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewCell.h; path = Frontend/NewsFeedTableViewCell.h; sourceTree = "<group>"; };
 		79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewCell.m; path = Frontend/NewsFeedTableViewCell.m; sourceTree = "<group>"; };
+		79CF82591A7F380200376BBA /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/libleveldb.a; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -728,6 +728,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79CF825A1A7F380200376BBA /* libleveldb.a in Frameworks */,
 				0C1529F71A56EFC600B2864C /* CoreData.framework in Frameworks */,
 				0C1529F21A55ECF200B2864C /* libresolv.dylib in Frameworks */,
 				0C1529F01A55ECE700B2864C /* libxml2.dylib in Frameworks */,
@@ -736,7 +737,6 @@
 				79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */,
 				79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */,
 				79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */,
-				79B64D4219D9664400E00AB2 /* libleveldb.a in Frameworks */,
 				79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1895,10 +1895,10 @@
 		79F9E8CF194FD0A70040F0FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79CF82591A7F380200376BBA /* libleveldb.a */,
 				0C1529F61A56EFC600B2864C /* CoreData.framework */,
 				0C1529F11A55ECF200B2864C /* libresolv.dylib */,
 				0C1529EF1A55ECE700B2864C /* libxml2.dylib */,
-				79B64D4119D9664400E00AB2 /* libleveldb.a */,
 				79B64D3F19D9662000E00AB2 /* libcurl.a */,
 				79FDA8DB1994C910009286C1 /* libz.dylib */,
 				79F9E8D0194FD0A70040F0FB /* Foundation.framework */,
