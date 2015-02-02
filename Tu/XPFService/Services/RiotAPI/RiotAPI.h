@@ -34,7 +34,7 @@ public:
     };
     
     static const char* apiVersion[];
-    static const std::unordered_map<RiotAPI::EndPoint, APIURL, std::hash<short>> endPointTable;
+    static const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> endPointTable;
     
     RiotAPI(const std::string & apiKey, Region region = NA);
     std::string makeBaseUrl(EndPoint endPoint) const;

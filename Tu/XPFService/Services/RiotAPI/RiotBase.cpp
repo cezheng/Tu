@@ -10,7 +10,7 @@ const std::unordered_map<const char*, Region> regionEnums {
     {"tr", TR}
 };
 
-APIURL::APIURL(const char* pattern, const char* version) {
+URLPattern::URLPattern(const char* pattern, const char* version) {
     char buf[TOKEN_BUFF_LEN];
     char * start = (char*)pattern;
     char * end = start;
@@ -41,7 +41,7 @@ APIURL::APIURL(const char* pattern, const char* version) {
     }
 }
 
-std::string APIURL::getEndPointURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
+std::string URLPattern::getEndPointURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
     char buf[MAX_URL_LEN];
     std::size_t at = 0;
     int written = 0;
@@ -60,7 +60,7 @@ std::string APIURL::getEndPointURL(Region region, const std::string& apiKey, con
                 break;
         }
         if (written < 0) {
-            std::runtime_error("sprintf failed in APIURL::getURL");
+            std::runtime_error("sprintf failed in URLPattern::getURL");
         } else {
             at += written;
         }

@@ -23,6 +23,7 @@ public:
     XPF_SERVICE_API_DECLARE(ChatHistoryService, Update, ({
         {"messages", Json::ARRAY}
     }));
+    //TODO switching accounts will show chat history not for this account, resolve it
 
 
 private:

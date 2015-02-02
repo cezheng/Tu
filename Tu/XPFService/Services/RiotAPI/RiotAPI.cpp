@@ -18,7 +18,7 @@ const char* RiotAPI::Stats::version = "v1.3";
 const char* RiotAPI::Summoner::version = "v1.4";
 const char* RiotAPI::Team::version = "v2.4";
 
-const std::unordered_map<RiotAPI::EndPoint, APIURL, std::hash<short>> RiotAPI::endPointTable = {
+const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAPI::endPointTable = {
     {CHAMPION_ALL, {
          "/api/lol/{region}/{version}/champion",
         Champion::version

@@ -11,7 +11,7 @@ class RiotAssetManager {
 public:
     typedef json11::Json VersionInfo;
     static const char * baseUrl;
-    static const APIURL versionUrl;
+    static const URLPattern versionUrl;
     static const char* profileImageUrlPattern;
     
     void updateVersionInfo(Region region = NA);
