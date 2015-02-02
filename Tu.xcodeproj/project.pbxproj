@@ -247,6 +247,7 @@
 		79CF82551A7B344000376BBA /* KVS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82541A7B344000376BBA /* KVS.cpp */; };
 		79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */; };
 		79CF825A1A7F380200376BBA /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CF82591A7F380200376BBA /* libleveldb.a */; };
+		79CF825D1A7F7A6D00376BBA /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF825B1A7F7A6D00376BBA /* Exception.cpp */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -703,6 +704,8 @@
 		79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewCell.h; path = Frontend/NewsFeedTableViewCell.h; sourceTree = "<group>"; };
 		79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewCell.m; path = Frontend/NewsFeedTableViewCell.m; sourceTree = "<group>"; };
 		79CF82591A7F380200376BBA /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/libleveldb.a; sourceTree = "<group>"; };
+		79CF825B1A7F7A6D00376BBA /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cpp; sourceTree = "<group>"; };
+		79CF825C1A7F7A6D00376BBA /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1866,6 +1869,8 @@
 				79BA07201A78BAE800480D33 /* FileUtil.h */,
 				79BA07211A78BAE800480D33 /* FileUtilIOS.h */,
 				79BA07221A78BAE800480D33 /* FileUtilIOS.mm */,
+				79CF825B1A7F7A6D00376BBA /* Exception.cpp */,
+				79CF825C1A7F7A6D00376BBA /* Exception.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2221,6 +2226,7 @@
 				79BA07161A78A9F800480D33 /* json11.cpp in Sources */,
 				0C1529841A55EA3400B2864C /* XMPPRosterMemoryStorage.m in Sources */,
 				0C1529661A55EA3400B2864C /* XMPPPlainAuthentication.m in Sources */,
+				79CF825D1A7F7A6D00376BBA /* Exception.cpp in Sources */,
 				0C1529931A55EA3400B2864C /* XMPPRoomHybridStorage.m in Sources */,
 				0C1529941A55EA3400B2864C /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				0C1529D91A55EA3400B2864C /* GCDMulticastDelegate.m in Sources */,

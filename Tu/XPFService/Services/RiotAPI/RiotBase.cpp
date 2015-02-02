@@ -1,4 +1,5 @@
 #include "RiotBase.h"
+#include "XPFService/Utils/Exception.h"
 
 NS_RIOT_BEGIN
 
@@ -54,16 +55,14 @@ std::string URLPattern::getEndPointURL(Region region, const std::string& apiKey,
                 written = sprintf(buf + at, "%s%s", regionStrings[region], e.value.c_str());
                 break;
             case URLElement::PARAMETER:
+                XPF::REQUIRE(params.find(e.value) != params.end(), "param " + e.value + " does not exist.");
                 written = sprintf(buf + at, "%s", params.at(e.value).c_str());
                 break;
             default:
                 break;
         }
-        if (written < 0) {
-            std::runtime_error("sprintf failed in URLPattern::getURL");
-        } else {
-            at += written;
-        }
+        XPF::REQUIRE(written >= 0, "sprintf failed.");
+        at += written;
     }
     if(!apiKey.empty()) {
         sprintf(buf + at, "?api_key=%s", apiKey.c_str());

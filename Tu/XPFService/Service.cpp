@@ -1,4 +1,5 @@
 #include "Service.h"
+
 NS_XPF_BEGIN
 Json Service::API::call() {
     this->requireParams();

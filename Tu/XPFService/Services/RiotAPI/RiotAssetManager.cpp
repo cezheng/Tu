@@ -1,5 +1,7 @@
 #include "RiotAssetManager.h"
 #include "XPFService/Utils/Downloader.h"
+#include "XPFService/Utils/Exception.h"
+
 using XPF::CurlRequest;
 using XPF::CurlResponse;
 using json11::Json;
@@ -19,10 +21,7 @@ void RiotAssetManager::updateVersionInfo(Region region) {
 }
 
 std::string RiotAssetManager::getProfileIconVersion(Region region) const {
-    if (_versionInfo.find(region) == _versionInfo.end()) {
-        throw std::runtime_error("riot version info not updated yet");
-    }
-    printf("versions %s\n", _versionInfo.at(region).dump().c_str());
+    XPF::REQUIRE(_versionInfo.find(region) != _versionInfo.end(), "riot version info not updated yet");
     return _versionInfo.at(region)["n"]["profileicon"].string_value();
 }
 

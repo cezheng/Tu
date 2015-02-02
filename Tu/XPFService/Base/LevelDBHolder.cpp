@@ -1,5 +1,6 @@
 #include "LevelDBHolder.h"
 #include "XPFService/Utils/FileUtil.h"
+#include "XPFService/Utils/Exception.h"
 
 NS_XPF_BEGIN
 
@@ -26,9 +27,7 @@ void LevelDBHolder::init() {
     options.create_if_missing = true;
     FileUtil::getInstance()->createDirectory(getLevelDBBasePath(), 0755);
     leveldb::Status status = leveldb::DB::Open(options, getLevelDBFullPath(), &_db);
-    if (!status.ok()) {
-        throw std::runtime_error(status.ToString());
-    }
+    REQUIRE(status.ok(), status.ToString());
 }
 
 std::string LevelDBHolder::getLevelDBFullPath() const {
