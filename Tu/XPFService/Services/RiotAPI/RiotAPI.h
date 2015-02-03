@@ -19,7 +19,8 @@ public:
         LEAGUE_BY_TEAM_IDS,
         LEAGUE_ENTRY_BY_TEAM_IDS,
         LEAGUE_CHALLENGER,
-        LOL_STATIC_DATA_CHAMPION,
+        LOL_STATIC_DATA_CHAMPION_LIST,
+        LOL_STATIC_DATA_CHAMPION_BY_ID,
         LOL_STATUS_SHARD_LIST,
         LOL_STATUS_SHARD_BY_REGION,
         MATCH,
@@ -65,6 +66,8 @@ public:
     public:
         static const char* version;
     };
+    Json getChampionList();
+    Json getChampionById(long championId);
     
     class LOLStatus {
     public:
