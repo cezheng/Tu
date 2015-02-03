@@ -1,3 +1,4 @@
+#import "Constants.h"
 #import "ChatViewController.h"
 #import "FriendsTableViewController.h"
 #import "FriendsTableViewCell.h"
@@ -203,15 +204,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     NSArray *sections = [[self fetchedResultsController] sections];
     
-    if (sectionIndex < [sections count])
-    {
+    if (sectionIndex < [sections count]) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
         
         int section = [sectionInfo.name intValue];
-        switch (section) {
-            case 0  : return @"Available";
-            case 1  : return @"Away";
-            default : return @"Offline";
+        if (section <= kRiotFriendSectionOffline) {
+            return kRiotFriendSectionTitles[section];
+        } else {
+            return kRiotFriendSectionTitles[kRiotFriendSectionOffline];
         }
     }
     return @"";
