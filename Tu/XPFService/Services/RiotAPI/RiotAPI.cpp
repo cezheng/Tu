@@ -53,19 +53,25 @@ const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAP
     }},
     {LOL_STATIC_DATA_CHAMPION_LIST, {
         "/api/lol/static-data/{region}/{version}/champion",
-        LOLStaticData::version
+        LOLStaticData::version,
+        {"champData"}
     }},
     {LOL_STATIC_DATA_CHAMPION_BY_ID, {
         "/api/lol/static-data/{region}/{version}/champion/{id}",
-        LOLStaticData::version
+        LOLStaticData::version,
+        {"champData"}
     }},
     {LOL_STATUS_SHARD_LIST, {
         "/shards",
-        LOLStatus::version
+        LOLStatus::version,
+        {},
+        {}
     }},
     {LOL_STATUS_SHARD_BY_REGION, {
         "/shards/{region}",
-        LOLStatus::version
+        LOLStatus::version,
+        {},
+        {}
     }},
     {SUMMONER_BY_NAMES, {
         "/api/lol/{region}/{version}/summoner/by-name/{summonerNames}",
@@ -106,8 +112,12 @@ std::string RiotAPI::makeBaseUrl(RiotAPI::EndPoint endpoint) const {
 RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _region(region) {
 }
 
-std::string RiotAPI::getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params, bool appendApiKey) const {
-    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).generateURL(_region, appendApiKey ? _apiKey : "", params);
+std::string RiotAPI::getURL(EndPoint endPoint, URLPattern::Param && params, URLPattern::Param && queryParams) const {
+    auto pattern = endPointTable.at(endPoint);
+    if (pattern.requires("api_key")) {
+        queryParams["api_key"] = _apiKey;
+    }
+    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).generateURL(_region, std::move(params), std::move(queryParams));
 }
 
 void RiotAPI::setAPIKey(const std::string &key) {
@@ -167,7 +177,7 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
     }
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {
-         {"summonerNames", namesStr}
+        {"summonerNames", namesStr}
     }));
     std::string err;
     return Json::parse(res.data, err);
@@ -194,14 +204,14 @@ Json RiotAPI::getSummonerByIds(const Json & ids) {
     return Json::parse(res.data, err);
 }
 
-Json RiotAPI::getChampionList() {
+Json RiotAPI::getChampionList(const std::string & champData) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_LIST));
     std::string err;
     return Json::parse(res.data, err);
 }
 
-Json RiotAPI::getChampionById(long championId) {
+Json RiotAPI::getChampionById(long championId, const std::string & champData) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_BY_ID, {
         {"id", std::to_string(championId)}
@@ -210,11 +220,11 @@ Json RiotAPI::getChampionById(long championId) {
     return Json::parse(res.data, err);
 }
 
-Json RiotAPI::getShardByRegion(std::string region) {
+Json RiotAPI::getShardByRegion(const std::string & region) {
     CurlRequest request;
     auto res = request.request(getURL(LOL_STATUS_SHARD_BY_REGION, {
         {"region", region}
-    }, false));
+    }));
     std::string err;
     return Json::parse(res.data, err);
 }

@@ -8,7 +8,7 @@ using json11::Json;
 NS_RIOT_BEGIN
 
 const char * RiotAssetManager::baseUrl = "http://ddragon.leagueoflegends.com";
-const URLPattern RiotAssetManager::versionUrl = {"/realms/{region}.json"};
+const URLPattern RiotAssetManager::versionUrl = {"/realms/{region}.json", NULL, {}, {}};
 const char * RiotAssetManager::profileImageUrlPattern = "/cdn/{version}/img/profileicon/{icon_id}.png";
 
 
@@ -26,8 +26,8 @@ std::string RiotAssetManager::getProfileIconVersion(Region region) const {
 }
 
 std::string RiotAssetManager::getProfileIconUrl(long id, Region region) {
-    URLPattern urlPattern(profileImageUrlPattern, getProfileIconVersion(region).c_str());
-    return baseUrl + urlPattern.generateURL(region, "", {{"icon_id", std::to_string(id)}});
+    URLPattern urlPattern(profileImageUrlPattern, getProfileIconVersion(region).c_str(), {}, {});
+    return baseUrl + urlPattern.generateURL(region, {{"icon_id", std::to_string(id)}});
 }
 
 std::string RiotAssetManager::getProfileIconPath(long id, Region region) {

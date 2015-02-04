@@ -39,7 +39,7 @@ public:
     
     RiotAPI(const std::string & apiKey, Region region = NA);
     std::string makeBaseUrl(EndPoint endPoint) const;
-    std::string getURL(EndPoint endPoint, const std::unordered_map<std::string, std::string> & params = {}, bool appendApiKey = true) const;
+    std::string getURL(EndPoint endPoint, URLPattern::Param && params = {}, URLPattern::Param && queryParams = {}) const;
     void setAPIKey(const std::string &key);
     void setRegion(Region region);
     
@@ -66,14 +66,14 @@ public:
     public:
         static const char* version;
     };
-    Json getChampionList();
-    Json getChampionById(long championId);
+    Json getChampionList(const std::string & champData = "");
+    Json getChampionById(long championId, const std::string & champData = "");
     
     class LOLStatus {
     public:
         static const char* version;
     };
-    Json getShardByRegion(std::string region);
+    Json getShardByRegion(const std::string & region);
     
     class Match {
     public:

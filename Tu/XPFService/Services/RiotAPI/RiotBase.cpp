@@ -11,7 +11,7 @@ const std::unordered_map<const char*, Region> regionEnums {
     {"tr", TR}
 };
 
-URLPattern::URLPattern(const char* pattern, const char* version) {
+URLPattern::URLPattern(const char* pattern, const char* version, const std::vector<std::string> & optionalParamKeys, const std::vector<std::string> & requiredParamKeys) : optionalParamKeys(optionalParamKeys), requiredParamKeys(requiredParamKeys) {
     char buf[TOKEN_BUFF_LEN];
     char * start = (char*)pattern;
     char * end = start;
@@ -42,7 +42,7 @@ URLPattern::URLPattern(const char* pattern, const char* version) {
     }
 }
 
-std::string URLPattern::generateURL(Region region, const std::string& apiKey, const std::unordered_map<std::string, std::string> & params) const {
+std::string URLPattern::generateURL(Region region, const Param & params, const Param & queryParams) const {
     char buf[MAX_URL_LEN];
     std::size_t at = 0;
     int written = 0;
@@ -64,10 +64,24 @@ std::string URLPattern::generateURL(Region region, const std::string& apiKey, co
         XPF::REQUIRE(written >= 0, "sprintf failed.");
         at += written;
     }
-    if(!apiKey.empty()) {
-        sprintf(buf + at, "?api_key=%s", apiKey.c_str());
+    char delimiter = '?';
+    for (auto & key : requiredParamKeys) {
+        XPF::REQUIRE(queryParams.find(key) != queryParams.end(), "required param " + key + " does not exist");
+        at += sprintf(buf + at, "%c%s=%s", delimiter, key.c_str(), queryParams.at(key).c_str());
+        delimiter = '&';
+    }
+    for (auto & key : optionalParamKeys) {
+        if (queryParams.find(key) == queryParams.end()) {
+            continue;
+        }
+        at += sprintf(buf + at, "%c%s=%s", delimiter, key.c_str(), queryParams.at(key).c_str());
+        delimiter = '&';
     }
     return buf;
+}
+
+bool URLPattern::requires(const std::string &key) const {
+    return std::find(requiredParamKeys.begin(), requiredParamKeys.end(), key) != requiredParamKeys.end();
 }
 
 NS_RIOT_END
