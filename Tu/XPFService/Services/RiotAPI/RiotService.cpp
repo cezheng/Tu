@@ -77,7 +77,6 @@ Json RiotService::GetProfileByIds::internalCall() {
             info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value());;
             _onRead(Json(info));
         });
-        future.get();
     }
     return Json();
 }
