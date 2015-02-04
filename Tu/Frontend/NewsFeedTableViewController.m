@@ -55,7 +55,10 @@
     }
     NSDictionary* match = recentMatches[indexPath.row];
     NSDictionary* stats = match[@"stats"];
-    cell.contentLabel.text = [NSString stringWithFormat:@"%@ went %@/%@/%@ in a %@ match.", match[@"name"], stats[@"championsKilled"], stats[@"numDeaths"] ? stats[@"numDeaths"] : @0, stats[@"assists"], match[@"subType"]];
+    NSNumber* kills = stats[@"championsKilled"] ? stats[@"championsKilled"] : 0;
+    NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : 0;
+    NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : 0;
+    cell.contentLabel.text = [NSString stringWithFormat:@"%@ went %@/%@/%@ in a %@ match.", match[@"name"], kills, deaths, assists, match[@"subType"]];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSDate* date = [NSDate dateWithTimeIntervalSince1970:[recentMatches[indexPath.row][@"createDate"] longLongValue] / 1000];
