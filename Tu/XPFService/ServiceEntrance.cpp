@@ -6,18 +6,18 @@
 NS_XPF_BEGIN
 
 const std::unordered_map<const char *, std::function<Json(Json && params)>> ServiceEntrance::serviceEndpointTable {
-    {"ChatHistory/getRecentN", XPF_API_VALUE(ChatHistoryService, GetRecentN)},
-    {"ChatHistory/add", XPF_API_VALUE(ChatHistoryService, Add)},
-    {"ChatHistory/update", XPF_API_VALUE(ChatHistoryService, Update)},
-    {"Download/download", XPF_API_VALUE(DownloadService, Download)},
-    {"Download/getDownloaded", XPF_API_VALUE(DownloadService, GetDownloaded)},
-    {"RiotAPI/summonerByNames", XPF_API_VALUE(RiotService, GetSummonerByNames)},
-    {"RiotAPI/serviceStatusByRegion", XPF_API_VALUE(RiotService, GetServiceStatusByRegion)}
+    {"ChatHistory/getRecentN", XPF_API_CALL(ChatHistoryService, GetRecentN)},
+    {"ChatHistory/add", XPF_API_CALL(ChatHistoryService, Add)},
+    {"ChatHistory/update", XPF_API_CALL(ChatHistoryService, Update)},
+    {"Download/download", XPF_API_CALL(DownloadService, Download)},
+    {"Download/getDownloaded", XPF_API_CALL(DownloadService, GetDownloaded)},
+    {"RiotAPI/summonerByNames", XPF_API_CALL(RiotService, GetSummonerByNames)},
+    {"RiotAPI/serviceStatusByRegion", XPF_API_CALL(RiotService, GetServiceStatusByRegion)}
 };
 
 const std::unordered_map<const char *, std::function<Json(Json&&, std::function<void(Json)>)>> ServiceEntrance::streamEndpointTable {
-    {"RiotService/matchFeedByIds", XPF_STREAM_API_VALUE(RiotService, GetMatchFeedByIds)},
-    {"RiotService/profileByIds", XPF_STREAM_API_VALUE(RiotService, GetProfileByIds)}
+    {"RiotService/matchFeedByIds", XPF_STREAM_API_CALL(RiotService, GetMatchFeedByIds)},
+    {"RiotService/profileByIds", XPF_STREAM_API_CALL(RiotService, GetProfileByIds)}
 };
 
 Json ServiceEntrance::call(const char * endpoint, Json && params) {

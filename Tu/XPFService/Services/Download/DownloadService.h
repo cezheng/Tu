@@ -8,11 +8,11 @@ class DownloadService : public Service, public Singleton<DownloadService> {
 public:
     virtual ~DownloadService() {}
     //Service API
-    XPF_SERVICE_API_DECLARE(DownloadService, Download, ({
+    XPF_API_DECLARE(DownloadService, Download, ({
         {"url", Json::STRING},
         {"key", Json::STRING}
     }));
-    XPF_SERVICE_API_DECLARE(DownloadService, GetDownloaded, ({}));
+    XPF_API_DECLARE(DownloadService, GetDownloaded, ({}));
 };
 
 NS_XPF_END

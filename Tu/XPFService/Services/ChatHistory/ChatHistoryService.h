@@ -12,15 +12,15 @@ class ChatHistoryService : public Service, public Singleton<ChatHistoryService> 
 public:
     virtual ~ChatHistoryService();
     //APIs
-    XPF_SERVICE_API_DECLARE(ChatHistoryService, GetRecentN, ({
+    XPF_API_DECLARE(ChatHistoryService, GetRecentN, ({
         {"withWhom", Json::STRING},
         {"amount", Json::NUMBER}
     }));
-    XPF_SERVICE_API_DECLARE(ChatHistoryService, Add, ({
+    XPF_API_DECLARE(ChatHistoryService, Add, ({
         {"withWhom", Json::STRING}
         //{"messages", Json::ARRAY}
     }));
-    XPF_SERVICE_API_DECLARE(ChatHistoryService, Update, ({
+    XPF_API_DECLARE(ChatHistoryService, Update, ({
         {"messages", Json::ARRAY}
     }));
     //TODO switching accounts will show chat history not for this account, resolve it
