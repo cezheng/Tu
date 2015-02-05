@@ -5,6 +5,7 @@
 NS_XPF_BEGIN
 
 LevelDBHolder& KVS::operator[](const std::string & nameSpace) {
+    std::lock_guard<std::mutex> lock(_mutex);
     if (_nameSpaces.find(nameSpace) == _nameSpaces.end() || _nameSpaces[nameSpace] == nullptr) {
         _nameSpaces[nameSpace] = new KVSHolder(nameSpace);
         REQUIRE(_nameSpaces[nameSpace] != nullptr, "create KVSHolder instance failed.");

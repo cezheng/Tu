@@ -23,6 +23,7 @@ protected:
     };
 private:
     std::unordered_map<std::string, LevelDBHolder*> _nameSpaces;
+    std::mutex _mutex;
 };
 
 NS_XPF_END
