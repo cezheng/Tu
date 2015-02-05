@@ -19,6 +19,7 @@ const char* RiotAPI::Stats::version = "v1.3";
 const char* RiotAPI::Summoner::version = "v1.4";
 const char* RiotAPI::Team::version = "v2.4";
 
+//endPointTable: Index of URLPattern of RiotAPI.
 const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAPI::endPointTable = {
     {CHAMPION_ALL, {
          "/api/lol/{region}/{version}/champion",
@@ -96,6 +97,7 @@ const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAP
     }}
 };
 
+// Return RiotAPI base url address
 std::string RiotAPI::makeBaseUrl(RiotAPI::EndPoint endpoint) const {
     char buf[MAX_URL_LEN];
     switch (endpoint) {
@@ -110,9 +112,11 @@ std::string RiotAPI::makeBaseUrl(RiotAPI::EndPoint endpoint) const {
     return buf;
 }
 
+// Construct
 RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _region(region) {
 }
 
+// Return RiotAPI url address
 std::string RiotAPI::getURL(EndPoint endPoint, URLPattern::Param && params, const URLPattern::Param & queryParams) const {
     auto pattern = endPointTable.at(endPoint);
     URLPattern::Param forwardParams(queryParams);

@@ -11,6 +11,7 @@ NS_RIOT_BEGIN
 
 class RiotAPI {
 public:
+    // EndPoint: Definition of RiotAPI Identifier
     enum EndPoint : unsigned char {
         CHAMPION_ALL,
         CHAMPION_BY_ID,
