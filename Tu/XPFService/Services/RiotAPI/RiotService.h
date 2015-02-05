@@ -9,32 +9,25 @@ NS_XPF_BEGIN
 
 class RiotService : public Service, public Singleton<RiotService> {
 public:
-    RiotService(std::string apiKey, Riot::Region region = Riot::Region::NA);
-    XPF_SERVICE_API_DECLARE(RiotService, GetSummonerByNames, ({
+    RiotService(Riot::Region region = Riot::Region::NA);
+    XPF_API_DECLARE(RiotService, GetSummonerByNames, ({
         {"names", Json::ARRAY}
     }));
-    XPF_SERVICE_API_DECLARE(RiotService, GetServiceStatusByRegion, ({
-        {"region", Json::STRING}
-    }));
-    XPF_SERVICE_API_DECLARE(RiotService, Update, ({
+    XPF_API_DECLARE(RiotService, GetServiceStatusByRegion, ({
         {"region", Json::STRING}
     }));
 
-    XPF_SERVICE_STREAM_API_DECLARE(RiotService, GetMatchFeedByIds, ({
+    XPF_STREAM_API_DECLARE(RiotService, GetMatchFeedByIds, ({
         {"ids", Json::ARRAY}
     }));
     
-    XPF_SERVICE_STREAM_API_DECLARE(RiotService, GetProfileByIds, ({
+    XPF_STREAM_API_DECLARE(RiotService, GetProfileByIds, ({
         {"ids", Json::ARRAY}
     }));
     
     void setRegion(Riot::Region region);
-    void setApiKey(std::string apiKey);
-    static RiotService* constructInstance();
 protected:
-    std::string _apiKey;
     Riot::Region _region;
-    Riot::RiotAPI _api;
     Riot::RiotAssetManager _assetManager;
     bool saveSummonerInfo(const std::string & summonerId, const Json & res);
     Json getSummonerInfoCache(const std::string & summonerId);

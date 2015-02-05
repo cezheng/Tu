@@ -14,7 +14,7 @@
 
 
 -(void)viewDidLoad {
-    self.tableView.estimatedRowHeight = 100.0;
+    self.tableView.estimatedRowHeight = 135.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/matchFeedByIds"
                                                 params:@{
@@ -51,19 +51,45 @@
     if (cell == nil) {
         cell = [[NewsFeedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:CellIdentifier];
-;
     }
-    NSDictionary* match = recentMatches[indexPath.row];
-    NSDictionary* stats = match[@"stats"];
-    NSNumber* kills = stats[@"championsKilled"] ? stats[@"championsKilled"] : 0;
-    NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : 0;
-    NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : 0;
-    cell.contentLabel.text = [NSString stringWithFormat:@"%@ went %@/%@/%@ in a %@ match.", match[@"name"], kills, deaths, assists, match[@"subType"]];
+    
+    NSArray* matchGroup = recentMatches[indexPath.row];
+    NSDictionary* firstItemInGroup = matchGroup[0];
+    NSDictionary* gameStats = firstItemInGroup[@"stats"];
+    
+    NSMutableString* summary = [[NSMutableString alloc] init];
+    NSUInteger index = 0;
+    for (NSDictionary* match in matchGroup) {
+        if (index++ != 0) {
+            [summary appendString:@", "];
+        }
+        [summary appendString:match[@"name"]];
+    }
+    [summary appendString:[NSString stringWithFormat:@" %@ a %@ game", [gameStats[@"win"] integerValue] ? @"won" : @"lost", firstItemInGroup[@"subType"]]];
+    if (index > 1) {
+        [summary appendString:@" together"];
+    }
+    [summary appendString:@"."];
+    cell.summaryLabel.text = summary;
+    
+    NSMutableString* content = [[NSMutableString alloc] init];
+    for (NSDictionary* match in matchGroup) {
+        NSDictionary* stats = match[@"stats"];
+        NSDictionary* champData = match[@"champData"];
+        NSNumber* kills = stats[@"championsKilled"] ? stats[@"championsKilled"] : @0;
+        NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : @0;
+        NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : @0;
+        NSString* line = [NSString stringWithFormat:@"%@ went %@/%@/%@ as %@\n", match[@"name"], kills, deaths, assists, champData[@"name"]];
+        [content appendString:line];
+    }
+    cell.contentLabel.text = content;
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[recentMatches[indexPath.row][@"createDate"] longLongValue] / 1000];
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[firstItemInGroup[@"createDate"] longLongValue] / 1000];
     cell.datetimeLabel.text = [dateFormatter stringFromDate:date];
-    NSLog(@"%@", recentMatches[indexPath.row]);
+    NSLog(@"well %@", recentMatches[indexPath.row]);
+    
     return cell;
 }
 

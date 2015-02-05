@@ -5,97 +5,131 @@
 #include "XPFService/Utils/KVS.h"
 #include <future>
 
+using Riot::RiotAPI;
+using Riot::RiotAPIHolder;
+
 NS_XPF_BEGIN
 
 static std::string summonerCacheNameSpace = "summonerCache";
 
 Json RiotService::GetSummonerByNames::internalCall() {
-    return _service->_api.getSummonerByNames(_params["names"]);
+    RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
+    return api->getSummonerByNames(_params["names"]);
 }
 
 Json RiotService::GetServiceStatusByRegion::internalCall() {
-    Json status = _service->_api.getShardByRegion(_params["region"].string_value());
+    RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
+    Json status = api->getShardByRegion(_params["region"].string_value());
     return Json(status);
 }
 
 Json RiotService::GetMatchFeedByIds::internalCall() {
-    Json summoners = _service->_api.getSummonerByIds(_params["ids"]);
+    // internal methods
+    auto sortByDateCmp = [](const Json & a, const Json & b) -> bool {
+        return a[0]["createDate"].number_value() > b[0]["createDate"].number_value();
+    };
+    auto insertMatchesToGroups = [](std::map<int, Json::array> & matchGroups, const Json::array & toInsert) {
+        for (auto & match : toInsert) {
+            matchGroups[match["gameId"].int_value()].push_back(match);
+        }
+    };
+    
+    auto matchGroupsToArray = [&sortByDateCmp](const std::map<int, Json::array> & matchGroups) -> Json::array {
+        Json::array ret;
+        for (auto rit = matchGroups.rbegin(); rit != matchGroups.rend(); rit++) {
+            ret.push_back(rit->second);
+        }
+        std::sort(ret.begin(), ret.end(), sortByDateCmp);
+        return ret;
+    };
+    
+    //business logic
+    
+    RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
+    auto future1 = std::async(std::launch::async, [this, api]() {
+        return api->getSummonerByIds(_params["ids"]);
+    });
+    auto future2 = std::async(std::launch::async, [this]() {
+        _service->_assetManager.updateChampionImageInfoList(_service->_region);
+    });
+    Json summoners = future1.get();
+    future2.get();
+    
     Json::object diff;
     Json::array matches;
+    std::map<int, Json::array> matchGroups;
     std::string err;
-    auto cmp = [](const Json & a, const Json & b) {
-        return a["createDate"].number_value() > b["createDate"].number_value();
-    };
+
     for (auto & kv : summoners.object_items()) {
         Json cache = _service->getSummonerInfoCache(kv.first);
         if (cache.is_null() || cache["revisionDate"].number_value() < kv.second["revisionDate"].number_value()) {
             diff[kv.first] = kv.second;
         } else {
-            matches.insert(matches.end(), cache["games"].array_items().begin(), cache["games"].array_items().end());
+            insertMatchesToGroups(matchGroups, cache["games"].array_items());
         }
     }
-    std::sort(matches.begin(), matches.end(), cmp);
-    if (!matches.empty()) {
-        _onRead(matches);
+    if (!matchGroups.empty()) {
+        _onRead(matchGroupsToArray(matchGroups));
     }
+    std::vector<std::future<void>> futures;
     for (auto & kv : diff) {
-        auto future = std::async(std::launch::async, [this, kv, cmp, &matches]() {
-            Json newInfo = _service->_api.getRecentGamesBySummonerId(kv.first);
+        futures.push_back(std::async(std::launch::async, [&]() {
+            Json newInfo = api->getRecentGamesBySummonerId(kv.first);
             if (!newInfo.is_null()) {
                 Json::array modifiedMatches;
                 for (auto & match : newInfo["games"].array_items()) {
                     auto item = match.object_items();
                     item["summonerId"] = kv.first;
                     item["name"] = kv.second["name"].string_value();
+                    item["champData"] = _service->_assetManager.getChampionImageInfo(item["championId"].int_value());
                     modifiedMatches.push_back(item);
                 }
-                matches.insert(matches.end(), modifiedMatches.begin(), modifiedMatches.end());
-                sort(matches.begin(), matches.end(), cmp);
+                insertMatchesToGroups(matchGroups, modifiedMatches);
                 
                 Json::object updateObject(kv.second.object_items());
                 updateObject["games"] = modifiedMatches;
                 _service->saveSummonerInfo(kv.first, Json(updateObject));
             }
-            _onRead(matches);
-        });
+            _onRead(matchGroupsToArray(matchGroups));
+        }));
     }
-    return Json(matches);
+    for (auto & future : futures) {
+        future.get();
+    }
+    return Json(matchGroupsToArray(matchGroups));
 }
 
 Json RiotService::GetProfileByIds::internalCall() {
     auto future1 = std::async(std::launch::async, [this]() {
-        return _service->_api.getSummonerByIds(_params["ids"]);
+        RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
+        return api->getSummonerByIds(_params["ids"]);
     });
     auto future2 = std::async(std::launch::async, [this]() {
-        _service->_assetManager.updateVersionInfo();
+        _service->_assetManager.updateVersionInfo(_service->_region);
     });
     Json summoners = future1.get();
     future2.get();
+    std::vector<std::future<void>> futures;
     for (auto & kv : summoners.object_items()) {
-        auto future = std::async(std::launch::async, [this, kv]() {
+        futures.push_back(std::async(std::launch::async, [this, kv]() {
             Json::object info(kv.second.object_items());
-            info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value());;
+            info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value(), _service->_region);;
             _onRead(Json(info));
-        });
+        }));
+    }
+    for (auto & future : futures) {
+        future.get();
     }
     return Json();
 }
 
 //----
 
-RiotService::RiotService(std::string apiKey, Riot::Region region) : _apiKey(apiKey), _region(region), _api(apiKey, region) {
-}
-
-RiotService* RiotService::constructInstance() {
-    return new RiotService("a6ef5db9-1e5f-4bc1-aad0-0cdeb42821e7");
+RiotService::RiotService(Riot::Region region) : _region(region) {
 }
 
 void RiotService::setRegion(Riot::Region region) {
     _region = region;
-}
-
-void RiotService::setApiKey(std::string apiKey) {
-    _apiKey = apiKey;
 }
 
 bool RiotService::saveSummonerInfo(const std::string & summonerId, const Json & res) {
