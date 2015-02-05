@@ -1,5 +1,6 @@
 #include "RiotAPI.h"
 #include "XPFService/Utils/CurlRequest.h"
+#include "XPFService/Utils/Exception.h"
 #include <iostream>
 
 using XPF::CurlRequest;
@@ -54,12 +55,12 @@ const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAP
     {LOL_STATIC_DATA_CHAMPION_LIST, {
         "/api/lol/static-data/{region}/{version}/champion",
         LOLStaticData::version,
-        {"champData"}
+        {"locale", "version", "dataById", "champData"}
     }},
     {LOL_STATIC_DATA_CHAMPION_BY_ID, {
         "/api/lol/static-data/{region}/{version}/champion/{id}",
         LOLStaticData::version,
-        {"champData"}
+        {"locale", "version", "dataById", "champData"}
     }},
     {LOL_STATUS_SHARD_LIST, {
         "/shards",
@@ -112,12 +113,13 @@ std::string RiotAPI::makeBaseUrl(RiotAPI::EndPoint endpoint) const {
 RiotAPI::RiotAPI(const std::string & apiKey, Region region) : _apiKey(apiKey), _region(region) {
 }
 
-std::string RiotAPI::getURL(EndPoint endPoint, URLPattern::Param && params, URLPattern::Param && queryParams) const {
+std::string RiotAPI::getURL(EndPoint endPoint, URLPattern::Param && params, const URLPattern::Param & queryParams) const {
     auto pattern = endPointTable.at(endPoint);
+    URLPattern::Param forwardParams(queryParams);
     if (pattern.requires("api_key")) {
-        queryParams["api_key"] = _apiKey;
+        forwardParams["api_key"] = _apiKey;
     }
-    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).generateURL(_region, std::move(params), std::move(queryParams));
+    return makeBaseUrl(endPoint) + endPointTable.at(endPoint).generateURL(_region, std::move(params), std::move(forwardParams));
 }
 
 void RiotAPI::setAPIKey(const std::string &key) {
@@ -204,14 +206,14 @@ Json RiotAPI::getSummonerByIds(const Json & ids) {
     return Json::parse(res.data, err);
 }
 
-Json RiotAPI::getChampionList(const std::string & champData) {
+Json RiotAPI::getChampionList(const URLPattern::Param & optionalParams) {
     CurlRequest request;
-    CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_LIST));
+    CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_LIST, {}, optionalParams));
     std::string err;
     return Json::parse(res.data, err);
 }
 
-Json RiotAPI::getChampionById(long championId, const std::string & champData) {
+Json RiotAPI::getChampionById(long championId, const URLPattern::Param & optionalParams) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_BY_ID, {
         {"id", std::to_string(championId)}
@@ -227,6 +229,22 @@ Json RiotAPI::getShardByRegion(const std::string & region) {
     }));
     std::string err;
     return Json::parse(res.data, err);
+}
+
+//API Holder
+RiotAPIHolder::~RiotAPIHolder() {
+    for (auto & kv : _apis) {
+        delete kv.second;
+    }
+}
+
+RiotAPI* RiotAPIHolder::getAPIByRegion(Riot::Region region) {
+    if (_apis.find(region) == _apis.end()) {
+        RiotAPI* newInstance = new RiotAPI("a6ef5db9-1e5f-4bc1-aad0-0cdeb42821e7");
+        XPF::REQUIRE(newInstance != nullptr, "RiotAPI allocation failed");
+        _apis[region] = newInstance;
+    }
+    return _apis[region];
 }
 
 NS_RIOT_END

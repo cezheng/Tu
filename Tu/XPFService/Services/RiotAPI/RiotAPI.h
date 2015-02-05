@@ -1,6 +1,7 @@
 #ifndef __Tu__RiotAPI__
 #define __Tu__RiotAPI__
 
+#include "XPFService/Base/Singleton.h"
 #include <unordered_set>
 #include "RiotBase.h"
 #include "json11/json11.hpp"
@@ -39,7 +40,7 @@ public:
     
     RiotAPI(const std::string & apiKey, Region region = NA);
     std::string makeBaseUrl(EndPoint endPoint) const;
-    std::string getURL(EndPoint endPoint, URLPattern::Param && params = {}, URLPattern::Param && queryParams = {}) const;
+    std::string getURL(EndPoint endPoint, URLPattern::Param && params = {}, const URLPattern::Param & queryParams = {}) const;
     void setAPIKey(const std::string &key);
     void setRegion(Region region);
     
@@ -66,8 +67,8 @@ public:
     public:
         static const char* version;
     };
-    Json getChampionList(const std::string & champData = "");
-    Json getChampionById(long championId, const std::string & champData = "");
+    Json getChampionList(const URLPattern::Param & optionalParams = {});
+    Json getChampionById(long championId, const URLPattern::Param & optionalParams = {});
     
     class LOLStatus {
     public:
@@ -104,6 +105,15 @@ public:
 private:
     std::string _apiKey;
     Region _region;
+};
+
+
+class RiotAPIHolder : public XPF::Singleton<RiotAPIHolder> {
+public:
+    virtual ~RiotAPIHolder();
+    RiotAPI* getAPIByRegion(Region region);
+private:
+    std::unordered_map<Region, RiotAPI*, std::hash<unsigned char>> _apis;
 };
 
 NS_RIOT_END
