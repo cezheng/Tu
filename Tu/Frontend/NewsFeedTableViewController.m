@@ -2,6 +2,7 @@
 #import "NewsFeedTableViewCell.h"
 #import "../Bridge/LocalServiceObjc.h"
 #import "XPFService.h"
+#import "UIImage+RiotCrop.h"
 
 @interface NewsFeedTableViewController ()
 @property (strong, nonatomic) NSArray* recentMatches;
@@ -34,62 +35,56 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return recentMatches.count;
 }
 
-
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return recentMatches.count;
-    }
-    return 0;
+    return [recentMatches[section] count] + 2;
 }
 
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString* CellIdentifier = @"recentMatchCell";
-    NewsFeedTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"recentMatchCell"];
-    if (cell == nil) {
-        cell = [[NewsFeedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                            reuseIdentifier:CellIdentifier];
-    }
-    
-    NSArray* matchGroup = recentMatches[indexPath.row];
-    NSDictionary* firstItemInGroup = matchGroup[0];
-    NSDictionary* gameStats = firstItemInGroup[@"stats"];
-    
-    NSMutableString* summary = [[NSMutableString alloc] init];
-    NSUInteger index = 0;
-    for (NSDictionary* match in matchGroup) {
-        if (index++ != 0) {
-            [summary appendString:@", "];
+    NSArray* matchGroup = recentMatches[indexPath.section];
+    NSDictionary* gameStats = matchGroup[0][@"stats"];
+    NewsFeedTableViewCell* cell = nil;
+    if (indexPath.row == 0) {
+        NSString *cellIdentifier = @"matchSummaryCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        NSMutableString* summary = [[NSMutableString alloc] init];
+        NSUInteger index = 0;
+        for (NSDictionary* match in matchGroup) {
+            if (index++ != 0) {
+                [summary appendString:@", "];
+            }
+            [summary appendString:match[@"name"]];
         }
-        [summary appendString:match[@"name"]];
-    }
-    [summary appendString:[NSString stringWithFormat:@" %@ a %@ game", [gameStats[@"win"] integerValue] ? @"won" : @"lost", firstItemInGroup[@"subType"]]];
-    if (index > 1) {
-        [summary appendString:@" together"];
-    }
-    [summary appendString:@"."];
-    cell.summaryLabel.text = summary;
-    
-    NSMutableString* content = [[NSMutableString alloc] init];
-    for (NSDictionary* match in matchGroup) {
+        [summary appendString:[NSString stringWithFormat:@" %@ a %@ game", [gameStats[@"win"] integerValue] ? @"won" : @"lost", matchGroup[0][@"subType"]]];
+        if (index > 1) {
+            [summary appendString:@" together"];
+        }
+        [summary appendString:@"."];
+        cell.summaryLabel.text = summary;
+    } else if(indexPath.row <= matchGroup.count) {
+        NSString* cellIdentifier = @"playerMatchDataCell";
+        NSDictionary* match = matchGroup[indexPath.row - 1];
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
         NSDictionary* stats = match[@"stats"];
         NSDictionary* champData = match[@"champData"];
         NSNumber* kills = stats[@"championsKilled"] ? stats[@"championsKilled"] : @0;
         NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : @0;
         NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : @0;
-        NSString* line = [NSString stringWithFormat:@"%@ went %@/%@/%@ as %@\n", match[@"name"], kills, deaths, assists, champData[@"name"]];
-        [content appendString:line];
+        NSString* content = [NSString stringWithFormat:@"%@ %@/%@/%@", match[@"name"], kills, deaths, assists];
+        NSLog(@"champData : %@", champData);
+        cell.contentLabel.text = content;
+        cell.championImage.image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+    } else {
+        NSString* cellIdentifier = @"matchDatetimeCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSDate* date = [NSDate dateWithTimeIntervalSince1970:[matchGroup[0][@"createDate"] longLongValue] / 1000];
+        cell.datetimeLabel.text = [dateFormatter stringFromDate:date];
     }
-    cell.contentLabel.text = content;
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[firstItemInGroup[@"createDate"] longLongValue] / 1000];
-    cell.datetimeLabel.text = [dateFormatter stringFromDate:date];
-    NSLog(@"well %@", recentMatches[indexPath.row]);
-    
+    [cell sizeToFit];
     return cell;
 }
 

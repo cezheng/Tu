@@ -50,10 +50,14 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
         return api->getSummonerByIds(_params["ids"]);
     });
     auto future2 = std::async(std::launch::async, [this]() {
+        _service->_assetManager.updateVersionInfo(_service->_region);
+    });
+    auto future3 = std::async(std::launch::async, [this]() {
         _service->_assetManager.updateChampionImageInfoList(_service->_region);
     });
     Json summoners = future1.get();
     future2.get();
+    future3.get();
     
     Json::object diff;
     Json::array matches;
