@@ -104,4 +104,39 @@ Json RiotAssetManager::getChampionImageInfo(long id, Region region) const {
     return info;
 }
 
+//item
+void RiotAssetManager::updateItemImageInfoList(Region region) {
+    XPF::CurlRequest request;
+    RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(region);
+    Json res = api->getItemList({
+        {"itemListData", "image"}
+    });
+    printf("dump item image list %s\n", res.dump().c_str());
+    _itemImageInfoList[region] = res;
+}
+
+Json RiotAssetManager::getItemImageInfo(const std::vector<int> ids, Region region) const {
+    XPF::REQUIRE(_itemImageInfoList.find(region) != _itemImageInfoList.end(), "riot item image list not fetched yet");
+    Json::array infoList;
+    for (auto & id : ids) {
+        if (id == 0) {
+            infoList.push_back({});
+            continue;
+        }
+        Json::object info(_itemImageInfoList.at(region)["data"][std::to_string(id)].object_items());
+        std::string spriteName = info["image"]["sprite"].string_value();
+        if (spriteName.empty()) {
+            printf("omfg %d : %s\n", id, json11::Json(info).dump().c_str());
+        }
+        
+        auto spriteFuture = std::async(std::launch::async, [this, spriteName, region](){
+            return getSpriteImagePath(getVersion(CHAMPION), spriteName, region);
+        });
+        info["sprite_path"] = spriteFuture.get();
+        infoList.push_back(info);
+    }
+    return infoList;
+}
+
+
 NS_RIOT_END

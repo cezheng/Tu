@@ -62,6 +62,11 @@ const std::unordered_map<RiotAPI::EndPoint, URLPattern, std::hash<short>> RiotAP
         LOLStaticData::version,
         {"locale", "version", "dataById", "champData"}
     }},
+    {LOL_STATIC_DATA_ITEM_LIST, {
+        "/api/lol/static-data/{region}/{version}/item",
+        LOLStaticData::version,
+        {"locale", "version", "itemListData"}
+    }},
     {LOL_STATUS_SHARD_LIST, {
         "/shards",
         LOLStatus::version,
@@ -218,6 +223,13 @@ Json RiotAPI::getChampionById(long championId, const URLPattern::Param & optiona
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_BY_ID, {
         {"id", std::to_string(championId)}
     }));
+    std::string err;
+    return Json::parse(res.data, err);
+}
+
+Json RiotAPI::getItemList(const URLPattern::Param & optionalParams) {
+    CurlRequest request;
+    CurlResponse res = request.request(getURL(LOL_STATIC_DATA_ITEM_LIST, {}, optionalParams));
     std::string err;
     return Json::parse(res.data, err);
 }

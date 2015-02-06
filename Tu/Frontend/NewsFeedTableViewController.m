@@ -73,9 +73,10 @@
         NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : @0;
         NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : @0;
         NSString* content = [NSString stringWithFormat:@"%@ %@/%@/%@", match[@"name"], kills, deaths, assists];
-        NSLog(@"champData : %@", champData);
         cell.contentLabel.text = content;
         cell.championImage.image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+        cell.itemsData = match[@"itemsData"];
+        [cell.itemCollectionView reloadData];
     } else {
         NSString* cellIdentifier = @"matchDatetimeCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];

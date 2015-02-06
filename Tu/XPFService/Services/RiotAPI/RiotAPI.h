@@ -22,6 +22,7 @@ public:
         LEAGUE_CHALLENGER,
         LOL_STATIC_DATA_CHAMPION_LIST,
         LOL_STATIC_DATA_CHAMPION_BY_ID,
+        LOL_STATIC_DATA_ITEM_LIST,
         LOL_STATUS_SHARD_LIST,
         LOL_STATUS_SHARD_BY_REGION,
         MATCH,
@@ -69,6 +70,7 @@ public:
     };
     Json getChampionList(const URLPattern::Param & optionalParams = {});
     Json getChampionById(long championId, const URLPattern::Param & optionalParams = {});
+    Json getItemList(const URLPattern::Param & optionalParams = {});
     
     class LOLStatus {
     public:

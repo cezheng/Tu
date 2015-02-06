@@ -34,10 +34,14 @@ public:
     std::string getChampionImageUrl(const std::string & imageName, Region region = NA) const;
     std::string getChampionImagePath(const std::string & imageName, Region region = NA) const;
     json11::Json getChampionImageInfo(long id, Region region = NA) const;
+    
+    void updateItemImageInfoList(Region region);
+    json11::Json getItemImageInfo(const std::vector<int> ids, Region region) const;
 protected:
 private:
     std::unordered_map<Region, json11::Json, std::hash<unsigned char>> _versionInfo;
     std::unordered_map<Region, json11::Json, std::hash<unsigned char>> _championImageInfoList;
+    std::unordered_map<Region, json11::Json, std::hash<unsigned char>> _itemImageInfoList;
 };
 
 NS_RIOT_END

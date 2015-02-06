@@ -6,5 +6,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *summaryLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *championImage;
 @property (weak, nonatomic) IBOutlet UICollectionView *itemCollectionView;
-@property (weak, nonatomic) NSArray* itemImages;
+@property (weak, nonatomic) NSArray* itemsData;
 @end

@@ -1,6 +1,6 @@
 #import "NewsFeedTableViewCell.h"
 #import "InGameItemCollectionViewCell.h"
-#import "UIImage+PathCache.h"
+#import "UIImage+RiotCrop.h"
 
 @implementation NewsFeedTableViewCell
 
@@ -21,8 +21,14 @@
 
 - (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     InGameItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inGameItemCell" forIndexPath:indexPath];
-    
-    cell.itemImageView.image = [UIImage imageWithPathCache:@"5585028973319979110"];
+    if (indexPath.row < _itemsData.count) {
+        id info = _itemsData[indexPath.row];
+        NSLog(@"info dump %@", info);
+        if (info != [NSNull null]) {
+            cell.itemImageView.image = [UIImage imageWithPathCache:info[@"sprite_path"] cropInfo:info[@"image"]];
+        }
+
+    }
     return cell;
 }
 
