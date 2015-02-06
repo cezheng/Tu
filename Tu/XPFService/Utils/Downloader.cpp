@@ -8,20 +8,21 @@ const std::string Downloader::s_downloadedKeyPrefix = "##";
 
 std::string Downloader::downloadUrl(const std::string& url, const std::string& key) {
     CurlRequest request;
-    std::string path = makeDownloadPath(url);
+    std::string relativePath = makeDownloadPath(url);
+    std::string path = FileUtil::getInstance()->getWritablePath() + relativePath;
     auto & kvs = (*KVS::getInstance())[kvsNameSpace];
-    if(!this->isDownloaded(url)) {
+    std::mutex & mutex = _urlMutex[url];
+    std::lock_guard<std::mutex> lock(mutex);
+    if(!FileUtil::getInstance()->fileExists(path)) {
         request.downloadFile(url, path);
-        kvs.set(key, path);
-        kvs.set(makeDownloadedKey(url), "1");
+        kvs.set(key, relativePath);
     }
-    return path;
+    return relativePath;
 }
 
 bool Downloader::isDownloaded(const std::string& url) {
-    auto & kvs = (*KVS::getInstance())[kvsNameSpace];
-    std::string value;
-    return kvs.get(makeDownloadedKey(url), value);
+    std::string path = FileUtil::getInstance()->getWritablePath() + makeDownloadPath(url);
+    return FileUtil::getInstance()->fileExists(path);
 }
 
 std::string Downloader::getDownloadedPathByKey(const std::string& key) {
@@ -33,12 +34,8 @@ std::string Downloader::getDownloadedPathByKey(const std::string& key) {
     return "";
 }
 
-std::string Downloader::makeDownloadedKey(const std::string & url) {
-    return s_downloadedKeyPrefix + std::to_string(_stringHasher(url));
-}
-
 std::string Downloader::makeDownloadPath(const std::string & url) {
-    return FileUtil::getInstance()->getWritablePath() + std::to_string(_stringHasher(url));
+    return std::to_string(_stringHasher(url));
 }
 
 NS_XPF_END
