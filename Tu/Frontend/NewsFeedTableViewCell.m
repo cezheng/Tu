@@ -23,11 +23,23 @@
     InGameItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inGameItemCell" forIndexPath:indexPath];
     if (indexPath.row < _itemsData.count) {
         id info = _itemsData[indexPath.row];
-        NSLog(@"info dump %@", info);
         if (info != [NSNull null]) {
-            cell.itemImageView.image = [UIImage imageWithPathCache:info[@"sprite_path"] cropInfo:info[@"image"]];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage* image = [UIImage imageWithPathCache:info[@"sprite_path"] cropInfo:info[@"image"]];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    cell.itemImageView.image = image;
+                    cell.itemImageView.alpha = 1.f;
+                });
+            });
+        } else {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage* image = [UIImage imageNamed:@"item_slot.png"];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    cell.itemImageView.image = image;
+                    cell.itemImageView.alpha = 0.5f;
+                });
+            });
         }
-
     }
     return cell;
 }

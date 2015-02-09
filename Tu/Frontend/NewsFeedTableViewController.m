@@ -74,9 +74,19 @@
         NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : @0;
         NSString* content = [NSString stringWithFormat:@"%@ %@/%@/%@", match[@"name"], kills, deaths, assists];
         cell.contentLabel.text = content;
-        cell.championImage.image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+        
         cell.itemsData = match[@"itemsData"];
         [cell.itemCollectionView reloadData];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage* image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NewsFeedTableViewCell* cellToUpdate = (NewsFeedTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+                    [cellToUpdate.championImage setImage:image];
+                    [cellToUpdate setNeedsLayout];
+                });
+            }
+        });
     } else {
         NSString* cellIdentifier = @"matchDatetimeCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];

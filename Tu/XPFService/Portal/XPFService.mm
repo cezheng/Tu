@@ -13,7 +13,7 @@ static const char * requestQueueName = "xpf.network.request";
 - (id) init {
     self = [super init];
     if (self) {
-        requestQueue = dispatch_queue_create(requestQueueName, DISPATCH_QUEUE_SERIAL);
+        requestQueue = dispatch_queue_create(requestQueueName, DISPATCH_QUEUE_CONCURRENT);
     }
     return self;
 }

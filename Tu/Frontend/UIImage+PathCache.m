@@ -19,4 +19,5 @@ static NSMutableDictionary* cache;
     [cache setObject:ret forKey:path];
     return ret;
 }
+
 @end
