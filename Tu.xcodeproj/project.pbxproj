@@ -225,7 +225,6 @@
 		791E24E81A6E8630003DDF8C /* wine_glass_angle.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E237B1A6E862F003DDF8C /* wine_glass_angle.png */; };
 		791E24E91A6E8630003DDF8C /* world_times.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E237C1A6E862F003DDF8C /* world_times.png */; };
 		792A9FAD1A6D450A00549042 /* RiotAPI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 792A9FA31A6D450A00549042 /* RiotAPI.cpp */; };
-		795D16641A5BD983009A0E54 /* ChatTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D165F1A5BD983009A0E54 /* ChatTableViewController.m */; };
 		795D16651A5BD983009A0E54 /* ChatMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D16611A5BD983009A0E54 /* ChatMessageTableViewCell.m */; };
 		795D16671A5BDA89009A0E54 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 795D16661A5BDA89009A0E54 /* Constants.m */; };
 		7980B7BD1A6BA40700F10FE8 /* XPFService.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7BC1A6BA40700F10FE8 /* XPFService.mm */; };
@@ -236,6 +235,10 @@
 		7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7996364719DD572900C40A7A /* NewsFeedTableViewController.m */; };
 		7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7996365119DE2D2D00C40A7A /* TypeUtils.mm */; };
 		79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D3F19D9662000E00AB2 /* libcurl.a */; };
+		79B77D8E1A84B3E600DA9604 /* UIImage+PathCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77D8D1A84B3E600DA9604 /* UIImage+PathCache.m */; };
+		79B77D911A84CF2400DA9604 /* InGameItemCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77D901A84CF2400DA9604 /* InGameItemCollectionViewCell.m */; };
+		79B77D9A1A84F2AC00DA9604 /* UIImage+RiotCrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77D991A84F2AC00DA9604 /* UIImage+RiotCrop.m */; };
+		79B77DA31A8898CE00DA9604 /* item_slot.png in Resources */ = {isa = PBXBuildFile; fileRef = 79B77DA21A8898CE00DA9604 /* item_slot.png */; };
 		79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */; };
 		79BA07071A761FCF00480D33 /* Service.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07061A761FCF00480D33 /* Service.cpp */; };
 		79BA07161A78A9F800480D33 /* json11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA070F1A78A9F800480D33 /* json11.cpp */; };
@@ -659,8 +662,6 @@
 		792A9FA41A6D450A00549042 /* RiotAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotAPI.h; sourceTree = "<group>"; };
 		792A9FAF1A6D457500549042 /* RiotDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiotDefine.h; sourceTree = "<group>"; };
 		795D165E1A5BD983009A0E54 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Frontend/Constants.h; sourceTree = "<group>"; };
-		795D165F1A5BD983009A0E54 /* ChatTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatTableViewController.m; path = Frontend/ChatTableViewController.m; sourceTree = "<group>"; };
-		795D16601A5BD983009A0E54 /* ChatTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatTableViewController.h; path = Frontend/ChatTableViewController.h; sourceTree = "<group>"; };
 		795D16611A5BD983009A0E54 /* ChatMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatMessageTableViewCell.m; path = Frontend/ChatMessageTableViewCell.m; sourceTree = "<group>"; };
 		795D16621A5BD983009A0E54 /* ChatMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessageTableViewCell.h; path = Frontend/ChatMessageTableViewCell.h; sourceTree = "<group>"; };
 		795D16631A5BD983009A0E54 /* ChatMessageNotifyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessageNotifyDelegate.h; path = Frontend/ChatMessageNotifyDelegate.h; sourceTree = "<group>"; };
@@ -683,6 +684,13 @@
 		7996365119DE2D2D00C40A7A /* TypeUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeUtils.mm; sourceTree = "<group>"; };
 		7996365319DE2D3A00C40A7A /* TypeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeUtils.h; sourceTree = "<group>"; };
 		79B64D3F19D9662000E00AB2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
+		79B77D8C1A84B3E600DA9604 /* UIImage+PathCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+PathCache.h"; path = "Frontend/UIImage+PathCache.h"; sourceTree = "<group>"; };
+		79B77D8D1A84B3E600DA9604 /* UIImage+PathCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+PathCache.m"; path = "Frontend/UIImage+PathCache.m"; sourceTree = "<group>"; };
+		79B77D8F1A84CF2400DA9604 /* InGameItemCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InGameItemCollectionViewCell.h; path = Frontend/InGameItemCollectionViewCell.h; sourceTree = "<group>"; };
+		79B77D901A84CF2400DA9604 /* InGameItemCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InGameItemCollectionViewCell.m; path = Frontend/InGameItemCollectionViewCell.m; sourceTree = "<group>"; };
+		79B77D981A84F2AC00DA9604 /* UIImage+RiotCrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+RiotCrop.h"; path = "Frontend/UIImage+RiotCrop.h"; sourceTree = "<group>"; };
+		79B77D991A84F2AC00DA9604 /* UIImage+RiotCrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+RiotCrop.m"; path = "Frontend/UIImage+RiotCrop.m"; sourceTree = "<group>"; };
+		79B77DA21A8898CE00DA9604 /* item_slot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_slot.png; sourceTree = "<group>"; };
 		79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XMPPUserCoreDataStorageObject+Riot.h"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.h"; sourceTree = "<group>"; };
 		79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XMPPUserCoreDataStorageObject+Riot.m"; path = "Frontend/XMPPUserCoreDataStorageObject+Riot.m"; sourceTree = "<group>"; };
 		79BA07061A761FCF00480D33 /* Service.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Service.cpp; sourceTree = "<group>"; };
@@ -1712,6 +1720,7 @@
 		791E7A5A1999AAFD00B709E9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				79B77DA11A8898CE00DA9604 /* Riot */,
 				791E233F1A6E862F003DDF8C /* iOS */,
 				79075B8019A6209100310B88 /* regex */,
 			);
@@ -1810,13 +1819,19 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		79B77DA11A8898CE00DA9604 /* Riot */ = {
+			isa = PBXGroup;
+			children = (
+				79B77DA21A8898CE00DA9604 /* item_slot.png */,
+			);
+			path = Riot;
+			sourceTree = "<group>";
+		};
 		79B77EBF19790A96005C6432 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
 				795D16661A5BDA89009A0E54 /* Constants.m */,
 				795D165E1A5BD983009A0E54 /* Constants.h */,
-				795D165F1A5BD983009A0E54 /* ChatTableViewController.m */,
-				795D16601A5BD983009A0E54 /* ChatTableViewController.h */,
 				795D16631A5BD983009A0E54 /* ChatMessageNotifyDelegate.h */,
 				0C1529F31A56822F00B2864C /* AccountSettingsViewController.h */,
 				0C1529F41A56822F00B2864C /* AccountSettingsViewController.m */,
@@ -1842,6 +1857,12 @@
 				795D16621A5BD983009A0E54 /* ChatMessageTableViewCell.h */,
 				79BA07031A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.h */,
 				79BA07041A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m */,
+				79B77D8C1A84B3E600DA9604 /* UIImage+PathCache.h */,
+				79B77D8D1A84B3E600DA9604 /* UIImage+PathCache.m */,
+				79B77D8F1A84CF2400DA9604 /* InGameItemCollectionViewCell.h */,
+				79B77D901A84CF2400DA9604 /* InGameItemCollectionViewCell.m */,
+				79B77D981A84F2AC00DA9604 /* UIImage+RiotCrop.h */,
+				79B77D991A84F2AC00DA9604 /* UIImage+RiotCrop.m */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -2090,6 +2111,7 @@
 				791E24D41A6E8630003DDF8C /* previous.png in Resources */,
 				791E24AF1A6E862F003DDF8C /* alarms.png in Resources */,
 				791E24CD1A6E8630003DDF8C /* new.png in Resources */,
+				79B77DA31A8898CE00DA9604 /* item_slot.png in Resources */,
 				791E24D21A6E8630003DDF8C /* playlists.png in Resources */,
 				791E24E41A6E8630003DDF8C /* trash.png in Resources */,
 				791E24DB1A6E8630003DDF8C /* search.png in Resources */,
@@ -2128,6 +2150,7 @@
 				0C1529B21A55EA3400B2864C /* XMPPDateTimeProfiles.m in Sources */,
 				0C1529721A55EA3400B2864C /* XMPPModule.m in Sources */,
 				0C1529811A55EA3400B2864C /* XMPPRosterCoreDataStorage.m in Sources */,
+				79B77D9A1A84F2AC00DA9604 /* UIImage+RiotCrop.m in Sources */,
 				0C1529C01A55EA3400B2864C /* XMPPMessageArchiving.m in Sources */,
 				0C1529B11A55EA3400B2864C /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0C152A0A1A5807B400B2864C /* FriendsTableViewCell.m in Sources */,
@@ -2148,9 +2171,9 @@
 				792A9FAD1A6D450A00549042 /* RiotAPI.cpp in Sources */,
 				0C15298D1A55EA3400B2864C /* XMPPPrivacy.m in Sources */,
 				0C1529C31A55EA3400B2864C /* XMPPPresence+XEP_0172.m in Sources */,
-				795D16641A5BD983009A0E54 /* ChatTableViewController.m in Sources */,
 				79BA07071A761FCF00480D33 /* Service.cpp in Sources */,
 				79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */,
+				79B77D8E1A84B3E600DA9604 /* UIImage+PathCache.m in Sources */,
 				0C15297B1A55EA3400B2864C /* XMPPGoogleSharedStatus.m in Sources */,
 				0C15298C1A55EA3400B2864C /* XMPPLastActivity.m in Sources */,
 				0C1529CF1A55EA3400B2864C /* XEP_0223.m in Sources */,
@@ -2190,6 +2213,7 @@
 				7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */,
 				0C1529B81A55EA3400B2864C /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				791CD26619DBE2BA005A0167 /* AddToWatchListController.m in Sources */,
+				79B77D911A84CF2400DA9604 /* InGameItemCollectionViewCell.m in Sources */,
 				0CD1DF381A7C92A100199BFA /* RiotBase.cpp in Sources */,
 				0C1527ED1A55E84C00B2864C /* FriendsTableViewController.m in Sources */,
 				79F9E8E1194FD0A70040F0FB /* AppDelegate.m in Sources */,

@@ -45,15 +45,24 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     
     //business logic
     
+    //these ugly futures are temporary will be moved to somewhere else once I have time
     RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
     auto future1 = std::async(std::launch::async, [this, api]() {
         return api->getSummonerByIds(_params["ids"]);
     });
     auto future2 = std::async(std::launch::async, [this]() {
+        _service->_assetManager.updateVersionInfo(_service->_region);
+    });
+    auto future3 = std::async(std::launch::async, [this]() {
         _service->_assetManager.updateChampionImageInfoList(_service->_region);
+    });
+    auto future4 = std::async(std::launch::async, [this]() {
+        _service->_assetManager.updateItemImageInfoList(_service->_region);
     });
     Json summoners = future1.get();
     future2.get();
+    future3.get();
+    future4.get();
     
     Json::object diff;
     Json::array matches;
@@ -81,7 +90,17 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
                     auto item = match.object_items();
                     item["summonerId"] = kv.first;
                     item["name"] = kv.second["name"].string_value();
-                    item["champData"] = _service->_assetManager.getChampionImageInfo(item["championId"].int_value());
+                    item["champData"] = _service->_assetManager.getChampionImageInfo(item["championId"].int_value(), _service->_region);
+                    std::vector<int> ids {
+                        item["stats"]["item0"].int_value(),
+                        item["stats"]["item1"].int_value(),
+                        item["stats"]["item2"].int_value(),
+                        item["stats"]["item3"].int_value(),
+                        item["stats"]["item4"].int_value(),
+                        item["stats"]["item5"].int_value(),
+                        item["stats"]["item6"].int_value()
+                    };
+                    item["itemsData"] = _service->_assetManager.getItemImageInfo(ids, _service->_region);
                     modifiedMatches.push_back(item);
                 }
                 insertMatchesToGroups(matchGroups, modifiedMatches);

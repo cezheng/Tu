@@ -3,6 +3,8 @@
 #include "leveldb/write_batch.h"
 #include <sstream>
 
+#define BUF_LEN 20
+
 NS_XPF_BEGIN
 
 ChatHistoryEntry::ChatHistoryEntry(const std::string & with): _withWhom(with), _count(0) {
@@ -94,8 +96,8 @@ void ChatHistoryEntry::fetchCount() {
 }
 
 std::string ChatHistoryEntry::formatId(std::size_t intId) {
-    char buf[22];
-    sprintf(buf, "%020lu", intId);
+    char buf[BUF_LEN];
+    sprintf(buf, "%017zx", intId);
     return buf;
 }
 

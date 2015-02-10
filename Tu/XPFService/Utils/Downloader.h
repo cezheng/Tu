@@ -4,6 +4,8 @@
 #include "XPFDefine.h"
 #include "CurlRequest.h"
 #include "XPFService/Base/Singleton.h"
+#include <mutex>
+#include <unordered_map>
 
 NS_XPF_BEGIN
 
@@ -15,7 +17,6 @@ public:
     bool isDownloaded(const std::string& url);
     std::string getDownloadedPathByKey(const std::string& key);
     
-    std::string makeDownloadedKey(const std::string & url);
     std::string makeDownloadPath(const std::string & url);
     
     static const std::string s_downloadedKeyPrefix;
@@ -24,6 +25,7 @@ public:
 
 private:
     std::hash<std::string> _stringHasher;
+    std::unordered_map<std::string, std::mutex> _urlMutex;
 };
 
 NS_XPF_END

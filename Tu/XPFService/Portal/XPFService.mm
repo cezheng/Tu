@@ -13,7 +13,7 @@ static const char * requestQueueName = "xpf.network.request";
 - (id) init {
     self = [super init];
     if (self) {
-        requestQueue = dispatch_queue_create(requestQueueName, DISPATCH_QUEUE_SERIAL);
+        requestQueue = dispatch_queue_create(requestQueueName, DISPATCH_QUEUE_CONCURRENT);
     }
     return self;
 }
@@ -52,6 +52,7 @@ static const char * requestQueueName = "xpf.network.request";
 - (void) readStreamWithEndPoint:(NSString*)endPoint
                          params:(id)params
                        callback:(void(^)(id))onRead
+                  finalCallback:(void(^)(id))onFinished
            callbackInMainThread:(BOOL)callbackInMainThread {
     dispatch_async(requestQueue, ^{
         Json paramsCpp = std::move(*(Json*)[[XPFData alloc]initWithObject:params].cppObject);
@@ -67,7 +68,10 @@ static const char * requestQueueName = "xpf.network.request";
                 }
             }
         };
-        XPF::ServiceEntrance::getInstance()->readStream([endPoint UTF8String], std::move(paramsCpp), std::move(onReadCpp));
+        Json finalResponse = XPF::ServiceEntrance::getInstance()->readStream([endPoint UTF8String], std::move(paramsCpp), std::move(onReadCpp));
+        if (onFinished) {
+            onFinished([[[XPFData alloc] initWithCppObject:&finalResponse] decodeObject]);
+        }
     });
 }
 

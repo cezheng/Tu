@@ -5,6 +5,7 @@
 #import "AccountSettingsViewController.h"
 #import "XPFService/Portal/XPFService.h"
 #import "XMPPUserCoreDataStorageObject+Riot.h"
+#import "UIImage+PathCache.h"
 
 #import "XMPPFramework.h"
 #import "DDLog.h"
@@ -132,11 +133,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         void (^onReadData)(id) = ^(id data) {
             XMPPUserCoreDataStorageObject *user = [userDict objectForKey:[data objectForKey:@"id"]];
             NSString* path = [data objectForKey:@"profileImagePath"];
-            user.photo = [[UIImage alloc] initWithContentsOfFile:path];
+            user.photo = [UIImage imageWithPathCache:path];
         };
         [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                     params:@{@"ids" : ids}
                                                   callback:onReadData
+                                             finalCallback:^(id finalResponse) {
+                                                 //do something
+                                             }
                                       callbackInMainThread:YES];
     }
 }
@@ -238,13 +242,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    NSString* status = [user gameStatus];
-    NSString* displayName = [NSString stringWithFormat:@"%@ [%@]", user.displayName, status];
-    if (status) {
-        cell.displayNameLabel.text = displayName;
-    } else {
-        cell.displayNameLabel.text = user.displayName;
-    }
+    cell.displayNameLabel.text = user.displayName;
     
     [self configurePhotoForCell:cell user:user];
     

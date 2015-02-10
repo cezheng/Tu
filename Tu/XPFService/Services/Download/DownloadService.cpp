@@ -6,9 +6,9 @@ NS_XPF_BEGIN
 
 Json DownloadService::Download::internalCall() {
     auto downloader = Downloader::getInstance();
-    std::string path = downloader->downloadUrl(_params["url"].string_value(), _params["key"].string_value());
+    std::string relativePath = downloader->downloadUrl(_params["url"].string_value(), _params["key"].string_value());
     Json::object response;
-    response["path"] = path;
+    response["path"] = relativePath;
     return Json(response);
 }
 

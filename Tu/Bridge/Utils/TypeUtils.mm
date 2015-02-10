@@ -12,9 +12,9 @@ std::string jsonEncodeStd(NSDictionary* dict) {
     return [jsonEncodeNS(dict) UTF8String];
 }
 
-NSString* jsonEncodeNS(NSDictionary* dict) {
+NSString* jsonEncodeNS(id object) {
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
                                                        options:0
                                                          error:&error];
     return [[NSString alloc] initWithBytes:[jsonData bytes] length:[jsonData length] encoding:NSUTF8StringEncoding];
