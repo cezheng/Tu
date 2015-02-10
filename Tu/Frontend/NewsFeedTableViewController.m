@@ -6,7 +6,6 @@
 
 @interface NewsFeedTableViewController ()
 @property (strong, nonatomic) NSArray* recentMatches;
-
 @end
 
 @implementation NewsFeedTableViewController
@@ -17,14 +16,7 @@
 -(void)viewDidLoad {
     self.tableView.estimatedRowHeight = 135.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/matchFeedByIds"
-                                                params:@{
-                                                         @"ids" : @[@48245995, @52375717, @52335849]
-                                                         }
-                                              callback:^(id data) {
-                                                  self.recentMatches = data;
-                                              }
-                                  callbackInMainThread:YES];
+    [self setupRefreshControl];
 }
 
 - (void) setRecentMatches:(NSArray *)matches {
@@ -97,6 +89,31 @@
     }
     [cell sizeToFit];
     return cell;
+}
+
+#pragma mark - refresh control
+- (void)setupRefreshControl {
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull Down To Refresh"];
+    [self setRefreshControl:refreshControl];
+}
+
+- (void)refresh:(id)sender {
+    NSLog(@"Refreshing");
+    self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing"];
+    [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/matchFeedByIds"
+                                                params:@{
+                                                         @"ids" : @[@48245995, @52375717, @52335849]
+                                                         }
+                                              callback:^(id data) {
+                                                  self.recentMatches = data;
+                                              }
+                                         finalCallback: ^(id finalResponse) {
+                                             [(UIRefreshControl *)sender endRefreshing];
+                                             self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull Down To Refresh"];
+                                         }
+                                  callbackInMainThread:YES];
 }
 
 @end

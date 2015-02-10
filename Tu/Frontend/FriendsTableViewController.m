@@ -138,6 +138,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                     params:@{@"ids" : ids}
                                                   callback:onReadData
+                                             finalCallback:^(id finalResponse) {
+                                                 //do something
+                                             }
                                       callbackInMainThread:YES];
     }
 }

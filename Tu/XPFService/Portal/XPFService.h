@@ -16,6 +16,7 @@
 - (void) readStreamWithEndPoint:(NSString*)endPoint
                          params:(id)params
                        callback:(void(^)(id))onRead
+                  finalCallback:(void(^)(id))onFinished
            callbackInMainThread:(BOOL)callbackInMainThread;
 
 + (XPFService*) sharedService;
