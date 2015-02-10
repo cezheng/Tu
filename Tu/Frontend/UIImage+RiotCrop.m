@@ -6,7 +6,7 @@ static NSMutableDictionary* croppedCache;
 + (id) imageWithPathCache:(NSString *)path
                  cropInfo:(NSDictionary*)info {
     id ret;
-    NSString* key = [NSString stringWithFormat:@"%@-%@-%@-%@-%@", path, info[@"x"], info[@"y"], info[@"w"], info[@"h"]];
+    NSString* key = [NSString stringWithFormat:@"%@-%@-%@", path, info[@"x"], info[@"y"]];
     if (!croppedCache) {
         croppedCache = [[NSMutableDictionary alloc] init];
     } else {

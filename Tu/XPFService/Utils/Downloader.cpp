@@ -3,6 +3,9 @@
 #include "KVS.h"
 
 NS_XPF_BEGIN
+
+#define BUF_LEN 20
+
 const char * Downloader::kvsNameSpace = "downloader";
 const std::string Downloader::s_downloadedKeyPrefix = "##";
 
@@ -35,7 +38,9 @@ std::string Downloader::getDownloadedPathByKey(const std::string& key) {
 }
 
 std::string Downloader::makeDownloadPath(const std::string & url) {
-    return std::to_string(_stringHasher(url));
+    char buf[BUF_LEN];
+    sprintf(buf, "%017zx", _stringHasher(url));
+    return buf;
 }
 
 NS_XPF_END
