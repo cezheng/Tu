@@ -16,7 +16,11 @@ static NSMutableDictionary* cache;
         }
     }
     ret = [UIImage imageWithContentsOfFile:path];
-    [cache setObject:ret forKey:path];
+    if (ret) {
+        [cache setObject:ret forKey:path];
+    } else {
+        NSLog(@"UIImage PathCache : load image from file %@ failed", path);
+    }
     return ret;
 }
 

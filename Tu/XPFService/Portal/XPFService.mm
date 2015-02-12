@@ -35,6 +35,11 @@ static const char * requestQueueName = "xpf.network.request";
              callbackInMainThread:(BOOL)callbackInMainThread {
     dispatch_async(requestQueue, ^{
         Json response = XPF::ServiceEntrance::getInstance()->call([endPoint UTF8String], std::move(*(Json*)[[XPFData alloc]initWithObject:params].cppObject));
+        std::string err;
+        if (response.has_shape({{"ok", json11::Json::BOOL}}, err) && response["ok"].bool_value() == false) {
+            NSLog(@"Stream API %@ failed. message : %s", endPoint, response["message"].string_value().c_str());
+            return;
+        }
         if (onResponse) {
             if (callbackInMainThread && ![NSThread isMainThread]) {
                 void* resPtr = &response;
@@ -44,7 +49,6 @@ static const char * requestQueueName = "xpf.network.request";
             } else {
                 onResponse([[[XPFData alloc] initWithCppObject:&response] decodeObject]);
             }
-            
         }
     });
 }
@@ -69,6 +73,12 @@ static const char * requestQueueName = "xpf.network.request";
             }
         };
         Json finalResponse = XPF::ServiceEntrance::getInstance()->readStream([endPoint UTF8String], std::move(paramsCpp), std::move(onReadCpp));
+        //error handling
+        std::string err;
+        if (finalResponse.has_shape({{"ok", json11::Json::BOOL}}, err) && finalResponse["ok"].bool_value() == false) {
+            NSLog(@"Stream API %@ failed. message : %s", endPoint, finalResponse["message"].string_value().c_str());
+            return;
+        }
         if (onFinished) {
             onFinished([[[XPFData alloc] initWithCppObject:&finalResponse] decodeObject]);
         }

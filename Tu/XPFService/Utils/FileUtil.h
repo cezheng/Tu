@@ -13,6 +13,8 @@ public:
     virtual std::string getResourcePath(const std::string& fileName) = 0;
     virtual bool createDirectory(const std::string & path, mode_t mode);
     virtual bool fileExists(const std::string & path);
+    virtual std::string readFileContent(const std::string & path);
+    virtual void deleteFile(const std::string & path);
     static FileUtil* constructInstance();
 protected:
     FileUtil(){};

@@ -16,10 +16,19 @@ static NSMutableDictionary* croppedCache;
         }
     }
     UIImage* sprite = [UIImage imageWithPathCache:path];
+    if (!sprite) {
+        NSLog(@"UIImage RiotCrop : load path cache from relative path %@ failed", path);
+        return nil;
+    }
     CGRect area = CGRectMake([info[@"x"] integerValue], [info[@"y"] integerValue], [info[@"w"] integerValue], [info[@"h"] integerValue]);
     CGImageRef imageRef = CGImageCreateWithImageInRect([sprite CGImage], area);
     ret = [UIImage imageWithCGImage:imageRef];
-    [croppedCache setObject:ret forKey:key];
+    if (ret) {
+        [croppedCache setObject:ret forKey:key];
+    } else {
+        NSLog(@"UIImage RiotCrop : crop image from file %@ failed", path);
+    }
+    
     return ret;
 }
 

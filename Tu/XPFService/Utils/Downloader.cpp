@@ -1,6 +1,7 @@
 #include "Downloader.h"
 #include "FileUtil.h"
 #include "KVS.h"
+#include "Exception.h"
 
 NS_XPF_BEGIN
 
@@ -14,10 +15,21 @@ std::string Downloader::downloadUrl(const std::string& url, const std::string& k
     std::string relativePath = makeDownloadPath(url);
     std::string path = FileUtil::getInstance()->getWritablePath() + relativePath;
     auto & kvs = (*KVS::getInstance())[kvsNameSpace];
-    std::mutex & mutex = _urlMutex[url];
-    std::lock_guard<std::mutex> lock(mutex);
+    _downloadMutex.lock();
+    if (_urlMutex.find(url) == _urlMutex.end()) {
+        _urlMutex[url];
+    }
+    _downloadMutex.unlock();
+    std::lock_guard<std::mutex> lock(_urlMutex[url]);
     if(!FileUtil::getInstance()->fileExists(path)) {
-        request.downloadFile(url, path);
+        CURLcode status = request.downloadFile(url, path);
+        if (status != CURLE_OK) {
+            std::string response = FileUtil::getInstance()->readFileContent(path);
+            std::stringstream ss;
+            ss << "Downloader failed : status code :" << status << " , response : " << response;
+            FileUtil::getInstance()->deleteFile(path);
+            throw Exception(ss.str());
+        }
         kvs.set(key, relativePath);
     }
     return relativePath;
