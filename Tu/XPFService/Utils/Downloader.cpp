@@ -1,6 +1,7 @@
 #include "Downloader.h"
 #include "FileUtil.h"
 #include "KVS.h"
+#include "Exception.h"
 
 NS_XPF_BEGIN
 
@@ -17,7 +18,14 @@ std::string Downloader::downloadUrl(const std::string& url, const std::string& k
     std::mutex & mutex = _urlMutex[url];
     std::lock_guard<std::mutex> lock(mutex);
     if(!FileUtil::getInstance()->fileExists(path)) {
-        request.downloadFile(url, path);
+        CURLcode status = request.downloadFile(url, path);
+        if (status != CURLE_OK) {
+            std::string response = FileUtil::getInstance()->readFileContent(path);
+            std::stringstream ss;
+            ss << "Downloader failed : status code :" << status << " , response : " << response;
+            FileUtil::getInstance()->deleteFile(path);
+            throw Exception(ss.str());
+        }
         kvs.set(key, relativePath);
     }
     return relativePath;

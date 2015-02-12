@@ -1,6 +1,5 @@
 #import "NewsFeedTableViewController.h"
 #import "NewsFeedTableViewCell.h"
-#import "../Bridge/LocalServiceObjc.h"
 #import "XPFService.h"
 #import "UIImage+RiotCrop.h"
 

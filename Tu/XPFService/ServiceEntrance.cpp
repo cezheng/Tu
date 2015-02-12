@@ -29,7 +29,11 @@ Json ServiceEntrance::call(const char * endpoint, Json && params) {
 }
 
 Json ServiceEntrance::readStream(const char * endpoint, Json && params, std::function<void(Json)> && onRead) {
-    return streamEndpointTable.at(endpoint)(std::move(params), std::move(onRead));
+    try {
+        return streamEndpointTable.at(endpoint)(std::move(params), std::move(onRead));
+    } catch (std::exception & e) {
+        return Json(Json::object {{"ok", false}, {"message", e.what()}});
+    }
 }
 
 NS_XPF_END
