@@ -26,6 +26,7 @@ public:
 private:
     std::hash<std::string> _stringHasher;
     std::unordered_map<std::string, std::mutex> _urlMutex;
+    std::mutex _downloadMutex;
 };
 
 NS_XPF_END

@@ -15,8 +15,12 @@ std::string Downloader::downloadUrl(const std::string& url, const std::string& k
     std::string relativePath = makeDownloadPath(url);
     std::string path = FileUtil::getInstance()->getWritablePath() + relativePath;
     auto & kvs = (*KVS::getInstance())[kvsNameSpace];
-    std::mutex & mutex = _urlMutex[url];
-    std::lock_guard<std::mutex> lock(mutex);
+    _downloadMutex.lock();
+    if (_urlMutex.find(url) == _urlMutex.end()) {
+        _urlMutex[url];
+    }
+    _downloadMutex.unlock();
+    std::lock_guard<std::mutex> lock(_urlMutex[url]);
     if(!FileUtil::getInstance()->fileExists(path)) {
         CURLcode status = request.downloadFile(url, path);
         if (status != CURLE_OK) {
