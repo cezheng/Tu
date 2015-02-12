@@ -141,12 +141,21 @@ void RiotAPI::setRegion(Riot::Region region) {
 
 //Riot APIs
 
+/**
+ * Get List of All Champions
+ * @return List[ChampionDto]
+ */
 Json RiotAPI::getAllChampionStatus() {
     CurlRequest request;
     auto res = request.request(getURL(CHAMPION_ALL));
     return Json(res.data.c_str());
 }
 
+/**
+ * Get Champion Information by Id
+ * @param  Champion Id
+ * @return ChampionDto
+ */
 Json RiotAPI::getChampionStatusById(long championId) {
     CurlRequest request;
     auto res = request.request(getURL(CHAMPION_BY_ID, {
@@ -156,6 +165,11 @@ Json RiotAPI::getChampionStatusById(long championId) {
     return Json::parse(res.data, err);
 }
 
+/**
+ * Get Recent 10 Games by Summoner Id
+ * @param  Summoner Id
+ * @return RecentGameDto [Set[GameDto], long]
+ */
 Json RiotAPI::getRecentGamesBySummonerId(const std::string & id) {
     CurlRequest request;
     auto res = request.request(getURL(GAME_RECENT, {
@@ -165,6 +179,11 @@ Json RiotAPI::getRecentGamesBySummonerId(const std::string & id) {
     return Json::parse(res.data, err);
 }
 
+/**
+ * Get Max 40 Summoners Information by Name
+ * @param  List[string]
+ * @return Map[string, SummnerDto]
+ */
 Json RiotAPI::getSummonerByNames(const Json & names) {
     const static std::size_t limit = 40;
     std::size_t n = std::min(limit, names.array_items().size());
@@ -194,6 +213,11 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
     return Json::parse(res.data, err);
 }
 
+/**
+ * Get Max 40 Summoners Information by Name
+ * @param  List[string]
+ * @return Map[string, SummonerDto]
+ */
 Json RiotAPI::getSummonerByIds(const Json & ids) {
     const static std::size_t limit = 40;
     std::size_t n = std::min(limit, ids.array_items().size());
@@ -215,6 +239,11 @@ Json RiotAPI::getSummonerByIds(const Json & ids) {
     return Json::parse(res.data, err);
 }
 
+/**
+ * Get List of Statics Info of Champions
+ * @param  Optional Param [local, version, dataById, champData]
+ * @return ChampionListDto [Map[string, ChampionDto], string, ...]
+ */
 Json RiotAPI::getChampionList(const URLPattern::Param & optionalParams) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_LIST, {}, optionalParams));
@@ -222,6 +251,11 @@ Json RiotAPI::getChampionList(const URLPattern::Param & optionalParams) {
     return Json::parse(res.data, err);
 }
 
+/**
+ * Get Statics Info of Champion by Champion Id
+ * @param  Champion Id, Optional Param [local, version, dataById, champData]
+ * @return ChampionDto
+ */
 Json RiotAPI::getChampionById(long championId, const URLPattern::Param & optionalParams) {
     CurlRequest request;
     CurlResponse res = request.request(getURL(LOL_STATIC_DATA_CHAMPION_BY_ID, {
