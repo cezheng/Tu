@@ -31,8 +31,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)viewDidLoad {
     [super viewDidLoad];
     needRefresh = YES;
-    [[XPFService sharedService] callWithEndPoint:@"RiotAPI/serviceStatusByRegion" params:@{@"region" : @"na"} callback:^(id response) {
-        NSLog(@"%@", response);
+    [[XPFService sharedService] callWithEndPoint:@"RiotAPI/serviceStatusByRegion"
+                                          params:@{@"region" : @"na"}
+                                        callback:^(id response) {
     }];
 }
 
@@ -134,6 +135,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             XMPPUserCoreDataStorageObject *user = [userDict objectForKey:[data objectForKey:@"id"]];
             NSString* path = [data objectForKey:@"profileImagePath"];
             user.photo = [UIImage imageWithPathCache:path];
+            user.lastActive = [(NSNumber*)[data objectForKey:@"revisionDate"] longLongValue] / 1000;
         };
         [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                     params:@{@"ids" : ids}
@@ -204,8 +206,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return [[[self fetchedResultsController] sections] count];
 }
 
-- (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex
-{
+- (NSString *)tableView:(UITableView *)sender titleForHeaderInSection:(NSInteger)sectionIndex {
     NSArray *sections = [[self fetchedResultsController] sections];
     
     if (sectionIndex < [sections count]) {
@@ -242,6 +243,29 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[[self fetchedResultsController] sections] objectAtIndex:indexPath.section];
+    int section = [sectionInfo.name intValue];
+    NSString* additionalInfo;
+    switch (section) {
+        case kRiotFriendSectionInGame:
+            additionalInfo = [NSString stringWithFormat:@"Playing as %@ for %lld minutes",  user.playingAs, (time(0) - user.timestamp ) / 60];
+            break;
+        case kRiotFriendSectionInQueue:
+            additionalInfo = [NSString stringWithFormat:@"For %lld minutes", (user.timestamp - time(0)) / 60];
+            break;
+        case kRiotFriendSectionOffline:
+            additionalInfo = [NSString stringWithFormat:@"Last Active : %@", user.lastActiveDate];
+            break;
+        default:
+            if ([user.statusMsg length]) {
+                additionalInfo = user.statusMsg;
+            } else {
+                additionalInfo = user.rank;
+            }
+            break;
+    }
+    cell.additionalInfoLabel.text = additionalInfo;
     cell.displayNameLabel.text = user.displayName;
     
     [self configurePhotoForCell:cell user:user];

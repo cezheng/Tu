@@ -284,7 +284,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friend's Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJj-wq-tPb">
-                                            <rect key="frame" x="61" y="16" width="112" height="21"/>
+                                            <rect key="frame" x="61" y="4" width="202" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -296,17 +296,28 @@
                                                 <constraint firstAttribute="width" constant="45" id="ers-5q-Far"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Additional Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F6b-Y0-HhL" userLabel="Additional Info Label">
+                                            <rect key="frame" x="61" y="27" width="202" height="21.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="scC-C3-Onw" secondAttribute="bottom" constant="-4" id="2j7-fh-Fja"/>
                                         <constraint firstItem="scC-C3-Onw" firstAttribute="top" secondItem="KO2-LJ-7XP" secondAttribute="topMargin" constant="-4" id="EEt-HJ-KMp"/>
-                                        <constraint firstItem="SJj-wq-tPb" firstAttribute="top" secondItem="KO2-LJ-7XP" secondAttribute="topMargin" constant="8" id="IzX-Sp-KTO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="SJj-wq-tPb" secondAttribute="trailing" constant="16" id="IlE-S4-Plx"/>
+                                        <constraint firstItem="SJj-wq-tPb" firstAttribute="top" secondItem="KO2-LJ-7XP" secondAttribute="topMargin" constant="-4" id="IzX-Sp-KTO"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="F6b-Y0-HhL" secondAttribute="trailing" constant="16" id="KhC-Cj-BFp"/>
                                         <constraint firstItem="scC-C3-Onw" firstAttribute="leading" secondItem="KO2-LJ-7XP" secondAttribute="leadingMargin" id="P3b-NV-h2R"/>
                                         <constraint firstItem="SJj-wq-tPb" firstAttribute="leading" secondItem="scC-C3-Onw" secondAttribute="trailing" constant="8" id="Ty7-0z-h9h"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="SJj-wq-tPb" secondAttribute="bottom" constant="8" id="yiA-Qx-AEJ"/>
+                                        <constraint firstItem="F6b-Y0-HhL" firstAttribute="top" secondItem="SJj-wq-tPb" secondAttribute="bottom" constant="3" id="dyL-Zg-b4d"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="F6b-Y0-HhL" secondAttribute="bottom" constant="-4.5" id="gxr-As-wFe"/>
+                                        <constraint firstItem="F6b-Y0-HhL" firstAttribute="leading" secondItem="scC-C3-Onw" secondAttribute="trailing" constant="8" id="yXr-UW-Tru"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="additionalInfoLabel" destination="F6b-Y0-HhL" id="xY7-UD-nzF"/>
                                     <outlet property="displayNameLabel" destination="SJj-wq-tPb" id="8ZX-zA-wlg"/>
                                     <outlet property="profileImage" destination="scC-C3-Onw" id="zPi-Fj-Tux"/>
                                     <segue destination="U08-Rf-tcz" kind="push" identifier="ChatSegue" id="ECv-yy-VvH"/>
