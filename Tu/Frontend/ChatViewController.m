@@ -1,8 +1,10 @@
 #import "ChatViewController.h"
-#import "ChatMessageTableViewCell.h"
+#import "BubbleTableViewCell.h"
+#import "BubbleTableView.h"
 #import "XMPPDelegate.h"
 
 @interface ChatViewController ()
+
 
 @end
 
@@ -10,6 +12,7 @@
 @synthesize messages;
 @synthesize friendJID;
 @synthesize friendName;
+@synthesize bubbleTable;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,14 +27,33 @@
         messages = [[NSMutableArray alloc] init];
     }
     if ([messages count] == 0) {
-        NSArray* fetchMessages = [[[XPFService sharedService] callWithEndPoint:@"ChatHistory/getRecentN" params:@{@"withWhom" : friendJID, @"amount" : @5}] decodeObject];
-        [messages addObjectsFromArray:fetchMessages];
+        NSArray* fetchMessages = [[[XPFService sharedService] callWithEndPoint:@"ChatHistory/getRecentN" params:@{@"withWhom" : friendJID, @"amount" : @10}] decodeObject];
+        for (int i = 0; i < fetchMessages.count; i++) {
+            BubbleType bubbleType;
+            NSDictionary *messageCurrent = [fetchMessages objectAtIndex:i];
+            if (messageCurrent[@"from"] == friendJID) {
+                bubbleType = BubbleTypeSomeoneElse;
+            } else {
+                bubbleType = BubbleTypeMine;
+            }
+            BubbleData *historyBubble = [BubbleData dataWithText:[fetchMessages objectAtIndex:i][@"message"] date:[NSDate dateWithTimeIntervalSinceNow:-i] type:bubbleType];
+            [messages addObject:historyBubble];
+        }
     }
 
-    [_tableView setDataSource:self];
-    [_tableView setDelegate:self];
-    _tableView.estimatedRowHeight = 60.0;
-    _tableView.rowHeight = UITableViewAutomaticDimension;
+    bubbleTable.bubbleDataSource = self;
+    // The line below sets the snap interval in seconds. This defines how the bubbles will be grouped in time.
+    // Interval of 120 means that if the next messages comes in 2 minutes since the last message, it will be added into the same group.
+    // Groups are delimited with header which contains date and time for the first message in the group.
+    
+    bubbleTable.snapInterval = 120;
+    
+    // The line below enables avatar support. Avatar can be specified for each bubble with .avatar property of NSBubbleData.
+    // Avatars are enabled for the whole table at once. If particular NSBubbleData misses the avatar, a default placeholder will be set (missingAvatar.png)
+    
+    bubbleTable.showAvatars = YES;
+    
+    [bubbleTable reloadData];
     
     self.navigationItem.title = friendName;
     UIGestureRecognizer *tapper;
@@ -41,6 +63,11 @@
     [self.view addGestureRecognizer:tapper];
     [self registerForKeyboardNotifications];
     self.navigationController.navigationBar.translucent = NO;
+    
+    // Keyboard events
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -55,8 +82,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - UIBubbleTableViewDataSource implementation
 
-#pragma mark - Table view data source
+- (NSInteger)rowsForBubbleTable:(BubbleTableView *)tableView
+{
+    return [messages count];
+}
+
+- (BubbleData *)bubbleTableView:(BubbleTableView *)tableView dataForRow:(NSInteger)row
+{
+    return [messages objectAtIndex:row];
+}
+
+/*#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -69,12 +107,12 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ChatMessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
+    BubbleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessageCell" forIndexPath:indexPath];
     NSDictionary* message = [messages objectAtIndex:indexPath.row];
     cell.messageLabel.text = message[@"message"];
     return cell;
 }
-
+*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -136,14 +174,16 @@
                                      @"read" : @"0",
                                      @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
                                      };
-        [messages addObject:messageDict];
         NSDictionary* params = \
         @{
           @"withWhom" : friendJID,
           @"messages" : messageDict
           };
         [[XPFService sharedService] callWithEndPoint:@"ChatHistory/add" params:params];
-        [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:messageDict] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        BubbleData *sendData = [BubbleData dataWithText:messageDict[@"message"] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeMine];
+        [messages addObject:sendData];
+        //[bubbleTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [bubbleTable reloadData];
         [_messageField setText:@""];
         [self.view endEditing:YES];
     }
@@ -151,11 +191,11 @@
 
 - (void) didReceivedChatMessage:(NSDictionary*)message {
     [messages addObject:message];
-    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:message] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [bubbleTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:message] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender {
-    if (CGRectContainsPoint(_tableView.frame, [sender locationInView:self.view])) {
+    if (CGRectContainsPoint(bubbleTable.frame, [sender locationInView:self.view])) {
         [self.view endEditing:YES];
     }
 }
@@ -173,29 +213,39 @@
 
 
 
-// Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWasShown:(NSNotification*)aNotification {
+#pragma mark - Keyboard events
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:0];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    _tableView.frame = CGRectMake(_tableView.frame.origin.x, _tableView.frame.origin.y, _tableView.frame.size.width, _tableView.frame.size.height - kbSize.height);
-    _inputView.frame = CGRectMake(_inputView.frame.origin.x, (_inputView.frame.origin.y - kbSize.height), _inputView.frame.size.width, _inputView.frame.size.height);
-    [UIView commitAnimations];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        
+        CGRect frame = _inputView.frame;
+        frame.origin.y -= kbSize.height;
+        _inputView.frame = frame;
+        
+        frame = bubbleTable.frame;
+        frame.size.height -= kbSize.height;
+        bubbleTable.frame = frame;
+    }];
 }
 
-// Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDuration:0];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    _tableView.frame = CGRectMake(_tableView.frame.origin.x, (_tableView.frame.origin.y), _tableView.frame.size.width, _tableView.frame.size.height + kbSize.height);
-    _inputView.frame = CGRectMake(_inputView.frame.origin.x, (_inputView.frame.origin.y + kbSize.height), _inputView.frame.size.width, _inputView.frame.size.height);
-    [UIView commitAnimations];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        
+        CGRect frame = _inputView.frame;
+        frame.origin.y += kbSize.height;
+        _inputView.frame = frame;
+        
+        frame = bubbleTable.frame;
+        frame.size.height += kbSize.height;
+        bubbleTable.frame = frame;
+    }];
 }
 @end

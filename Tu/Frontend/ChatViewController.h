@@ -1,8 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "ChatMessageNotifyDelegate.h"
+#import "BubbleTableViewDataSource.h"
+#import "BubbleTableView.h"
 
-@interface ChatViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ChatMessageNotifyDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface ChatViewController : UIViewController <BubbleTableViewDataSource, UITableViewDelegate, ChatMessageNotifyDelegate>
+@property (weak, nonatomic) IBOutlet BubbleTableView *bubbleTable;
 @property (weak, nonatomic) IBOutlet UITextField *messageField;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIView *inputView;
