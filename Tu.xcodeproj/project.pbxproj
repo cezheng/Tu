@@ -162,7 +162,6 @@
 		0CD1DF411A7CC49500199BFA /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF3F1A7CC49500199BFA /* Downloader.cpp */; };
 		0CD1DF431A7D244100199BFA /* RiotService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD1DF421A7D244100199BFA /* RiotService.cpp */; };
 		79075B8119A6209100310B88 /* regex in Resources */ = {isa = PBXBuildFile; fileRef = 79075B8019A6209100310B88 /* regex */; };
-		791CD26619DBE2BA005A0167 /* AddToWatchListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791CD26519DBE2BA005A0167 /* AddToWatchListController.m */; };
 		791E22741A6DF938003DDF8C /* DownloadService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 791E22721A6DF938003DDF8C /* DownloadService.cpp */; };
 		791E24AE1A6E862F003DDF8C /* airdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E23411A6E862F003DDF8C /* airdrop.png */; };
 		791E24AF1A6E862F003DDF8C /* alarms.png in Resources */ = {isa = PBXBuildFile; fileRef = 791E23421A6E862F003DDF8C /* alarms.png */; };
@@ -232,7 +231,7 @@
 		7980B7C91A6BABA900F10FE8 /* ChatHistoryEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7C51A6BABA900F10FE8 /* ChatHistoryEntry.cpp */; };
 		7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7C71A6BABA900F10FE8 /* ChatHistoryService.cpp */; };
 		7980B7CF1A6CA58300F10FE8 /* ServiceEntrance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7980B7CD1A6CA58300F10FE8 /* ServiceEntrance.cpp */; };
-		7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7996364719DD572900C40A7A /* NewsFeedTableViewController.m */; };
+		7996364819DD572900C40A7A /* RecentActivitiesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7996364719DD572900C40A7A /* RecentActivitiesTableViewController.m */; };
 		7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7996365119DE2D2D00C40A7A /* TypeUtils.mm */; };
 		79B64D4019D9662000E00AB2 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B64D3F19D9662000E00AB2 /* libcurl.a */; };
 		79B77D8E1A84B3E600DA9604 /* UIImage+PathCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B77D8D1A84B3E600DA9604 /* UIImage+PathCache.m */; };
@@ -245,12 +244,16 @@
 		79BA071D1A78B93A00480D33 /* LevelDBHolder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA071B1A78B93A00480D33 /* LevelDBHolder.cpp */; };
 		79BA07241A78BAE800480D33 /* FileUtilIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07221A78BAE800480D33 /* FileUtilIOS.mm */; };
 		79BA07261A78BD5400480D33 /* FileUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79BA07251A78BD5400480D33 /* FileUtil.cpp */; };
-		79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333519AB3846009B322B /* WatchListTableViewCell.m */; };
-		79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 79BD333819AB3989009B322B /* WatchListTableViewController.mm */; };
 		79CF82551A7B344000376BBA /* KVS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82541A7B344000376BBA /* KVS.cpp */; };
-		79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */; };
+		79CF82581A7BAA4000376BBA /* RecentActivitiesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CF82571A7BAA4000376BBA /* RecentActivitiesTableViewCell.m */; };
 		79CF825A1A7F380200376BBA /* libleveldb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CF82591A7F380200376BBA /* libleveldb.a */; };
 		79CF825D1A7F7A6D00376BBA /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79CF825B1A7F7A6D00376BBA /* Exception.cpp */; };
+		79DBB5A71AA59EFF00F64CDD /* FeedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79DBB5A61AA59EFF00F64CDD /* FeedCollectionViewController.m */; };
+		79DBB5AA1AA5A2B000F64CDD /* FeedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79DBB5A91AA5A2B000F64CDD /* FeedCollectionViewCell.m */; };
+		79E53C711AA5D5BE00FB8C83 /* VideoUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C6F1AA5D5BE00FB8C83 /* VideoUtil.cpp */; };
+		79E53C741AA5D94000FB8C83 /* UrlUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C721AA5D94000FB8C83 /* UrlUtil.cpp */; };
+		79E53C771AA6AA7F00FB8C83 /* VideoService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C751AA6AA7F00FB8C83 /* VideoService.cpp */; };
+		79E53C7A1AA7037300FB8C83 /* XMPPJID+Riot.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C791AA7037300FB8C83 /* XMPPJID+Riot.m */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -594,8 +597,6 @@
 		0CD1DF401A7CC49500199BFA /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
 		0CD1DF421A7D244100199BFA /* RiotService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RiotService.cpp; sourceTree = "<group>"; };
 		79075B8019A6209100310B88 /* regex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = regex; sourceTree = "<group>"; };
-		791CD26419DBE2BA005A0167 /* AddToWatchListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddToWatchListController.h; path = Frontend/AddToWatchListController.h; sourceTree = "<group>"; };
-		791CD26519DBE2BA005A0167 /* AddToWatchListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddToWatchListController.m; path = Frontend/AddToWatchListController.m; sourceTree = "<group>"; };
 		791E22721A6DF938003DDF8C /* DownloadService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DownloadService.cpp; sourceTree = "<group>"; };
 		791E22731A6DF938003DDF8C /* DownloadService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadService.h; sourceTree = "<group>"; };
 		791E23411A6E862F003DDF8C /* airdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airdrop.png; sourceTree = "<group>"; };
@@ -679,8 +680,8 @@
 		7980B7C81A6BABA900F10FE8 /* ChatHistoryService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistoryService.h; sourceTree = "<group>"; };
 		7980B7CD1A6CA58300F10FE8 /* ServiceEntrance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServiceEntrance.cpp; sourceTree = "<group>"; };
 		7980B7CE1A6CA58300F10FE8 /* ServiceEntrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceEntrance.h; sourceTree = "<group>"; };
-		7996364619DD572900C40A7A /* NewsFeedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewController.h; path = Frontend/NewsFeedTableViewController.h; sourceTree = "<group>"; };
-		7996364719DD572900C40A7A /* NewsFeedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewController.m; path = Frontend/NewsFeedTableViewController.m; sourceTree = "<group>"; };
+		7996364619DD572900C40A7A /* RecentActivitiesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentActivitiesTableViewController.h; path = Frontend/RecentActivitiesTableViewController.h; sourceTree = "<group>"; };
+		7996364719DD572900C40A7A /* RecentActivitiesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentActivitiesTableViewController.m; path = Frontend/RecentActivitiesTableViewController.m; sourceTree = "<group>"; };
 		7996365119DE2D2D00C40A7A /* TypeUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TypeUtils.mm; sourceTree = "<group>"; };
 		7996365319DE2D3A00C40A7A /* TypeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypeUtils.h; sourceTree = "<group>"; };
 		79B64D3F19D9662000E00AB2 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = lib/libcurl.a; sourceTree = "<group>"; };
@@ -703,17 +704,25 @@
 		79BA07211A78BAE800480D33 /* FileUtilIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileUtilIOS.h; sourceTree = "<group>"; };
 		79BA07221A78BAE800480D33 /* FileUtilIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileUtilIOS.mm; sourceTree = "<group>"; };
 		79BA07251A78BD5400480D33 /* FileUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileUtil.cpp; sourceTree = "<group>"; };
-		79BD333419AB3846009B322B /* WatchListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewCell.h; path = Frontend/WatchListTableViewCell.h; sourceTree = "<group>"; };
-		79BD333519AB3846009B322B /* WatchListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WatchListTableViewCell.m; path = Frontend/WatchListTableViewCell.m; sourceTree = "<group>"; };
-		79BD333719AB3989009B322B /* WatchListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WatchListTableViewController.h; path = Frontend/WatchListTableViewController.h; sourceTree = "<group>"; };
-		79BD333819AB3989009B322B /* WatchListTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = WatchListTableViewController.mm; path = Frontend/WatchListTableViewController.mm; sourceTree = "<group>"; };
 		79CF82531A7B344000376BBA /* KVS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVS.h; sourceTree = "<group>"; };
 		79CF82541A7B344000376BBA /* KVS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KVS.cpp; sourceTree = "<group>"; };
-		79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsFeedTableViewCell.h; path = Frontend/NewsFeedTableViewCell.h; sourceTree = "<group>"; };
-		79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsFeedTableViewCell.m; path = Frontend/NewsFeedTableViewCell.m; sourceTree = "<group>"; };
+		79CF82561A7BAA4000376BBA /* RecentActivitiesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentActivitiesTableViewCell.h; path = Frontend/RecentActivitiesTableViewCell.h; sourceTree = "<group>"; };
+		79CF82571A7BAA4000376BBA /* RecentActivitiesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentActivitiesTableViewCell.m; path = Frontend/RecentActivitiesTableViewCell.m; sourceTree = "<group>"; };
 		79CF82591A7F380200376BBA /* libleveldb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libleveldb.a; path = lib/libleveldb.a; sourceTree = "<group>"; };
 		79CF825B1A7F7A6D00376BBA /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cpp; sourceTree = "<group>"; };
 		79CF825C1A7F7A6D00376BBA /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		79DBB5A51AA59EFF00F64CDD /* FeedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedCollectionViewController.h; path = Frontend/FeedCollectionViewController.h; sourceTree = "<group>"; };
+		79DBB5A61AA59EFF00F64CDD /* FeedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedCollectionViewController.m; path = Frontend/FeedCollectionViewController.m; sourceTree = "<group>"; };
+		79DBB5A81AA5A2B000F64CDD /* FeedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedCollectionViewCell.h; path = Frontend/FeedCollectionViewCell.h; sourceTree = "<group>"; };
+		79DBB5A91AA5A2B000F64CDD /* FeedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedCollectionViewCell.m; path = Frontend/FeedCollectionViewCell.m; sourceTree = "<group>"; };
+		79E53C6F1AA5D5BE00FB8C83 /* VideoUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoUtil.cpp; sourceTree = "<group>"; };
+		79E53C701AA5D5BE00FB8C83 /* VideoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUtil.h; sourceTree = "<group>"; };
+		79E53C721AA5D94000FB8C83 /* UrlUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UrlUtil.cpp; sourceTree = "<group>"; };
+		79E53C731AA5D94000FB8C83 /* UrlUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlUtil.h; sourceTree = "<group>"; };
+		79E53C751AA6AA7F00FB8C83 /* VideoService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VideoService.cpp; sourceTree = "<group>"; };
+		79E53C761AA6AA7F00FB8C83 /* VideoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoService.h; sourceTree = "<group>"; };
+		79E53C781AA7037300FB8C83 /* XMPPJID+Riot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "XMPPJID+Riot.h"; path = "Frontend/XMPPJID+Riot.h"; sourceTree = "<group>"; };
+		79E53C791AA7037300FB8C83 /* XMPPJID+Riot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "XMPPJID+Riot.m"; path = "Frontend/XMPPJID+Riot.m"; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1783,6 +1792,7 @@
 		7980B7C31A6BABA900F10FE8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				79E53C6E1AA5D56F00FB8C83 /* Video */,
 				791E22711A6DF938003DDF8C /* Download */,
 				792A9F971A6D450A00549042 /* RiotAPI */,
 				7980B7C41A6BABA900F10FE8 /* ChatHistory */,
@@ -1837,16 +1847,10 @@
 				0C1529F41A56822F00B2864C /* AccountSettingsViewController.m */,
 				0C1527EE1A55E93C00B2864C /* XMPPDelegate.h */,
 				0C1527EF1A55E93C00B2864C /* XMPPDelegate.m */,
-				79BD333419AB3846009B322B /* WatchListTableViewCell.h */,
-				79BD333519AB3846009B322B /* WatchListTableViewCell.m */,
-				79BD333719AB3989009B322B /* WatchListTableViewController.h */,
-				79BD333819AB3989009B322B /* WatchListTableViewController.mm */,
-				791CD26419DBE2BA005A0167 /* AddToWatchListController.h */,
-				791CD26519DBE2BA005A0167 /* AddToWatchListController.m */,
-				7996364619DD572900C40A7A /* NewsFeedTableViewController.h */,
-				7996364719DD572900C40A7A /* NewsFeedTableViewController.m */,
-				79CF82561A7BAA4000376BBA /* NewsFeedTableViewCell.h */,
-				79CF82571A7BAA4000376BBA /* NewsFeedTableViewCell.m */,
+				7996364619DD572900C40A7A /* RecentActivitiesTableViewController.h */,
+				7996364719DD572900C40A7A /* RecentActivitiesTableViewController.m */,
+				79CF82561A7BAA4000376BBA /* RecentActivitiesTableViewCell.h */,
+				79CF82571A7BAA4000376BBA /* RecentActivitiesTableViewCell.m */,
 				0C1527EB1A55E84C00B2864C /* FriendsTableViewController.h */,
 				0C1527EC1A55E84C00B2864C /* FriendsTableViewController.m */,
 				0C152A081A5807B400B2864C /* FriendsTableViewCell.h */,
@@ -1863,6 +1867,12 @@
 				79B77D901A84CF2400DA9604 /* InGameItemCollectionViewCell.m */,
 				79B77D981A84F2AC00DA9604 /* UIImage+RiotCrop.h */,
 				79B77D991A84F2AC00DA9604 /* UIImage+RiotCrop.m */,
+				79DBB5A51AA59EFF00F64CDD /* FeedCollectionViewController.h */,
+				79DBB5A61AA59EFF00F64CDD /* FeedCollectionViewController.m */,
+				79DBB5A81AA5A2B000F64CDD /* FeedCollectionViewCell.h */,
+				79DBB5A91AA5A2B000F64CDD /* FeedCollectionViewCell.m */,
+				79E53C781AA7037300FB8C83 /* XMPPJID+Riot.h */,
+				79E53C791AA7037300FB8C83 /* XMPPJID+Riot.m */,
 			);
 			name = Frontend;
 			sourceTree = "<group>";
@@ -1892,8 +1902,21 @@
 				79BA07221A78BAE800480D33 /* FileUtilIOS.mm */,
 				79CF825B1A7F7A6D00376BBA /* Exception.cpp */,
 				79CF825C1A7F7A6D00376BBA /* Exception.h */,
+				79E53C6F1AA5D5BE00FB8C83 /* VideoUtil.cpp */,
+				79E53C701AA5D5BE00FB8C83 /* VideoUtil.h */,
+				79E53C721AA5D94000FB8C83 /* UrlUtil.cpp */,
+				79E53C731AA5D94000FB8C83 /* UrlUtil.h */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		79E53C6E1AA5D56F00FB8C83 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				79E53C751AA6AA7F00FB8C83 /* VideoService.cpp */,
+				79E53C761AA6AA7F00FB8C83 /* VideoService.h */,
+			);
+			path = Video;
 			sourceTree = "<group>";
 		};
 		79F9E8C4194FD0A70040F0FB = {
@@ -2155,6 +2178,7 @@
 				0C1529B11A55EA3400B2864C /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				0C152A0A1A5807B400B2864C /* FriendsTableViewCell.m in Sources */,
 				0C1529C21A55EA3400B2864C /* XMPPMessage+XEP_0172.m in Sources */,
+				79DBB5AA1AA5A2B000F64CDD /* FeedCollectionViewCell.m in Sources */,
 				0C1529A91A55EA3400B2864C /* NSXMLElement+XEP_0059.m in Sources */,
 				0C1529E01A55EA3400B2864C /* DDAbstractDatabaseLogger.m in Sources */,
 				0C15298A1A55EA3400B2864C /* XMPPJabberRPCModule.m in Sources */,
@@ -2172,7 +2196,6 @@
 				0C15298D1A55EA3400B2864C /* XMPPPrivacy.m in Sources */,
 				0C1529C31A55EA3400B2864C /* XMPPPresence+XEP_0172.m in Sources */,
 				79BA07071A761FCF00480D33 /* Service.cpp in Sources */,
-				79BD333919AB3989009B322B /* WatchListTableViewController.mm in Sources */,
 				79B77D8E1A84B3E600DA9604 /* UIImage+PathCache.m in Sources */,
 				0C15297B1A55EA3400B2864C /* XMPPGoogleSharedStatus.m in Sources */,
 				0C15298C1A55EA3400B2864C /* XMPPLastActivity.m in Sources */,
@@ -2188,7 +2211,7 @@
 				0C1529671A55EA3400B2864C /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				0C1529A11A55EA3400B2864C /* XMPPvCardTemp.m in Sources */,
 				0C1529631A55EA3400B2864C /* XMPPDeprecatedDigestAuthentication.m in Sources */,
-				79CF82581A7BAA4000376BBA /* NewsFeedTableViewCell.m in Sources */,
+				79CF82581A7BAA4000376BBA /* RecentActivitiesTableViewCell.m in Sources */,
 				79BA07051A727BDF00480D33 /* XMPPUserCoreDataStorageObject+Riot.m in Sources */,
 				7980B7C21A6BA87200F10FE8 /* XPFData.mm in Sources */,
 				0C1529E71A55EA3400B2864C /* DDMultiFormatter.m in Sources */,
@@ -2198,12 +2221,13 @@
 				0C1529DD1A55EA3400B2864C /* XMPPStringPrep.m in Sources */,
 				0C1529831A55EA3400B2864C /* XMPPResourceMemoryStorageObject.m in Sources */,
 				0C1529C11A55EA3400B2864C /* XMPPvCardAvatarModule.m in Sources */,
+				79DBB5A71AA59EFF00F64CDD /* FeedCollectionViewController.m in Sources */,
 				0C1529CB1A55EA3400B2864C /* XMPPPing.m in Sources */,
 				0C15297A1A55EA3400B2864C /* XMPPOutgoingFileTransfer.m in Sources */,
 				79BA071D1A78B93A00480D33 /* LevelDBHolder.cpp in Sources */,
 				0C1529901A55EA3400B2864C /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				0CD1DF411A7CC49500199BFA /* Downloader.cpp in Sources */,
-				7996364819DD572900C40A7A /* NewsFeedTableViewController.m in Sources */,
+				7996364819DD572900C40A7A /* RecentActivitiesTableViewController.m in Sources */,
 				0C1529691A55EA3400B2864C /* XMPPXOAuth2Google.m in Sources */,
 				0C1529E51A55EA3400B2864C /* DDContextFilterLogFormatter.m in Sources */,
 				0C1529D61A55EA3400B2864C /* XMPPMessage+XEP_0333.m in Sources */,
@@ -2212,7 +2236,6 @@
 				0C1529881A55EA3400B2864C /* XMPPIQ+JabberRPC.m in Sources */,
 				7980B7CA1A6BABA900F10FE8 /* ChatHistoryService.cpp in Sources */,
 				0C1529B81A55EA3400B2864C /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
-				791CD26619DBE2BA005A0167 /* AddToWatchListController.m in Sources */,
 				79B77D911A84CF2400DA9604 /* InGameItemCollectionViewCell.m in Sources */,
 				0CD1DF381A7C92A100199BFA /* RiotBase.cpp in Sources */,
 				0C1527ED1A55E84C00B2864C /* FriendsTableViewController.m in Sources */,
@@ -2233,6 +2256,7 @@
 				7980B7BD1A6BA40700F10FE8 /* XPFService.mm in Sources */,
 				0C1529A71A55EA3400B2864C /* XMPPvCardTempModule.m in Sources */,
 				0C1529981A55EA3400B2864C /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
+				79E53C771AA6AA7F00FB8C83 /* VideoService.cpp in Sources */,
 				0C1529A31A55EA3400B2864C /* XMPPvCardTempAdrTypes.m in Sources */,
 				0C1529801A55EA3400B2864C /* XMPPRoster.xcdatamodel in Sources */,
 				7996365219DE2D2D00C40A7A /* TypeUtils.mm in Sources */,
@@ -2256,6 +2280,7 @@
 				0C1529D91A55EA3400B2864C /* GCDMulticastDelegate.m in Sources */,
 				0C15298E1A55EA3400B2864C /* XMPPRoom.xcdatamodeld in Sources */,
 				0C1529741A55EA3400B2864C /* XMPPPresence.m in Sources */,
+				79E53C711AA5D5BE00FB8C83 /* VideoUtil.cpp in Sources */,
 				0C15299D1A55EA3400B2864C /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				0C1529C91A55EA3400B2864C /* XMPPStreamManagement.m in Sources */,
 				0C1529DA1A55EA3400B2864C /* RFImageToDataTransformer.m in Sources */,
@@ -2269,7 +2294,6 @@
 				0C1529E91A55EA3400B2864C /* NSString+DDXML.m in Sources */,
 				0C1529D11A55EA3400B2864C /* XMPPMessage+XEP_0224.m in Sources */,
 				0C1529D81A55EA3400B2864C /* DDList.m in Sources */,
-				79BD333619AB3846009B322B /* WatchListTableViewCell.m in Sources */,
 				0C1529BA1A55EA3400B2864C /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				0C1529951A55EA3400B2864C /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				0C15299A1A55EA3400B2864C /* XMPPMUC.m in Sources */,
@@ -2282,6 +2306,7 @@
 				0C1529BC1A55EA3400B2864C /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				0C1529711A55EA3400B2864C /* XMPPMessage.m in Sources */,
 				0C1529961A55EA3400B2864C /* XMPPRoomMemoryStorage.m in Sources */,
+				79E53C741AA5D94000FB8C83 /* UrlUtil.cpp in Sources */,
 				0C1529C71A55EA3400B2864C /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				0C1529CD1A55EA3400B2864C /* XMPPTime.m in Sources */,
 				0C15296C1A55EA3400B2864C /* NSXMLElement+XMPP.m in Sources */,
@@ -2304,6 +2329,7 @@
 				0C15298F1A55EA3400B2864C /* XMPPRoomCoreDataStorage.m in Sources */,
 				0C1529DB1A55EA3400B2864C /* XMPPIDTracker.m in Sources */,
 				0C1529621A55EA3400B2864C /* XMPPAnonymousAuthentication.m in Sources */,
+				79E53C7A1AA7037300FB8C83 /* XMPPJID+Riot.m in Sources */,
 				0C1529651A55EA3400B2864C /* XMPPDigestMD5Authentication.m in Sources */,
 				0C1527F01A55E93C00B2864C /* XMPPDelegate.m in Sources */,
 				0C1529D41A55EA3400B2864C /* NSXMLElement+XEP_0297.m in Sources */,

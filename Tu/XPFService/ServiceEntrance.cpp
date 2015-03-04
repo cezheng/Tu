@@ -2,6 +2,7 @@
 #include "Services/ChatHistory/ChatHistoryService.h"
 #include "Services/RiotAPI/RiotService.h"
 #include "Services/Download/DownloadService.h"
+#include "Services/Video/VideoService.h"
 
 NS_XPF_BEGIN
 
@@ -12,7 +13,8 @@ const std::unordered_map<const char *, std::function<Json(Json && params)>> Serv
     {"Download/download", XPF_API_CALL(DownloadService, Download)},
     {"Download/getDownloaded", XPF_API_CALL(DownloadService, GetDownloaded)},
     {"RiotAPI/summonerByNames", XPF_API_CALL(RiotService, GetSummonerByNames)},
-    {"RiotAPI/serviceStatusByRegion", XPF_API_CALL(RiotService, GetServiceStatusByRegion)}
+    {"RiotAPI/serviceStatusByRegion", XPF_API_CALL(RiotService, GetServiceStatusByRegion)},
+    {"Video/GetInfo", XPF_API_CALL(VideoService, GetInfo)}
 };
 
 const std::unordered_map<const char *, std::function<Json(Json&&, std::function<void(Json)>)>> ServiceEntrance::streamEndpointTable {

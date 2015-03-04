@@ -122,29 +122,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView endUpdates];
-    if (needRefresh) {
-        needRefresh = NO;
-        NSMutableArray* ids = [[NSMutableArray alloc] init];
-        NSMutableDictionary* userDict = [[NSMutableDictionary alloc] init];
-        for (XMPPUserCoreDataStorageObject *user in [fetchedResultsController fetchedObjects]) {
-            NSInteger summonerId = [user.summonerId integerValue];
-            [ids addObject:@(summonerId)];
-            [userDict setObject:user forKey:@(summonerId)];
-        }
-        void (^onReadData)(id) = ^(id data) {
-            XMPPUserCoreDataStorageObject *user = [userDict objectForKey:[data objectForKey:@"id"]];
-            NSString* path = [data objectForKey:@"profileImagePath"];
-            user.photo = [UIImage imageWithPathCache:path];
-            user.lastActive = [(NSNumber*)[data objectForKey:@"revisionDate"] longLongValue] / 1000;
-        };
-        [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
-                                                    params:@{@"ids" : ids}
-                                                  callback:onReadData
-                                             finalCallback:^(id finalResponse) {
-                                                 //do something
-                                             }
-                                      callbackInMainThread:YES];
-    }
 }
 
 - (void) controller:(NSFetchedResultsController *)controller

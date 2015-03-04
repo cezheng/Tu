@@ -9,6 +9,9 @@
 #import "XMPPRosterCoreDataStorage.h"
 #import "XMPPvCardAvatarModule.h"
 #import "XMPPvCardCoreDataStorage.h"
+#import "UIImage+PathCache.h"
+#import "XMPPUserCoreDataStorageObject+Riot.h"
+#import "XMPPJID+Riot.h"
 
 #import "DDLog.h"
 #import "DDTTYLogger.h"
@@ -22,7 +25,9 @@
   static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
 
-@interface XMPPDelegate()
+@interface XMPPDelegate() {
+    NSMutableDictionary* summonerInfo;
+}
 @property (nonatomic, strong) NSString* myDisplayName;
 - (void)setupStream;
 - (void)teardownStream;
@@ -81,6 +86,7 @@
 	#endif
 	
 	xmppReconnect = [[XMPPReconnect alloc] init];
+    xmppReconnect.reconnectTimerInterval = 5.0;
     xmppReconnect.usesOldSchoolSecureConnect = YES;
 	
 	xmppRosterStorage = [[XMPPRosterCoreDataStorage alloc] init];
@@ -90,6 +96,7 @@
 	
 	xmppRoster.autoFetchRoster = YES;
 	xmppRoster.autoAcceptKnownPresenceSubscriptionRequests = YES;
+    xmppRoster.autoClearAllUsersAndResources = NO;
 	
 	xmppvCardStorage = [XMPPvCardCoreDataStorage sharedInstance];
 	xmppvCardTempModule = [[XMPPvCardTempModule alloc] initWithvCardStorage:xmppvCardStorage];
@@ -117,6 +124,7 @@
 	customCertEvaluation = YES;
     
     messageNotifyDelegates = [[NSMutableDictionary alloc] init];
+    summonerInfo = [[NSMutableDictionary alloc] init];
 }
 
 - (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid {
@@ -196,7 +204,7 @@
 
 		return NO;
 	}
-
+    
 	return YES;
 }
 
@@ -402,6 +410,29 @@
 		[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 	}
 	
+}
+
+- (void)xmppRosterDidEndPopulating:(XMPPRoster *)sender {
+    void (^onReadData)(id) = ^(id data) {
+        NSString* jidStr = [NSString stringWithFormat:@"sum%@@pvp.net", [data objectForKey:@"id"]];
+        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[XMPPJID jidWithString:jidStr]
+                                                                 xmppStream:xmppStream
+                                                       managedObjectContext:[self managedObjectContext_roster]];
+        NSString* path = [data objectForKey:@"profileImagePath"];
+        user.photo = [UIImage imageWithPathCache:path];
+        user.lastActive = [(NSNumber*)[data objectForKey:@"revisionDate"] longLongValue] / 1000;
+    };
+    NSMutableArray* ids = [[NSMutableArray alloc] init];
+    for (XMPPJID* jid in [xmppRosterStorage jidsForXMPPStream:self.xmppStream]) {
+        [ids addObject:@([jid.summonerId integerValue])];
+    }
+    [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
+                                                params:@{@"ids" : ids}
+                                              callback:onReadData
+                                         finalCallback:^(id finalResponse) {
+                                             //do something
+                                         }
+                                  callbackInMainThread:YES];
 }
 
 @end

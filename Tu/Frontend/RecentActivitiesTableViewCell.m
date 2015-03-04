@@ -1,8 +1,8 @@
-#import "NewsFeedTableViewCell.h"
+#import "RecentActivitiesTableViewCell.h"
 #import "InGameItemCollectionViewCell.h"
 #import "UIImage+RiotCrop.h"
 
-@implementation NewsFeedTableViewCell
+@implementation RecentActivitiesTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code

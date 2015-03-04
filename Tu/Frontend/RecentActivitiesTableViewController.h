@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
 
-@interface NewsFeedTableViewController : UITableViewController
+@interface RecentActivitiesTableViewController : UITableViewController
 @property (strong, nonatomic, readonly) NSArray* recentMatches;
 @end

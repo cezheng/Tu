@@ -1,13 +1,13 @@
-#import "NewsFeedTableViewController.h"
-#import "NewsFeedTableViewCell.h"
+#import "RecentActivitiesTableViewController.h"
+#import "RecentActivitiesTableViewCell.h"
 #import "XPFService.h"
 #import "UIImage+RiotCrop.h"
 
-@interface NewsFeedTableViewController ()
+@interface RecentActivitiesTableViewController ()
 @property (strong, nonatomic) NSArray* recentMatches;
 @end
 
-@implementation NewsFeedTableViewController
+@implementation RecentActivitiesTableViewController
 
 @synthesize recentMatches;
 
@@ -16,6 +16,7 @@
     self.tableView.estimatedRowHeight = 135.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self setupRefreshControl];
+    [self refresh:nil];
 }
 
 - (void) setRecentMatches:(NSArray *)matches {
@@ -36,7 +37,7 @@
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray* matchGroup = recentMatches[indexPath.section];
     NSDictionary* gameStats = matchGroup[0][@"stats"];
-    NewsFeedTableViewCell* cell = nil;
+    RecentActivitiesTableViewCell* cell = nil;
     if (indexPath.row == 0) {
         NSString *cellIdentifier = @"matchSummaryCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -72,7 +73,7 @@
             UIImage* image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
             if (image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NewsFeedTableViewCell* cellToUpdate = (NewsFeedTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+                    RecentActivitiesTableViewCell* cellToUpdate = (RecentActivitiesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
                     [cellToUpdate.championImage setImage:image];
                     [cellToUpdate setNeedsLayout];
                 });
