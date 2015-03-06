@@ -12,6 +12,7 @@
 #import "UIImage+PathCache.h"
 #import "XMPPUserCoreDataStorageObject+Riot.h"
 #import "XMPPJID+Riot.h"
+#import "XMPPPresence+Riot.h"
 
 #import "DDLog.h"
 #import "DDTTYLogger.h"
@@ -333,6 +334,7 @@
           };
         NSDictionary* params = \
         @{
+          @"me" : xmppStream.myJID.bare,
           @"withWhom" : [user jidStr],
           @"messages" : messageDict
           };
@@ -355,10 +357,13 @@
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
-    
-    NSString* status = [[[presence status] stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"] stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-    NSLog(@"whole presence: %@", [presence stringValue]);
-    NSLog(@"didReceivePresence: %@", status);
+    XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[presence from]
+                                                             xmppStream:xmppStream
+                                                   managedObjectContext:[self managedObjectContext_roster]];
+    NSInteger riotSection = [presence riotSection];
+    if ([user.sectionNum integerValue] != riotSection) {
+        user.section = riotSection;
+    }
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error {
@@ -409,7 +414,6 @@
 		
 		[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
 	}
-	
 }
 
 - (void)xmppRosterDidEndPopulating:(XMPPRoster *)sender {
@@ -425,6 +429,12 @@
     NSMutableArray* ids = [[NSMutableArray alloc] init];
     for (XMPPJID* jid in [xmppRosterStorage jidsForXMPPStream:self.xmppStream]) {
         [ids addObject:@([jid.summonerId integerValue])];
+        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:jid
+                                                                 xmppStream:xmppStream
+                                                       managedObjectContext:[self managedObjectContext_roster]];
+        if (user.primaryResource == nil) {
+            user.section = kRiotFriendSectionOffline;
+        }
     }
     [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                 params:@{@"ids" : ids}
