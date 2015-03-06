@@ -24,7 +24,12 @@
         messages = [[NSMutableArray alloc] init];
     }
     if ([messages count] == 0) {
-        NSArray* fetchMessages = [[[XPFService sharedService] callWithEndPoint:@"ChatHistory/getRecentN" params:@{@"withWhom" : friendJID, @"amount" : @5}] decodeObject];
+        NSDictionary* param = @{
+                                @"me" : [[XMPPDelegate sharedDelegate] xmppStream].myJID.bare,
+                                @"withWhom" : friendJID,
+                                @"amount" : @5
+                                };
+        NSArray* fetchMessages = [[[XPFService sharedService] callWithEndPoint:@"ChatHistory/getRecentN" params:param] decodeObject];
         [messages addObjectsFromArray:fetchMessages];
     }
 
@@ -139,6 +144,7 @@
         [messages addObject:messageDict];
         NSDictionary* params = \
         @{
+          @"me" : xmppDelegate.xmppStream.myJID.bare,
           @"withWhom" : friendJID,
           @"messages" : messageDict
           };

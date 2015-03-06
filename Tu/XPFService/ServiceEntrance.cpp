@@ -1,5 +1,5 @@
 #include "ServiceEntrance.h"
-#include "Services/ChatHistory/ChatHistoryService.h"
+#include "Services/ChatHistory/ChatService.h"
 #include "Services/RiotAPI/RiotService.h"
 #include "Services/Download/DownloadService.h"
 #include "Services/Video/VideoService.h"
@@ -7,9 +7,9 @@
 NS_XPF_BEGIN
 
 const std::unordered_map<const char *, std::function<Json(Json && params)>> ServiceEntrance::serviceEndpointTable {
-    {"ChatHistory/getRecentN", XPF_API_CALL(ChatHistoryService, GetRecentN)},
-    {"ChatHistory/add", XPF_API_CALL(ChatHistoryService, Add)},
-    {"ChatHistory/update", XPF_API_CALL(ChatHistoryService, Update)},
+    {"ChatHistory/getRecentN", XPF_API_CALL(ChatService, GetRecentN)},
+    {"ChatHistory/add", XPF_API_CALL(ChatService, Add)},
+    {"ChatHistory/update", XPF_API_CALL(ChatService, Update)},
     {"Download/download", XPF_API_CALL(DownloadService, Download)},
     {"Download/getDownloaded", XPF_API_CALL(DownloadService, GetDownloaded)},
     {"RiotAPI/summonerByNames", XPF_API_CALL(RiotService, GetSummonerByNames)},
