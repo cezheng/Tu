@@ -317,9 +317,7 @@
 
 	// A simple example of inbound message handling.
 	if ([message isChatMessageWithBody]) {
-		XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-		                                                         xmppStream:xmppStream
-		                                               managedObjectContext:[self managedObjectContext_roster]];
+        XMPPUserCoreDataStorageObject *user = [self userForJid:[message from]];
 		NSString *body = [[message elementForName:@"body"] stringValue];
 		NSString *displayName = [user displayName];
         //NSLog(@"from %@, to %@", [message fromStr], [message to]);
@@ -329,7 +327,6 @@
           @"message" : body,
           @"from" : [user jidStr],
           @"to" : [[NSUserDefaults standardUserDefaults] stringForKey:kUDKRiotJID],
-          @"read" : @"0",
           @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
           };
         NSDictionary* params = \
@@ -357,9 +354,7 @@
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
-    XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[presence from]
-                                                             xmppStream:xmppStream
-                                                   managedObjectContext:[self managedObjectContext_roster]];
+    XMPPUserCoreDataStorageObject *user = [self userForJid:[presence from]];
     NSInteger riotSection = [presence riotSection];
     if ([user.sectionNum integerValue] != riotSection) {
         user.section = riotSection;
@@ -383,9 +378,7 @@
 - (void)xmppRoster:(XMPPRoster *)sender didReceiveBuddyRequest:(XMPPPresence *)presence {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 	
-	XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[presence from]
-	                                                         xmppStream:xmppStream
-	                                               managedObjectContext:[self managedObjectContext_roster]];
+    XMPPUserCoreDataStorageObject *user = [self userForJid:[presence from]];
 	
 	NSString *displayName = [user displayName];
 	NSString *jidStrBare = [presence fromStr];
@@ -419,9 +412,7 @@
 - (void)xmppRosterDidEndPopulating:(XMPPRoster *)sender {
     void (^onReadData)(id) = ^(id data) {
         NSString* jidStr = [NSString stringWithFormat:@"sum%@@pvp.net", [data objectForKey:@"id"]];
-        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[XMPPJID jidWithString:jidStr]
-                                                                 xmppStream:xmppStream
-                                                       managedObjectContext:[self managedObjectContext_roster]];
+        XMPPUserCoreDataStorageObject *user = [self userForJidString:jidStr];
         NSString* path = [data objectForKey:@"profileImagePath"];
         user.photo = [UIImage imageWithPathCache:path];
         user.lastActive = [(NSNumber*)[data objectForKey:@"revisionDate"] longLongValue] / 1000;
@@ -429,9 +420,7 @@
     NSMutableArray* ids = [[NSMutableArray alloc] init];
     for (XMPPJID* jid in [xmppRosterStorage jidsForXMPPStream:self.xmppStream]) {
         [ids addObject:@([jid.summonerId integerValue])];
-        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:jid
-                                                                 xmppStream:xmppStream
-                                                       managedObjectContext:[self managedObjectContext_roster]];
+        XMPPUserCoreDataStorageObject *user = [self userForJid:jid];
         if (user.primaryResource == nil) {
             user.section = kRiotFriendSectionOffline;
         }
@@ -443,6 +432,19 @@
                                              //do something
                                          }
                                   callbackInMainThread:YES];
+}
+
+#pragma mark - get user
+- (XMPPUserCoreDataStorageObject*) userForJid:(XMPPJID*)jid {
+    return [xmppRosterStorage userForJID:jid
+                              xmppStream:xmppStream
+                    managedObjectContext:[self managedObjectContext_roster]];
+}
+
+- (XMPPUserCoreDataStorageObject*) userForJidString:(NSString*)jidStr {
+    return [xmppRosterStorage userForJID:[XMPPJID jidWithString:jidStr]
+                              xmppStream:xmppStream
+                    managedObjectContext:[self managedObjectContext_roster]];
 }
 
 @end

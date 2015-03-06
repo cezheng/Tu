@@ -1,5 +1,6 @@
 #include "UnreadChatEntry.h"
 #include "KVS.h"
+#include <future>
 
 using json11::Json;
 
@@ -8,6 +9,7 @@ static const std::string kvsKeySummary("summary");
 #define ID_LENGTH 4
 
 NS_XPF_BEGIN
+
 Json::object UnreadChatEntry::getUnreads(const std::string & me) {
     auto & kvs = (*KVS::getInstance())[kvsNameSpacePrefix + me];
     Json::object json;
@@ -16,14 +18,18 @@ Json::object UnreadChatEntry::getUnreads(const std::string & me) {
 }
 
 void UnreadChatEntry::addUnread(const std::string & me, const std::string & with, const Json::array & messages) {
-    auto unread = this->getUnreads(me);
-    std::size_t id = unread.size();
-    Json::object object;
+    auto & kvs = (*KVS::getInstance())[kvsNameSpacePrefix + me];
+    Json unread;
+    kvs.getJson(with, unread);
+    std::size_t id = unread.object_items().size();
+    Json::object object(unread.object_items());
+    printf("ok0 %s\n", json11::Json(object).dump().c_str());
+
     for (auto & message : messages) {
         object[formatId(id++)] = message;
     }
-    auto & kvs = (*KVS::getInstance())[kvsNameSpacePrefix + me];
-    kvs.setMutiple(object);
+    printf("ok %s\n", json11::Json(object).dump().c_str());
+    kvs.set(with, Json(object).dump());
 }
 
 void UnreadChatEntry::setRead(const std::string & me, const std::string & with) {
@@ -31,21 +37,9 @@ void UnreadChatEntry::setRead(const std::string & me, const std::string & with) 
     kvs.remove(with);
 }
 
-void UnreadChatEntry::addSubscriber(const std::string & me, const std::string & identifier, NotificationCallback callback) {
-    
-}
-
-void UnreadChatEntry::removeSubscriber(const std::string & me, const std::string & identifier) {
-    
-}
-
-void UnreadChatEntry::eventLoop() {
-    
-}
-
 std::string UnreadChatEntry::formatId(std::size_t id) {
     char buf[ID_LENGTH + 1];
-    sprintf(buf, "%04lud", id);
+    sprintf(buf, "%04ld", id);
     return buf;
 }
 NS_XPF_END

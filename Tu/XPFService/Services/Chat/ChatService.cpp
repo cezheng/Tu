@@ -1,4 +1,5 @@
 #include "ChatService.h"
+#include "UnreadChatEntry.h"
 
 NS_XPF_BEGIN
 
@@ -37,6 +38,14 @@ Json ChatService::Update::internalCall() {
 }
 
 Json ChatService::Unread::internalCall() {
+    std::string me = _params["me"].string_value();
+    return UnreadChatEntry::getInstance()->getUnreads(me);
+}
+
+Json ChatService::Read::internalCall() {
+    std::string withWhom = _params["withWhom"].string_value();
+    std::string me = _params["me"].string_value();
+    UnreadChatEntry::getInstance()->setRead(me, withWhom);
     return Json(Json::object {{"ok", true}});
 }
 

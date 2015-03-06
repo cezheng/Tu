@@ -2,6 +2,7 @@
 #include "XPFService/Utils/FileUtil.h"
 #include "leveldb/write_batch.h"
 #include <sstream>
+#include "UnreadChatEntry.h"
 
 #define BUF_LEN 20
 
@@ -42,6 +43,7 @@ Json ChatHistoryEntry::getRecentN(int n) {
 }
 
 bool ChatHistoryEntry::add(const Json & messages) {
+    printf("total %ld", _count);
     if(messages.is_object()) {
         std::string formattedId = formatId(_count + 1);
         auto message = messages.object_items();
@@ -49,6 +51,9 @@ bool ChatHistoryEntry::add(const Json & messages) {
         leveldb::Status s = _db->Put(leveldb::WriteOptions(), formattedId, Json(message).dump());
         if(s.ok()) {
             ++_count;
+            if (messages["from"] == _withWhom) {
+                UnreadChatEntry::getInstance()->addUnread(_me, _withWhom, Json::array {message});
+            }
             return true;
         }
         return false;
@@ -67,22 +72,15 @@ bool ChatHistoryEntry::add(const Json & messages) {
         } else {
             fetchCount();
         }
+        Json::array unread;
+        for (auto & message : messages.array_items()) {
+            if (messages["from"] == _withWhom) {
+                unread.push_back(message);
+            }
+        }
+        UnreadChatEntry::getInstance()->addUnread(_me, _withWhom, unread);
         return success;
     }
-}
-
-bool ChatHistoryEntry::updateReadStatus(const std::string & id, bool status) {
-    std::string value;
-    std::string err;
-    leveldb::Status s = _db->Get(leveldb::ReadOptions(), id, &value);
-    if (s.ok()) {
-        Json::object message = Json::parse(value, err).object_items();
-        if(message["read"] == false) {
-            message["read"] = true;
-            s = _db->Put(leveldb::WriteOptions(), id, Json(message).dump());
-        }
-    }
-    return s.ok();
 }
 
 void ChatHistoryEntry::fetchCount() {

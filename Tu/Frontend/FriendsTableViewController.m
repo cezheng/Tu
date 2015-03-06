@@ -19,7 +19,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 @interface FriendsTableViewController () {
     BOOL needRefresh;
-    NSDictionary* summonerInfo;
+    NSDictionary* oldUnreads;
 }
 
 @end
@@ -46,6 +46,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                       options:0
                       context:nil];
     if ([xmppDelegate connect]) {
+        [self refreshUnread];
     } else {
         self.navigationItem.title = @"Logged out";
     }
@@ -69,6 +70,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             destinationViewController.friendJID = user.jidStr;
             destinationViewController.friendName = user.displayName;
             [destinationViewController.messages removeAllObjects];
+            NSInteger initialLoadCount = [user.unreadMessages integerValue];
+            if (initialLoadCount < 5) {
+                initialLoadCount = 5;
+            }
+            destinationViewController.initialLoadCount = initialLoadCount;
         }
     }
 }
@@ -243,7 +249,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             break;
     }
     cell.additionalInfoLabel.text = additionalInfo;
-    cell.displayNameLabel.text = user.displayName;
+    
+    if ([user.unreadMessages integerValue] > 0) {
+        cell.displayNameLabel.text = [NSString stringWithFormat:@"%@ (%@)", user.displayName, user.unreadMessages];
+    } else {
+        cell.displayNameLabel.text = user.displayName;
+    }
     
     [self configurePhotoForCell:cell user:user];
     
@@ -259,6 +270,21 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark - ChatMessageNotifyDelegate
 
 - (void) didReceivedChatMessage:(NSDictionary*)message {
-    
+    [self refreshUnread];
+}
+
+- (void) refreshUnread {
+    XMPPDelegate* xmppDelegate = [XMPPDelegate sharedDelegate];
+    NSString* myJidStr = xmppDelegate.xmppStream.myJID.bare;
+    NSDictionary* unreads = [[[XPFService sharedService] callWithEndPoint:@"Chat/Unread" params:@{@"me" : myJidStr}]decodeObject];
+    for (NSString* jidStr in unreads) {
+        [xmppDelegate userForJidString:jidStr].unreadMessages = @([unreads[jidStr] count]);
+    }
+    for (NSString* jidStr in oldUnreads) {
+        if ([unreads objectForKey:jidStr] == nil) {
+            [xmppDelegate userForJidString:jidStr].unreadMessages = @0;
+        }
+    }
+    oldUnreads = unreads;
 }
 @end

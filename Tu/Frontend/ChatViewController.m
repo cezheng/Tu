@@ -10,6 +10,7 @@
 @synthesize messages;
 @synthesize friendJID;
 @synthesize friendName;
+@synthesize initialLoadCount;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +28,7 @@
         NSDictionary* param = @{
                                 @"me" : [[XMPPDelegate sharedDelegate] xmppStream].myJID.bare,
                                 @"withWhom" : friendJID,
-                                @"amount" : @5
+                                @"amount" : @(initialLoadCount)
                                 };
         NSArray* fetchMessages = [[[XPFService sharedService] callWithEndPoint:@"ChatHistory/getRecentN" params:param] decodeObject];
         [messages addObjectsFromArray:fetchMessages];
@@ -46,6 +47,11 @@
     [self.view addGestureRecognizer:tapper];
     [self registerForKeyboardNotifications];
     self.navigationController.navigationBar.translucent = NO;
+    [[XPFService sharedService] callWithEndPoint:@"Chat/Read"
+                                          params:@{
+                                                   @"me" : [[XMPPDelegate sharedDelegate] xmppStream].myJID.bare,
+                                                   @"withWhom" : friendJID
+                                                   }];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -138,7 +144,6 @@
                                      @"message" : messageText,
                                      @"from" : [[NSUserDefaults standardUserDefaults] stringForKey:@"kRiotJID"],
                                      @"to" : friendJID,
-                                     @"read" : @"0",
                                      @"timestamp" : [NSString stringWithFormat:@"%ld", time(0) ]
                                      };
         [messages addObject:messageDict];
@@ -158,6 +163,11 @@
 - (void) didReceivedChatMessage:(NSDictionary*)message {
     [messages addObject:message];
     [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[messages indexOfObject:message] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[XPFService sharedService] callWithEndPoint:@"Chat/Read"
+                                          params:@{
+                                                   @"me" : [[XMPPDelegate sharedDelegate] xmppStream].myJID.bare,
+                                                   @"withWhom" : message[@"from"]
+                                                   }];
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender {

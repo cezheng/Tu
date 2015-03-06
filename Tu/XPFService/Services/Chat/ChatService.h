@@ -13,10 +13,12 @@ public:
     virtual ~ChatService();
     //APIs
     XPF_API_DECLARE(ChatService, GetRecentN, ({
+        {"me", Json::STRING},
         {"withWhom", Json::STRING},
         {"amount", Json::NUMBER}
     }));
     XPF_API_DECLARE(ChatService, Add, ({
+        {"me", Json::STRING},
         {"withWhom", Json::STRING}
         //{"messages", Json::ARRAY}
     }));
@@ -24,6 +26,11 @@ public:
         {"messages", Json::ARRAY}
     }));
     XPF_API_DECLARE(ChatService, Unread, ({
+        {"me", Json::STRING}
+    }));
+    XPF_API_DECLARE(ChatService, Read, ({
+        {"me", Json::STRING},
+        {"withWhom", Json::STRING}
     }));
     //TODO switching accounts will show chat history not for this account, resolve it
 

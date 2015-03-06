@@ -17,7 +17,6 @@ public:
     virtual ~ChatHistoryEntry() {}
     Json getRecentN(int n);
     bool add(const Json & messages);
-    bool updateReadStatus(const std::string & id, bool status);
 protected:
     void fetchCount();
     std::string formatId(std::size_t intId);

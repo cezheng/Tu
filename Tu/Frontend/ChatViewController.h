@@ -9,5 +9,6 @@
 @property (nonatomic, strong) NSMutableArray* messages;
 @property (nonatomic, copy) NSString* friendName;
 @property (nonatomic, copy) NSString* friendJID;
+@property (nonatomic, assign) NSInteger initialLoadCount;
 - (IBAction)sendMessage:(id)sender;
 @end

@@ -2,7 +2,6 @@
 #define __XPFSerivce_ServiceEntrance_h__
 
 #include "Base/Singleton.h"
-//#include "XPFService/Data.h"
 #include "json11/json11.hpp"
 #include <unordered_map>
 #include <functional>
@@ -14,6 +13,7 @@ class ServiceEntrance : public Singleton<ServiceEntrance> {
 public:
     static const std::unordered_map<const char *, std::function<Json(Json&&)>> serviceEndpointTable;
     static const std::unordered_map<const char *, std::function<Json(Json&&, std::function<void(Json)>)>> streamEndpointTable;
+    
     Json call(const char * endpoint, Json && params);
     Json readStream(const char * endpoint, Json && params, std::function<void(Json)> && onRead);
 };

@@ -4,6 +4,7 @@
 #import "XMPPFramework.h"
 #import "XPFService/Portal/XPFService.h"
 #import "ChatMessageNotifyDelegate.h"
+#import "XMPPUserCoreDataStorageObject.h"
 
 #define DEBUG 1
 @class AccountSettingsViewController;
@@ -49,5 +50,8 @@
 + (id)sharedDelegate;
 - (BOOL)connect;
 - (void)disconnect;
+
+- (XMPPUserCoreDataStorageObject*) userForJid:(XMPPJID*)jid;
+- (XMPPUserCoreDataStorageObject*) userForJidString:(NSString*)jidStr;
 
 @end
