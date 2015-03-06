@@ -12,8 +12,8 @@ NS_XPF_BEGIN
 
 class ChatHistoryEntry : public LevelDBHolder {
 public:
-    ChatHistoryEntry(const std::string & with);
-    ChatHistoryEntry(const char * with);
+    ChatHistoryEntry(const std::string me, const std::string & with);
+    ChatHistoryEntry(const char* const me, const char * const with);
     virtual ~ChatHistoryEntry() {}
     Json getRecentN(int n);
     bool add(const Json & messages);
@@ -26,6 +26,7 @@ protected:
 private:
     //leveldb::DB* _db;
     //std::string _dbPath;
+    std::string _me;
     std::string _withWhom;
     std::size_t _count;
     void init();

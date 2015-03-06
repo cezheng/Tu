@@ -7,11 +7,11 @@
 
 NS_XPF_BEGIN
 
-ChatHistoryEntry::ChatHistoryEntry(const std::string & with): _withWhom(with), _count(0) {
+ChatHistoryEntry::ChatHistoryEntry(const std::string me, const std::string & with): _me(me), _withWhom(with), _count(0) {
     this->init();
 }
 
-ChatHistoryEntry::ChatHistoryEntry(const char * with): _withWhom(with), _count(0) {
+ChatHistoryEntry::ChatHistoryEntry(const char * const me, const char * const with): _me(me), _withWhom(with), _count(0) {
     this->init();
 }
 
@@ -20,7 +20,7 @@ std::string ChatHistoryEntry::getLevelDBBasePath() const {
 }
 
 std::string ChatHistoryEntry::getLevelDBFileName() const {
-    return _withWhom + ".leveldb";
+    return _me + '-' + _withWhom + ".leveldb";
 }
 
 void ChatHistoryEntry::init() {
@@ -36,6 +36,7 @@ Json ChatHistoryEntry::getRecentN(int n) {
     for (it->SeekToLast(); it->Valid() && fetched < n; it->Prev(), fetched++) {
         result.push_back(Json::parse(it->value().ToString(), err));
     }
+    std::reverse(result.begin(), result.end());
     delete it;
     return result;
 }
