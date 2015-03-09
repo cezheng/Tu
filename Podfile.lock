@@ -1,0 +1,10 @@
+PODS:
+  - JCNotificationBannerPresenter (1.1.2)
+
+DEPENDENCIES:
+  - JCNotificationBannerPresenter
+
+SPEC CHECKSUMS:
+  JCNotificationBannerPresenter: 4913229a87cb4d482d2e584800ae41c7e233c900
+
+COCOAPODS: 0.35.0
