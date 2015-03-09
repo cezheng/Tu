@@ -2,6 +2,7 @@
 
 @interface XMPPUserCoreDataStorageObject (Riot)
 @property (nonatomic, assign) long long lastActive;
+- (NSInteger)riotSection;
 - (NSString*)lastActiveDate;
 - (NSString*)gameStatus;
 - (NSString*)summonerId;

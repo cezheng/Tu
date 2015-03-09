@@ -10,6 +10,10 @@ static void* lastActivePropertyKey = &lastActivePropertyKey;
 
 @implementation XMPPUserCoreDataStorageObject (Riot)
 
+- (NSInteger) riotSection {
+    return [XMPPRiotResourceUtil riotSectionByStatus:self.primaryResource.status show:self.primaryResource.show];
+}
+
 - (long long)lastActive {
     NSNumber* result = objc_getAssociatedObject(self, lastActivePropertyKey);
     return [result longLongValue];

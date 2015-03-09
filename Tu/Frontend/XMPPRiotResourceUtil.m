@@ -6,8 +6,13 @@
 
 + (NSInteger) riotSectionByStatus:(NSString*)status show:(NSString*)show {
     NSString* gameStatus = [self gameStatusByStatus:status];
+    NSLog(@"check %@ %@", gameStatus, show);
     if (show == nil) {
         return kRiotFriendSectionOffline;
+    } else if ([show isEqualToString:@"chat"]) {
+        return kRiotFriendSectionOnline;
+    } else if ([show isEqualToString:@"away"]) {
+        return kRiotFriendSectionAway;
     }
     if (gameStatus != nil) {
         if ([gameStatus isEqualToString:kRiotGameStatusInGame]) {
@@ -20,16 +25,9 @@
             return kRiotFriendSectionChampionSelect;
         } else if([gameStatus isEqualToString:kRiotGameStatusHostingPracticeGame]) {
             return kRiotFriendSectionHostingPracticeGame;
-        } else if ([gameStatus isEqualToString:kRiotGameStatusOutOfGame]) {
-            if([show isEqualToString:@"chat"]) {
-                return kRiotFriendSectionOnline;
-            } else {
-                return kRiotFriendSectionAway;
-            }
+        } else {
+            return kRiotFriendSectionAway;
         }
-    }
-    if ([show isEqualToString:@"away"]) {
-        return kRiotFriendSectionAway;
     }
     return kRiotFriendSectionOffline;
 }
