@@ -50,5 +50,11 @@
 			<string>tu</string>
 		</dict>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>voip</string>
+	</array>
+	<key>UIApplicationExitsOnSuspend</key>
+	<false/>
 </dict>
 </plist>

@@ -257,6 +257,7 @@
 		79E53C9A1AA9A63E00FB8C83 /* ChatHistoryEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C941AA9A63E00FB8C83 /* ChatHistoryEntry.cpp */; };
 		79E53C9B1AA9A63E00FB8C83 /* ChatService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C961AA9A63E00FB8C83 /* ChatService.cpp */; };
 		79E53C9C1AA9A63E00FB8C83 /* UnreadChatEntry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79E53C981AA9A63E00FB8C83 /* UnreadChatEntry.cpp */; };
+		79E53CA11AAD8BD300FB8C83 /* online.png in Resources */ = {isa = PBXBuildFile; fileRef = 79E53CA01AAD8BD300FB8C83 /* online.png */; };
 		79F9E8D1194FD0A70040F0FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D0194FD0A70040F0FB /* Foundation.framework */; };
 		79F9E8D3194FD0A70040F0FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */; };
 		79F9E8D5194FD0A70040F0FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F9E8D4194FD0A70040F0FB /* UIKit.framework */; };
@@ -732,6 +733,7 @@
 		79E53C971AA9A63E00FB8C83 /* ChatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatService.h; sourceTree = "<group>"; };
 		79E53C981AA9A63E00FB8C83 /* UnreadChatEntry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UnreadChatEntry.cpp; sourceTree = "<group>"; };
 		79E53C991AA9A63E00FB8C83 /* UnreadChatEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnreadChatEntry.h; sourceTree = "<group>"; };
+		79E53CA01AAD8BD300FB8C83 /* online.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = online.png; sourceTree = "<group>"; };
 		79F9E8CD194FD0A70040F0FB /* Tu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F9E8D0194FD0A70040F0FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		79F9E8D2194FD0A70040F0FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1738,6 +1740,7 @@
 		791E7A5A1999AAFD00B709E9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				79E53CA01AAD8BD300FB8C83 /* online.png */,
 				79B77DA11A8898CE00DA9604 /* Riot */,
 				791E233F1A6E862F003DDF8C /* iOS */,
 				79075B8019A6209100310B88 /* regex */,
@@ -2107,6 +2110,7 @@
 				79075B8119A6209100310B88 /* regex in Resources */,
 				791E24C71A6E8630003DDF8C /* map_pin_angle_3.png in Resources */,
 				791E24D51A6E8630003DDF8C /* reading.png in Resources */,
+				79E53CA11AAD8BD300FB8C83 /* online.png in Resources */,
 				791E24E21A6E8630003DDF8C /* timer.png in Resources */,
 				791E24D81A6E8630003DDF8C /* reply.png in Resources */,
 				791E24E31A6E8630003DDF8C /* top_charts.png in Resources */,

@@ -27,7 +27,7 @@
 #endif
 
 @interface XMPPDelegate() {
-    NSMutableDictionary* summonerInfo;
+
 }
 @property (nonatomic, strong) NSString* myDisplayName;
 - (void)setupStream;
@@ -125,7 +125,6 @@
 	customCertEvaluation = YES;
     
     messageNotifyDelegates = [[NSMutableDictionary alloc] init];
-    summonerInfo = [[NSMutableDictionary alloc] init];
 }
 
 - (void)addMessageNotifyDelegate:(id<ChatMessageNotifyDelegate>)delegate forJID:(NSString*)jid {
@@ -167,6 +166,7 @@
 
 - (void)goOnline {
 	XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
+    //TODO Send a presence with necessary information of Riot accounts
 	[[self xmppStream] sendElement:presence];
 }
 
@@ -313,13 +313,13 @@
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message {
-	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-
-	// A simple example of inbound message handling.
-	if ([message isChatMessageWithBody]) {
+    DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
+    
+    // A simple example of inbound message handling.
+    if ([message isChatMessageWithBody]) {
         XMPPUserCoreDataStorageObject *user = [self userForJid:[message from]];
-		NSString *body = [[message elementForName:@"body"] stringValue];
-		NSString *displayName = [user displayName];
+        NSString *body = [[message elementForName:@"body"] stringValue];
+        NSString *displayName = [user displayName];
         //NSLog(@"from %@, to %@", [message fromStr], [message to]);
         NSDictionary* messageDict = \
         @{
@@ -336,27 +336,28 @@
           @"messages" : messageDict
           };
         [[XPFService sharedService] callWithEndPoint:@"ChatHistory/add" params:params];
-
-		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive) {
-            [mainMessageNotifyDelegate didReceivedChatMessage:messageDict];
-            [[messageNotifyDelegates objectForKey:[user jidStr]] didReceivedChatMessage:messageDict];
-		}
-		else {
-			// We are not active, so use a local notification instead
-			UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-			localNotification.alertAction = @"Ok";
-			localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName,body];
-
-			[[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-		}
-	}
+        [mainMessageNotifyDelegate didReceivedChatMessage:messageDict];
+        id<ChatMessageNotifyDelegate> chatViewDelegate = [messageNotifyDelegates objectForKey:[user jidStr]];
+        [chatViewDelegate didReceivedChatMessage:messageDict];
+        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
+            // We are not active, so use a local notification instead
+            UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+            localNotification.alertAction = @"Ok";
+            localNotification.alertBody = [NSString stringWithFormat:@"%@:%@",displayName,body];
+            
+            [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+        }
+    }
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceivePresence:(XMPPPresence *)presence {
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
+    NSLog(@"presence type %@ %@", [presence type], presence.fromStr);
     XMPPUserCoreDataStorageObject *user = [self userForJid:[presence from]];
     NSInteger riotSection = [presence riotSection];
-    if ([user.sectionNum integerValue] != riotSection) {
+    if (riotSection == kRiotFriendSectionOffline && [presence.type isEqualToString:@"available"]) {
+        user.section = kRiotFriendSectionOnline;
+    } else if ([user.sectionNum integerValue] != riotSection) {
         user.section = riotSection;
     }
 }
@@ -421,9 +422,7 @@
     for (XMPPJID* jid in [xmppRosterStorage jidsForXMPPStream:self.xmppStream]) {
         [ids addObject:@([jid.summonerId integerValue])];
         XMPPUserCoreDataStorageObject *user = [self userForJid:jid];
-        if (user.primaryResource == nil) {
-            user.section = kRiotFriendSectionOffline;
-        }
+        NSLog(@"user section %d, sectionNum %@", user.section, user.sectionNum);
     }
     [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                 params:@{@"ids" : ids}
