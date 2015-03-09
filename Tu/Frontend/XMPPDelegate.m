@@ -14,6 +14,8 @@
 #import "XMPPJID+Riot.h"
 #import "XMPPPresence+Riot.h"
 
+#import "JCNotificationCenter.h"
+
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 
@@ -338,7 +340,17 @@
         [[XPFService sharedService] callWithEndPoint:@"ChatHistory/add" params:params];
         [mainMessageNotifyDelegate didReceivedChatMessage:messageDict];
         id<ChatMessageNotifyDelegate> chatViewDelegate = [messageNotifyDelegates objectForKey:[user jidStr]];
-        [chatViewDelegate didReceivedChatMessage:messageDict];
+        if (chatViewDelegate) {
+            [chatViewDelegate didReceivedChatMessage:messageDict];
+        } else {
+            [JCNotificationCenter
+             enqueueNotificationWithTitle:displayName
+             message:body
+             tapHandler:^{
+                 //TODO jump to the chatview of this contact
+             }];
+        }
+        
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive) {
             // We are not active, so use a local notification instead
             UILocalNotification *localNotification = [[UILocalNotification alloc] init];

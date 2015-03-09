@@ -1,5 +1,7 @@
 #import "AppDelegate.h"
 #import "Frontend/XMPPDelegate.h"
+#import "JCNotificationCenter.h"
+#import "JCNotificationBannerPresenterIOS7Style.h"
 
 @implementation AppDelegate
 
@@ -12,6 +14,7 @@
     [UIUserNotificationSettings settingsForTypes:types categories:nil];
     
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+    [JCNotificationCenter sharedCenter].presenter = [JCNotificationBannerPresenterIOS7Style new];
     return YES;
 }
 
