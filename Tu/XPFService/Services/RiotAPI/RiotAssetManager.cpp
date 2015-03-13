@@ -128,9 +128,8 @@ Json RiotAssetManager::getItemImageInfo(const std::vector<int> ids, Region regio
         if (spriteName.empty()) {
             printf("omfg %d : %s\n", id, json11::Json(info).dump().c_str());
         }
-        
         auto spriteFuture = std::async(std::launch::async, [this, spriteName, region](){
-            return getSpriteImagePath(getVersion(CHAMPION), spriteName, region);
+            return getSpriteImagePath(getVersion(ITEM), spriteName, region);
         });
         info["sprite_path"] = spriteFuture.get();
         infoList.push_back(info);
