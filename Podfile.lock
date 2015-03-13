@@ -1,10 +1,13 @@
 PODS:
+  - ICViewPager (1.5.1)
   - JCNotificationBannerPresenter (1.1.2)
 
 DEPENDENCIES:
+  - ICViewPager
   - JCNotificationBannerPresenter
 
 SPEC CHECKSUMS:
+  ICViewPager: 213e2d0b69d6ca57e7e5791dedd57cda5321432a
   JCNotificationBannerPresenter: 4913229a87cb4d482d2e584800ae41c7e233c900
 
 COCOAPODS: 0.35.0
