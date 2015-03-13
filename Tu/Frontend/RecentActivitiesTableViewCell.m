@@ -23,7 +23,7 @@
     InGameItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inGameItemCell" forIndexPath:indexPath];
     if (indexPath.row < _itemsData.count) {
         id info = _itemsData[indexPath.row];
-        if (info != [NSNull null]) {
+        if (info != [NSNull null] && [info objectForKey:@"image"] != [NSNull null]) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 UIImage* image = [UIImage imageWithPathCache:info[@"sprite_path"] cropInfo:info[@"image"]];
                 dispatch_sync(dispatch_get_main_queue(), ^{
