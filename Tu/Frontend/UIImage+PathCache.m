@@ -1,5 +1,7 @@
 #import "UIImage+PathCache.h"
-static NSMutableDictionary* cache;
+
+static NSCache* cache;
+
 
 @implementation UIImage (PathCache)
 + (id)imageWithPathCache:(NSString *)path {
@@ -8,7 +10,7 @@ static NSMutableDictionary* cache;
     NSString *documentsDirectory = [paths objectAtIndex:0];
     path = [documentsDirectory stringByAppendingPathComponent:path];
     if (!cache) {
-        cache = [[NSMutableDictionary alloc] init];
+        cache = [[NSCache alloc] init];
     } else {
         ret = [cache objectForKey:path];
         if (ret) {
@@ -18,8 +20,6 @@ static NSMutableDictionary* cache;
     ret = [UIImage imageWithContentsOfFile:path];
     if (ret) {
         [cache setObject:ret forKey:path];
-    } else {
-        NSLog(@"UIImage PathCache : load image from file %@ failed", path);
     }
     return ret;
 }

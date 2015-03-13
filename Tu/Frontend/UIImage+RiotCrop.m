@@ -1,6 +1,6 @@
 #import "UIImage+RiotCrop.h"
 
-static NSMutableDictionary* croppedCache;
+static NSCache* croppedCache;
 
 @implementation UIImage (RiotCrop)
 + (id) imageWithPathCache:(NSString *)path
@@ -8,7 +8,7 @@ static NSMutableDictionary* croppedCache;
     id ret;
     NSString* key = [NSString stringWithFormat:@"%@-%@-%@", path, info[@"x"], info[@"y"]];
     if (!croppedCache) {
-        croppedCache = [[NSMutableDictionary alloc] init];
+        croppedCache = [[NSCache alloc] init];
     } else {
         ret = [croppedCache objectForKey:key];
         if (ret) {
@@ -28,7 +28,6 @@ static NSMutableDictionary* croppedCache;
     } else {
         NSLog(@"UIImage RiotCrop : crop image from file %@ failed", path);
     }
-    
     return ret;
 }
 
