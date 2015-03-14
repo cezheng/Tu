@@ -1,8 +1,12 @@
 #import "RecentActivitiesTableViewCell.h"
 #import "InGameItemCollectionViewCell.h"
-#import "UIImage+RiotCrop.h"
+#import "ImagePathCache.h"
+
+static const NSInteger itemCount = 7;
+static const ISize itemImageSize = {24, 24};
 
 @implementation RecentActivitiesTableViewCell
+
 
 - (void)awakeFromNib {
     // Initialization code
@@ -10,38 +14,33 @@
     self.contentLabel.preferredMaxLayoutWidth = self.contentLabel.bounds.size.width;
 }
 
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
-}
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 7;
-}
-
-- (UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    InGameItemCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"inGameItemCell" forIndexPath:indexPath];
-    if (indexPath.row < _itemsData.count) {
-        id info = _itemsData[indexPath.row];
-        if (info != [NSNull null] && [info objectForKey:@"image"] != [NSNull null]) {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage* image = [UIImage imageWithPathCache:info[@"sprite_path"] cropInfo:info[@"image"]];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    cell.itemImageView.image = image;
-                    cell.itemImageView.alpha = 1.f;
-                });
-            });
-        } else {
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage* image = [UIImage imageNamed:@"item_slot.png"];
-                dispatch_sync(dispatch_get_main_queue(), ^{
-                    cell.itemImageView.image = image;
-                    cell.itemImageView.alpha = 0.5f;
-                });
+- (void)setItemsData:(NSArray *)itemsData {
+    _itemsData = itemsData;
+    void (^updateImages)() = ^{
+        ImagePathCache* cache = [ImagePathCache sharedCache];
+        for (int i = 0; i < itemCount; i++) {
+            UIImage* image = nil;
+            if (i < itemsData.count) {
+                id info = _itemsData[i];
+                if (info != [NSNull null] && [info objectForKey:@"image"] != [NSNull null]) {
+                    image = [cache imageWithPath:info[@"sprite_path"] cropInfo:info[@"image"] scaleToSize:itemImageSize];
+                } else {
+                    image = [cache imageWithName:@"item_slot.png" scaleToSize:itemImageSize];
+                }
+            } else {
+                image = [cache imageWithName:@"item_slot.png" scaleToSize:itemImageSize];
+            }
+            UIImageView* imageView = [self valueForKey:[NSString stringWithFormat:@"itemImage%d", i]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imageView.image = image;
             });
         }
+    };
+    if ([NSThread isMainThread]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), updateImages);
+    } else {
+        updateImages();
     }
-    return cell;
 }
 
 @end

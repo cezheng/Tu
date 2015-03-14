@@ -1,9 +1,11 @@
 #import "RecentActivitiesTableViewController.h"
 #import "RecentActivitiesTableViewCell.h"
 #import "XPFService.h"
-#import "UIImage+RiotCrop.h"
+#import "ImagePathCache.h"
 
-@interface RecentActivitiesTableViewController ()
+@interface RecentActivitiesTableViewController () {
+    NSDateFormatter *dateFormatter;
+}
 @property (strong, nonatomic) NSArray* recentMatches;
 @end
 
@@ -13,6 +15,8 @@
 
 
 -(void)viewDidLoad {
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     self.tableView.estimatedRowHeight = 135.0;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self setupRefreshControl];
@@ -65,29 +69,36 @@
         NSNumber* deaths = stats[@"numDeaths"] ? stats[@"numDeaths"] : @0;
         NSNumber* assists = stats[@"assists"] ? stats[@"assists"] : @0;
         NSString* content = [NSString stringWithFormat:@"%@ %@/%@/%@", match[@"name"], kills, deaths, assists];
-        cell.contentLabel.text = content;
+        //cell.contentLabel.text = content;
+        //cell.itemsData = match[@"itemsData"];
         
-        cell.itemsData = match[@"itemsData"];
-        [cell.itemCollectionView reloadData];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage* image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+        //[cell.itemCollectionView reloadData];
+        
+        //cell.championImage.image = [[ImagePathCache sharedCache] imageWithPath:champData[@"sprite_path"]
+        //                                                              cropInfo:champData[@"image"]];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            //UIImage* image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
+            UIImage* image = [[ImagePathCache sharedCache] imageWithPath:champData[@"sprite_path"]
+                                                                cropInfo:champData[@"image"]];
             if (image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     RecentActivitiesTableViewCell* cellToUpdate = (RecentActivitiesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-                    [cellToUpdate.championImage setImage:image];
+                    cellToUpdate.contentLabel.text = content;
+                    cellToUpdate.championImage.image = image;
+                    cellToUpdate.itemsData = match[@"itemsData"];
                     [cellToUpdate setNeedsLayout];
                 });
             }
         });
+        
     } else {
         NSString* cellIdentifier = @"matchDatetimeCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
         NSDate* date = [NSDate dateWithTimeIntervalSince1970:[matchGroup[0][@"createDate"] longLongValue] / 1000];
         cell.datetimeLabel.text = [dateFormatter stringFromDate:date];
     }
-    [cell sizeToFit];
+    //[cell sizeToFit];
     return cell;
 }
 
@@ -101,7 +112,9 @@
 
 - (void)refresh:(id)sender {
     NSLog(@"Refreshing");
+    [self.refreshControl beginRefreshing];
     self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing"];
+    
     [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/matchFeedByIds"
                                                 params:@{
                                                          @"ids" : @[@48245995, @52375717, @52335849]
@@ -110,7 +123,7 @@
                                                   self.recentMatches = data;
                                               }
                                          finalCallback: ^(id finalResponse) {
-                                             [(UIRefreshControl *)sender endRefreshing];
+                                             [self.refreshControl endRefreshing];
                                              self.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull Down To Refresh"];
                                          }
                                   callbackInMainThread:YES];
