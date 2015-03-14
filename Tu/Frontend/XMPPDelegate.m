@@ -433,8 +433,6 @@
     NSMutableArray* ids = [[NSMutableArray alloc] init];
     for (XMPPJID* jid in [xmppRosterStorage jidsForXMPPStream:self.xmppStream]) {
         [ids addObject:@([jid.summonerId integerValue])];
-        XMPPUserCoreDataStorageObject *user = [self userForJid:jid];
-        NSLog(@"user section %d, sectionNum %@", user.section, user.sectionNum);
     }
     [[XPFService sharedService] readStreamWithEndPoint:@"RiotService/profileByIds"
                                                 params:@{@"ids" : ids}
