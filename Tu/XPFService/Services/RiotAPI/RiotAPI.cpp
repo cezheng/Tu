@@ -1,10 +1,10 @@
 #include "RiotAPI.h"
 #include "XPFService/Utils/CurlRequest.h"
 #include "XPFService/Utils/Exception.h"
+#include "XPFService/Utils/StringUtil.h"
 #include <iostream>
 
-using XPF::CurlRequest;
-using XPF::CurlResponse;
+using namespace XPF;
 
 NS_RIOT_BEGIN
 
@@ -187,17 +187,9 @@ Json RiotAPI::getRecentGamesBySummonerId(const std::string & id) {
 Json RiotAPI::getSummonerByNames(const Json & names) {
     const static std::size_t limit = 40;
     std::size_t n = std::min(limit, names.array_items().size());
-    std::size_t count = 0;
-    std::stringstream namess;
-    for (int i = 0; i < n; i++) {
-        namess << names[i].string_value();
-        if (++count == n) {
-            break;
-        }
-        namess << ',';
-    }
+    std::string namesStr = StringUtil::join(names.array_items(), ",", (int)n);
     CURL* curl = curl_easy_init();
-    std::string namesStr = namess.str();
+
     if (curl) {
         char * output = curl_easy_escape(curl, namesStr.c_str(), (int)namesStr.length());
         if (output) {
@@ -221,16 +213,7 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
 Json RiotAPI::getSummonerByIds(const Json & ids) {
     const static std::size_t limit = 40;
     std::size_t n = std::min(limit, ids.array_items().size());
-    std::size_t count = 0;
-    std::stringstream idss;
-    for (int i = 0; i < n; i++) {
-        idss << ids[i].int_value();
-        if (++count == n) {
-            break;
-        }
-        idss << ',';
-    }
-    std::string idsStr = idss.str();
+    std::string idsStr = StringUtil::join(ids.array_items(), ",", (int)n);
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_IDS, {
         {"summonerIds", idsStr}
@@ -291,7 +274,7 @@ RiotAPIHolder::~RiotAPIHolder() {
 RiotAPI* RiotAPIHolder::getAPIByRegion(Riot::Region region) {
     if (_apis.find(region) == _apis.end()) {
         RiotAPI* newInstance = new RiotAPI("a6ef5db9-1e5f-4bc1-aad0-0cdeb42821e7");
-        XPF::REQUIRE(newInstance != nullptr, "RiotAPI allocation failed");
+        REQUIRE(newInstance != nullptr, "RiotAPI allocation failed");
         _apis[region] = newInstance;
     }
     return _apis[region];

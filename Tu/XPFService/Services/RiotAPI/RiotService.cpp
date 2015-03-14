@@ -3,6 +3,7 @@
 #include "XPFService/Utils/CurlRequest.h"
 #include "XPFService/Utils/FileUtil.h"
 #include "XPFService/Utils/KVS.h"
+#include "XPFService/Utils/ImageCache.h"
 #include <future>
 
 using Riot::RiotAPI;
@@ -64,6 +65,7 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     future3.get();
     future4.get();
     
+    ImageCache* imageCache = ImageCache::getInstance();
     Json::object diff;
     Json::array matches;
     std::map<int, Json::array> matchGroups;
@@ -78,6 +80,18 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
         }
     }
     if (!matchGroups.empty()) {
+        for (auto & matchKV : matchGroups) {
+            for (auto & player : matchKV.second) {
+                //cache champion images
+                auto & championData = player["champData"];
+                imageCache->putRiotSprite(championData["sprite_path"].string_value(), championData["image"], ISize(24, 24));
+                //cache item images
+                auto & itemsData = player["itemsData"].array_items();
+                for (auto & item : itemsData) {
+                    imageCache->putRiotSprite(item["sprite_path"].string_value(), item["image"]);
+                }
+            }
+        }
         _onRead(matchGroupsToArray(matchGroups));
     }
     std::vector<std::future<void>> futures;
@@ -87,21 +101,30 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
             if (!newInfo.is_null()) {
                 Json::array modifiedMatches;
                 for (auto & match : newInfo["games"].array_items()) {
-                    auto item = match.object_items();
-                    item["summonerId"] = kv.first;
-                    item["name"] = kv.second["name"].string_value();
-                    item["champData"] = _service->_assetManager.getChampionImageInfo(item["championId"].int_value(), _service->_region);
+                    auto playerMatch = match.object_items();
+                    playerMatch["summonerId"] = kv.first;
+                    playerMatch["name"] = kv.second["name"].string_value();
+                    playerMatch["champData"] = _service->_assetManager.getChampionImageInfo(playerMatch["championId"].int_value(), _service->_region);
                     std::vector<int> ids {
-                        item["stats"]["item0"].int_value(),
-                        item["stats"]["item1"].int_value(),
-                        item["stats"]["item2"].int_value(),
-                        item["stats"]["item3"].int_value(),
-                        item["stats"]["item4"].int_value(),
-                        item["stats"]["item5"].int_value(),
-                        item["stats"]["item6"].int_value()
+                        playerMatch["stats"]["item0"].int_value(),
+                        playerMatch["stats"]["item1"].int_value(),
+                        playerMatch["stats"]["item2"].int_value(),
+                        playerMatch["stats"]["item3"].int_value(),
+                        playerMatch["stats"]["item4"].int_value(),
+                        playerMatch["stats"]["item5"].int_value(),
+                        playerMatch["stats"]["item6"].int_value()
                     };
-                    item["itemsData"] = _service->_assetManager.getItemImageInfo(ids, _service->_region);
-                    modifiedMatches.push_back(item);
+                    playerMatch["itemsData"] = _service->_assetManager.getItemImageInfo(ids, _service->_region);
+                    modifiedMatches.push_back(playerMatch);
+                    
+                    //cache champion images
+                    auto & championData = playerMatch["champData"];
+                    imageCache->putRiotSprite(championData["sprite_path"].string_value(), championData["image"]);
+                    //cache item images
+                    auto & itemsData = playerMatch["itemsData"].array_items();
+                    for (auto & item : itemsData) {
+                        imageCache->putRiotSprite(item["sprite_path"].string_value(), item["image"], ISize(24, 24));
+                    }
                 }
                 insertMatchesToGroups(matchGroups, modifiedMatches);
                 
@@ -115,6 +138,7 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     for (auto & future : futures) {
         future.get();
     }
+    
     return Json(matchGroupsToArray(matchGroups));
 }
 
