@@ -1,12 +1,19 @@
 #import "UIImage+RiotCrop.h"
 
 static NSCache* croppedCache;
+static inline NSString* cacheKey(NSString* path, NSDictionary* info) {
+    return [NSString stringWithFormat:@"%@-%@-%@", path, info[@"x"], info[@"y"]];
+}
+static inline BOOL isImageCached(NSString* key) {
+    return [croppedCache objectForKey:key] != nil;
+}
 
 @implementation UIImage (RiotCrop)
+
 + (id) imageWithPathCache:(NSString *)path
                  cropInfo:(NSDictionary*)info {
     id ret;
-    NSString* key = [NSString stringWithFormat:@"%@-%@-%@", path, info[@"x"], info[@"y"]];
+    NSString* key = cacheKey(path, info);
     if (!croppedCache) {
         croppedCache = [[NSCache alloc] init];
     } else {

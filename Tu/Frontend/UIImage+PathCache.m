@@ -2,7 +2,6 @@
 
 static NSCache* cache;
 
-
 @implementation UIImage (PathCache)
 + (id)imageWithPathCache:(NSString *)path {
     id ret;
