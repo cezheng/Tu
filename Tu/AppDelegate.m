@@ -1,4 +1,5 @@
 #import "AppDelegate.h"
+#import "XPFService.h"
 #import "Frontend/XMPPDelegate.h"
 #import "JCNotificationCenter.h"
 #import "JCNotificationBannerPresenterIOS7Style.h"
@@ -15,6 +16,7 @@
     
     [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
     [JCNotificationCenter sharedCenter].presenter = [JCNotificationBannerPresenterIOS7Style new];
+    [[XPFService sharedService] callWithEndPoint:@"RiotAPI/initSelfData" params:@{} callback:nil];
     return YES;
 }
 

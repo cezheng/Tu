@@ -190,7 +190,6 @@
 	if (myJID == nil || myPassword == nil) {
 		return NO;
 	}
-
 	[xmppStream setMyJID:[XMPPJID jidWithString:myJID]];
 	password = myPassword;
 
@@ -295,13 +294,16 @@
 	
 	if (![[self xmppStream] authenticateWithPassword:password error:&error]) {
 		DDLogError(@"Error authenticating: %@", error);
-	}
+    }
 }
 
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
     self.myDisplayName = [[[[sender sessionStartIQ] childElement] elementForName:@"summoner_name"] stringValue];
 	[self goOnline];
+    [[XPFService sharedService] callWithEndPoint:@"RiotAPI/initSelfData"
+                                          params:@{@"name" : self.myDisplayName}
+                                        callback:nil];
 }
 
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error {
@@ -310,7 +312,6 @@
 
 - (BOOL)xmppStream:(XMPPStream *)sender didReceiveIQ:(XMPPIQ *)iq {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    //NSLog(@"didReceiveIQ: %@", [iq XMLString]);
 	return NO;
 }
 

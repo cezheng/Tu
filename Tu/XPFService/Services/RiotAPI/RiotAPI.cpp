@@ -2,6 +2,7 @@
 #include "XPFService/Utils/CurlRequest.h"
 #include "XPFService/Utils/Exception.h"
 #include "XPFService/Utils/StringUtil.h"
+#include "XPFService/Utils/UrlUtil.h"
 #include <iostream>
 
 using namespace XPF;
@@ -180,6 +181,21 @@ Json RiotAPI::getRecentGamesBySummonerId(const std::string & id) {
 }
 
 /**
+ * Get League Entries By a set of Summoner Ids
+ * @param  Summoner Ids
+ * @return Map[string, List[LeagueDto]]
+ */
+Json RiotAPI::getLeagueEntryBySummonerIds(const Json & ids) {
+    CurlRequest request;
+    printf("dump ids %s", ids.dump().c_str());
+    auto res = request.request(getURL(LEAGUE_ENTRY_BY_SUMMONER_IDS, {
+        {"summonerIds", StringUtil::join(ids.array_items(), ",")}
+    }));
+    std::string err;
+    return Json::parse(res.data, err);
+}
+
+/**
  * Get Max 40 Summoners Information by Name
  * @param  List[string]
  * @return Map[string, SummnerDto]
@@ -188,15 +204,7 @@ Json RiotAPI::getSummonerByNames(const Json & names) {
     const static std::size_t limit = 40;
     std::size_t n = std::min(limit, names.array_items().size());
     std::string namesStr = StringUtil::join(names.array_items(), ",", (int)n);
-    CURL* curl = curl_easy_init();
-
-    if (curl) {
-        char * output = curl_easy_escape(curl, namesStr.c_str(), (int)namesStr.length());
-        if (output) {
-            namesStr = output;
-            curl_free(output);
-        }
-    }
+    namesStr = url_encode(namesStr);
     CurlRequest request;
     CurlResponse res = request.request(getURL(SUMMONER_BY_NAMES, {
         {"summonerNames", namesStr}

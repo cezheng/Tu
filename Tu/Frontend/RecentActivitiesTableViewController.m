@@ -79,16 +79,20 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             //UIImage* image = [UIImage imageWithPathCache:champData[@"sprite_path"] cropInfo:champData[@"image"]];
-            UIImage* image = [[ImagePathCache sharedCache] imageWithPath:champData[@"sprite_path"]
-                                                                cropInfo:champData[@"image"]];
-            if (image) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    RecentActivitiesTableViewCell* cellToUpdate = (RecentActivitiesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-                    cellToUpdate.contentLabel.text = content;
-                    cellToUpdate.championImage.image = image;
-                    cellToUpdate.itemsData = match[@"itemsData"];
-                    [cellToUpdate setNeedsLayout];
-                });
+            if (champData[@"image"] == [NSNull null]) {
+                NSLog(@"no image info %@", content);
+            } else {
+                UIImage* image = [[ImagePathCache sharedCache] imageWithPath:champData[@"sprite_path"]
+                                                                    cropInfo:champData[@"image"]];
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        RecentActivitiesTableViewCell* cellToUpdate = (RecentActivitiesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+                        cellToUpdate.contentLabel.text = content;
+                        cellToUpdate.championImage.image = image;
+                        cellToUpdate.itemsData = match[@"itemsData"];
+                        [cellToUpdate setNeedsLayout];
+                    });
+                }
             }
         });
         

@@ -16,7 +16,9 @@ public:
     XPF_API_DECLARE(RiotService, GetServiceStatusByRegion, ({
         {"region", Json::STRING}
     }));
-
+    XPF_API_DECLARE(RiotService, InitSelfData, ({
+    }));
+    
     XPF_STREAM_API_DECLARE(RiotService, GetMatchFeedByIds, ({
         {"ids", Json::ARRAY}
     }));

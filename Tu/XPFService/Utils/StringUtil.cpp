@@ -1,5 +1,6 @@
 #include "StringUtil.h"
 #include <sstream>
+#include <algorithm>
 NS_XPF_BEGIN
 namespace StringUtil {
     
@@ -10,13 +11,23 @@ std::string join(const json11::Json::array & strings, const std::string & delim,
     }
     int count = 0;
     for (int i = 0; i < limit; i++) {
-        ss << strings.at(i).dump();
+        if (strings.at(i).is_string()) {
+            ss << strings.at(i).string_value();
+        } else {
+            ss << strings.at(i).dump();
+        }
         if (++count == limit) {
             break;
         }
         ss << ',';
     }
     return ss.str();
+}
+    
+std::string toLower(const std::string & str) {
+    std::string ret(str);
+    std::transform(ret.begin(), ret.end(), ret.begin(), ::tolower);
+    return ret;
 }
     
 }

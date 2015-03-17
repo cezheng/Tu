@@ -1,8 +1,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ProfileContentTableViewController : UITableViewController
-@property (strong, nonatomic) NSDictionary* summonerStats;
-@property (strong, nonatomic) NSNumber* summonerName;
+@property (strong, nonatomic) NSDictionary* leagueEntry;
+@property (strong, nonatomic) NSDictionary* summonerInfo;
+@property (strong, nonatomic) UIImage* summonerIcon;
 
 @property (weak, nonatomic) IBOutlet UILabel *summonerNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;

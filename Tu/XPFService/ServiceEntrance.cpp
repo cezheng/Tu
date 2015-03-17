@@ -15,6 +15,7 @@ const std::unordered_map<const char *, std::function<Json(Json && params)>> Serv
     {"Download/getDownloaded", XPF_API_CALL(DownloadService, GetDownloaded)},
     {"RiotAPI/summonerByNames", XPF_API_CALL(RiotService, GetSummonerByNames)},
     {"RiotAPI/serviceStatusByRegion", XPF_API_CALL(RiotService, GetServiceStatusByRegion)},
+    {"RiotAPI/initSelfData", XPF_API_CALL(RiotService, InitSelfData)},
     {"Video/GetInfo", XPF_API_CALL(VideoService, GetInfo)},
     {"Chat/Unread", XPF_API_CALL(ChatService, Unread)},
     {"Chat/Read", XPF_API_CALL(ChatService, Read)}

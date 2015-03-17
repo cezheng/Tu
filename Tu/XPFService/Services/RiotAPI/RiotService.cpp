@@ -2,6 +2,7 @@
 #include <sstream>
 #include "XPFService/Utils/CurlRequest.h"
 #include "XPFService/Utils/FileUtil.h"
+#include "XPFService/Utils/StringUtil.h"
 #include "XPFService/Utils/KVS.h"
 #include "XPFService/Utils/ImageCache.h"
 #include <future>
@@ -22,6 +23,50 @@ Json RiotService::GetServiceStatusByRegion::internalCall() {
     RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
     Json status = api->getShardByRegion(_params["region"].string_value());
     return Json(status);
+}
+
+Json RiotService::InitSelfData::internalCall() {
+    static const std::string selfDataNameSpace = "riotSelfData";
+    static const std::string leagueEntryKey = "leagueEntry";
+    static const std::string summonerInfoKey = "summonerInfo";
+    static const std::string summonerIconPathKey = "summonerIconPath";
+    
+    std::string err;
+    
+    RiotAPI* api = RiotAPIHolder::getInstance()->getAPIByRegion(_service->_region);
+    std::string name = _params["name"].string_value();
+    auto & kvs = (*KVS::getInstance())[selfDataNameSpace];
+    Json summonerInfo, leagueEntry;
+    kvs.getJson(summonerInfoKey, summonerInfo);
+    if (name.empty() && summonerInfo.has_shape({{"name", Json::STRING}}, err)) {
+        name = summonerInfo["name"].string_value();
+    }
+    if (name.empty()) {
+        return Json();
+    }
+    std::string lowerCaseName = StringUtil::toLower(name);
+    Json fetchedSummonerInfo = api->getSummonerByNames(Json::array{name})[lowerCaseName];
+    bool isUpdated = false;
+    if (summonerInfo["name"].string_value() != name) {
+        kvs.clear();
+        isUpdated = true;
+    }
+    isUpdated = isUpdated || summonerInfo["revisionDate"].number_value() < fetchedSummonerInfo["revisionDate"].number_value();
+    if (isUpdated) {
+        int summonerId = fetchedSummonerInfo["id"].int_value();
+        leagueEntry = api->getLeagueEntryBySummonerIds(Json::array{summonerId})[std::to_string(summonerId)];
+        kvs.set(summonerInfoKey, fetchedSummonerInfo.dump());
+        kvs.set(leagueEntryKey, leagueEntry.dump());
+    } else {
+        kvs.getJson(leagueEntryKey, leagueEntry);
+    }
+    std::string summonerIconPath = _service->_assetManager.getProfileIconPath(fetchedSummonerInfo["profileIconId"].int_value(), _service->_region);
+
+    return Json({
+        {summonerInfoKey, fetchedSummonerInfo},
+        {leagueEntryKey, leagueEntry},
+        {summonerIconPathKey, summonerIconPath}
+    });
 }
 
 Json RiotService::GetMatchFeedByIds::internalCall() {
@@ -70,7 +115,7 @@ Json RiotService::GetMatchFeedByIds::internalCall() {
     Json::array matches;
     std::map<int, Json::array> matchGroups;
     std::string err;
-
+    
     for (auto & kv : summoners.object_items()) {
         Json cache = _service->getSummonerInfoCache(kv.first);
         if (cache.is_null() || cache["revisionDate"].number_value() < kv.second["revisionDate"].number_value()) {
@@ -156,7 +201,7 @@ Json RiotService::GetProfileByIds::internalCall() {
     for (auto & kv : summoners.object_items()) {
         futures.push_back(std::async(std::launch::async, [this, kv]() {
             Json::object info(kv.second.object_items());
-            info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value(), _service->_region);;
+            info["profileImagePath"] = _service->_assetManager.getProfileIconPath(kv.second["profileIconId"].int_value(), _service->_region);
             _onRead(Json(info));
         }));
     }

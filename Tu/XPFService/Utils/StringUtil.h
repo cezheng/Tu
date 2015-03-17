@@ -11,6 +11,7 @@ NS_XPF_BEGIN
 namespace StringUtil {
     
 std::string join(const json11::Json::array & strings, const std::string & delim, int limit = NO_LIMIT);
+std::string toLower(const std::string & str);
     
 }
 

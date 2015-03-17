@@ -64,6 +64,7 @@ public:
     public:
         static const char* version;
     };
+    Json getLeagueEntryBySummonerIds(const Json & ids);
     
     class LOLStaticData {
     public:
