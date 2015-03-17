@@ -83,11 +83,20 @@ bool ChatHistoryEntry::add(const Json & messages) {
     }
 }
 
+leveldb::Options ChatHistoryEntry::levelDBOptions() const {
+    static ChatHistoryKeyComparator cmp;
+    leveldb::Options options;
+    options.create_if_missing = true;
+    options.comparator = &cmp;
+    return options;
+}
+
 void ChatHistoryEntry::fetchCount() {
     leveldb::Iterator* it = _db->NewIterator(leveldb::ReadOptions());
     it->SeekToLast();
     if (it->Valid()) {
-        _count = std::stoull(it->key().ToString());
+        printf("last key : %s\n", it->key().ToString().c_str());
+        _count = std::stoul(it->key().ToString(), nullptr, 16);
     } else {
         _count = 0;
     }
@@ -97,6 +106,7 @@ void ChatHistoryEntry::fetchCount() {
 std::string ChatHistoryEntry::formatId(std::size_t intId) {
     char buf[BUF_LEN];
     sprintf(buf, "%017zx", intId);
+    printf("new key %s\n", buf);
     return buf;
 }
 

@@ -96,13 +96,17 @@ bool LevelDBHolder::remove(const std::string &key) {
 }
 
 void LevelDBHolder::init() {
-    leveldb::Options options;
-    options.create_if_missing = true;
     pthread_rwlock_wrlock(&_rwlock);
     FileUtil::getInstance()->createDirectory(getLevelDBBasePath(), 0755);
-    leveldb::Status status = leveldb::DB::Open(options, getLevelDBFullPath(), &_db);
+    leveldb::Status status = leveldb::DB::Open(this->levelDBOptions(), getLevelDBFullPath(), &_db);
     REQUIRE(status.ok(), status.ToString());
     pthread_rwlock_unlock(&_rwlock);
+}
+
+leveldb::Options LevelDBHolder::levelDBOptions() const {
+    leveldb::Options options;
+    options.create_if_missing = true;
+    return options;
 }
 
 std::string LevelDBHolder::getLevelDBFullPath() const {
